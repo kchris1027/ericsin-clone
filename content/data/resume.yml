@@ -1,0 +1,67 @@
+experience:
+  - company: "You.com"
+    logo: "/images/logos/icon-You.png"
+    role: "Senior Product Designer"
+    description: "Working with LLMs and AI to create a more thoughtful conversational AI experience."
+  - company: "Mosaic Finance"
+    logo: "/images/logos/icon-MosaicFinance.png"
+    role: "Senior Product Designer II"
+    description: "Lead designer for FP&amp;A platform with a focus on financial modeling and analysis, data management, and executive reporting workflows and experiences."
+  - company: "AuditBoard"
+    logo: "/images/logos/icon-AuditBoard.png"
+    role: "Senior Product Designer, TPRM"
+    description: "Lead designer for 0-1 third-party risk management product."
+  - company: "AuditBoard"
+    logo: "/images/logos/icon-AuditBoard.png"
+    role: "Design Manager"
+    description: "Led AuditBoard's brand design team in creating thoughtful design through digital experiences and events, also helped to design and art direct key brand experiences for AuditBoard, including its annual branded conference, Audit &amp; Beyond."
+  - company: "A Parent Media Co."
+    logo: "/images/logos/icon-AParentMediaCo.png"
+    role: "Director, Design"
+    description: "Oversaw and led brand and product design for key flagship products under the APMC umbrella, including Kidoodle.TV, SafeExchange, and various white-label solutions."
+  - company: "Rooster Creatives"
+    logo: "/images/logos/icon-RoosterCreatives.png"
+    role: "Senior Designer"
+    description: "Helped to design and launch brand initiatives for business in the Southern California area (OMOMO, Boiling Point, Urbanfloor, etc.)"
+  - company: "A Parent Media Co."
+    logo: "/images/logos/icon-AParentMediaCo.png"
+    role: "Founding Designer"
+    description: "First designer for a 0-1 digital streaming platform geared towards children. Designed and built foundations for brand and product across platforms including Roku, Apple, Android, and more."
+
+clients:
+  - { name: "OMOMO", services: "Brand, Web", date: "Oct 2018" }
+  - { name: "Vivian Kim", services: "Brand, Web", date: "Apr 2023" }
+  - { name: "Ann Lee Consulting", services: "Brand, Web", date: "Feb 2022" }
+  - { name: "Areté", services: "Brand, Web", date: "Jun 2022" }
+  - { name: "Aircarbon", services: "Web", date: "Feb 2023" }
+  - { name: "Cottonwood Home", services: "Brand", date: "Jul 2018" }
+  - { name: "Quest AI", services: "Brand", date: "Aug 2019" }
+  - { name: "Urbanfloor", services: "Brand, Web", date: "Apr 2018" }
+  - { name: "Audit &amp; Beyond", services: "Brand, Web", date: "Oct 2020" }
+  - { name: "Domain Money", services: "Product, Brand, Web", date: "Jul 2022" }
+  - { name: "Global Mission Church", services: "Brand, Web", date: "Mar 2020" }
+  - { name: "Refresh AI", services: "Product, Brand", date: "May 2024" }
+  - { name: "Gappify", services: "Brand, Web", date: "Feb 2024" }
+  - { name: "Good Stewards Church", services: "Brand, Web", date: "Apr 2021" }
+  - { name: "Sage Dermatology", services: "Brand, Web", date: "Apr 2023" }
+  - { name: "Chapter One", services: "Brand, Web", date: "Apr 2020" }
+  - { name: "Klarity", services: "Web", date: "Apr 2024" }
+  - { name: "FLOE Optometry", services: "Web", date: "Sep 2020" }
+  - { name: "Powerade", services: "Brand", date: "Aug 2019" }
+  - { name: "Mecca Foods", services: "Brand", date: "May 2019" }
+  - { name: "Humble Design", services: "Brand", date: "Aug 2019" }
+  - { name: "Frankie Margotta", services: "Brand, Web", date: "Jan 2021" }
+  - { name: "Teladerma", services: "Brand, Web", date: "Feb 2024" }
+  - { name: "Lime", services: "Web", date: "Nov 2021" }
+  - { name: "Lily Link", services: "Product, Brand", date: "Apr 2024" }
+  - { name: "REVOPS", services: "Brand", date: "Mar 2024" }
+  - { name: "Cozie", services: "Brand", date: "Apr 2024" }
+  - { name: "Day One Ventures", services: "Brand", date: "Mar 2023" }
+  - { name: "Veil &amp; Vinyls", services: "Web", date: "Jul 2020" }
+  - { name: "Lifespark", services: "Brand", date: "Mar 2020" }
+  - { name: "John Kim", services: "Web", date: "Oct 2019" }
+  - { name: "KOLORLESS", services: "Brand", date: "Nov 2019" }
+  - { name: "LVL UP Expo", services: "Brand, Web", date: "Aug 2021" }
+  - { name: "Boiling Point", services: "Brand", date: "Jun 2018" }
+  - { name: "Autobound", services: "Brand, Web", date: "Jul 2022" }
+  - { name: "Ori Living", services: "Web", date: "Aug 2021" }

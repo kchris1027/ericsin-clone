@@ -4,12 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node build.js",
+    "dev": "node dev.js",
+    "new": "node new-post.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chokidar": "^5.0.0",
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.11.1",
+    "js-yaml": "^4.1.1",
+    "markdown-it": "^14.1.1",
+    "markdown-it-anchor": "^9.2.0",
     "puppeteer": "^24.40.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kchris1027/ericsin-clone.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kchris1027/ericsin-clone/issues"
+  },
+  "homepage": "https://github.com/kchris1027/ericsin-clone#readme"
 }

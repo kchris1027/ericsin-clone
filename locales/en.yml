@@ -1,0 +1,70 @@
+nav:
+  home: "Home"
+  projects: "Projects"
+  resume: "Resume"
+  writing: "Writing"
+  friends: "Friends"
+  trinkets: "Trinkets"
+  group_work: "Work"
+  group_personal: "Personal"
+
+hero:
+  heading: "Designing thoughtful brand &amp; product experiences."
+  subheading: "Based in Orange County, CA."
+  description: "I've worked in varied startups throughout the past 20 years. I excel in 0-1 situations and enjoy crafting the vision of what could be."
+  cta_primary: "View Resume"
+  cta_secondary: "Chat with Me"
+
+status:
+  title: "Current Status"
+  music_label: "Current Listens"
+  game_label: "Currently Playing"
+  wip_label: "Work in Progress"
+
+home:
+  latest_articles: "Latest Articles"
+  latest_trinkets: "Latest Trinkets"
+  view_all: "View All"
+
+pages:
+  projects_title: "Projects"
+  projects_desc: "I've worked primarily in 0-1 digital product spaces to great success, helping to design thoughtful brand and product experiences. Below are a select collection of some of the businesses I've touched during that time."
+  resume_title: "Resume"
+  resume_desc: "I operate in the space between product and brand design, and have been a part of a wide variety of businesses and startups as a designer, leader, and advisor."
+  writing_title: "Writing"
+  writing_desc: "I have a lot of thoughts, and realized I didn't have a proper outlet for them until recently. This is now a place for all of my musings, explorations, and retrospectives that I feel may be of value for someone!"
+  friends_title: "Friends"
+  friends_desc: "People I have strong relationships with that I've had the privilege to collaborate with throughout my career."
+  trinkets_title: "Trinkets"
+  trinkets_desc: "These are a collection of things that I've bought throughout my career that holds some type of significance to me."
+
+resume:
+  work_experience: "Work Experience"
+  clients: "Clients"
+
+detail:
+  type: "Type"
+  team: "Team"
+  back_projects: "Back to Projects"
+  back_writing: "Back to Writing"
+  view_product: "View Product"
+
+filter:
+  all: "All"
+  brand: "Brand"
+  product: "Product"
+  engineer: "Engineer"
+  career: "Career"
+  life: "Life"
+  design: "Design"
+
+clock:
+  local_time: "Local Time"
+
+wechat:
+  title: "Scan to Add WeChat"
+  hint: "Open WeChat, scan the QR code to add as friend"
+
+footer:
+  left: "Built with Vue.JS & Tailwind CSS"
+  right: "&copy; 2026 Eric Sin"

@@ -12,16 +12,16 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-bold.css">
   <style>
     /* ===== FONT FACES (original PP Neue Montreal + Martha) ===== */
-    @font-face { font-family: PPNeueMontreal; font-weight: 800; font-style: normal; src: url(./static/fonts/PPNeueMontreal-Bold.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: PPNeueMontreal; font-weight: 600; font-style: normal; src: url(./static/fonts/PPNeueMontreal-Medium.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: PPNeueMontreal; font-weight: 500; font-style: normal; src: url(./static/fonts/PPNeueMontreal-Regular.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: PPNeueMontreal; font-weight: 300; font-style: normal; src: url(./static/fonts/PPNeueMontreal-Light.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: PPNeueMontreal; font-weight: 200; font-style: normal; src: url(./static/fonts/PPNeueMontreal-Thin.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: Martha; font-weight: 200; font-style: normal; src: url(./static/fonts/Martha-Regular.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: Martha; font-weight: 300; font-style: normal; src: url(./static/fonts/Martha-Regular.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: Martha; font-weight: 500; font-style: normal; src: url(./static/fonts/Martha-Regular.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: Martha; font-weight: 600; font-style: normal; src: url(./static/fonts/Martha-Regular.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: Martha; font-weight: 800; font-style: normal; src: url(./static/fonts/Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: PPNeueMontreal; font-weight: 800; font-style: normal; src: url(./PPNeueMontreal-Bold.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: PPNeueMontreal; font-weight: 600; font-style: normal; src: url(./PPNeueMontreal-Medium.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: PPNeueMontreal; font-weight: 500; font-style: normal; src: url(./PPNeueMontreal-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: PPNeueMontreal; font-weight: 300; font-style: normal; src: url(./PPNeueMontreal-Light.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: PPNeueMontreal; font-weight: 200; font-style: normal; src: url(./PPNeueMontreal-Thin.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 200; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 300; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 500; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 600; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 800; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
 
     /* ===== RESET ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border: 0 solid #e5e7eb; }
@@ -248,12 +248,38 @@
     .social-btn:hover { background-color: rgba(from var(--ForegroundTertiary) r g b / 0.3); }
     .social-btn svg { width: 0.875em; height: 0.875em; }
 
-    /* ===== THEME TOGGLE (fixed top right) ===== */
-    .theme-toggle-wrap {
+    /* ===== FIXED TOP-RIGHT CONTROLS ===== */
+    .top-controls {
       position: fixed;
       top: 0.625rem;
       right: 0.5rem;
       z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+    .lang-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 2.25rem;
+      width: 2.25rem;
+      border-radius: 9999px;
+      background-color: var(--BackgroundSecondary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--ForegroundSecondary);
+      letter-spacing: 0;
+      transition: background-color 0.15s, color 0.15s;
+      cursor: pointer;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+      user-select: none;
+      font-family: PPNeueMontreal, "MiSans", sans-serif;
+    }
+    .lang-toggle-btn:hover { background-color: var(--BackgroundHover); color: var(--ForegroundPrimary); }
+
+    /* ===== THEME TOGGLE ===== */
+    .theme-toggle-wrap {
     }
     .theme-toggle-btn {
       position: relative;
@@ -364,7 +390,67 @@
       transition: all 0.3s;
     }
     .btn-outline:hover { background-color: var(--ForegroundPrimary); color: var(--BackgroundPrimary); }
-    .green-dot { width: 0.5rem; height: 0.5rem; background-color: #22c55e; border-radius: 9999px; display: inline-block; }
+    .green-dot {
+      width: 0.5rem; height: 0.5rem; background-color: #22c55e; border-radius: 9999px; display: inline-block;
+      position: relative;
+    }
+    .green-dot::before {
+      content: '';
+      position: absolute; inset: -2px;
+      border-radius: 9999px;
+      background-color: #22c55e;
+      animation: breathe 2s ease-in-out infinite;
+      z-index: -1;
+    }
+    @keyframes breathe {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0; transform: scale(1.8); }
+    }
+
+    /* WeChat QR Modal */
+    .wechat-modal-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+      background-color: rgba(0, 0, 0, 0.6);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .wechat-modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .wechat-modal {
+      background: var(--BackgroundPrimary);
+      border: 1px solid var(--BordersPrimary);
+      border-radius: 0.5rem;
+      padding: 2rem;
+      max-width: 320px; width: 90%;
+      text-align: center;
+      transform: translateY(16px) scale(0.97);
+      transition: transform 0.3s cubic-bezier(0, 0, 0.2, 1);
+    }
+    .wechat-modal-overlay.open .wechat-modal {
+      transform: translateY(0) scale(1);
+    }
+    .wechat-modal h3 {
+      font-size: 1rem; font-weight: 600; margin-bottom: 1rem;
+    }
+    .wechat-modal .qr-placeholder {
+      width: 200px; height: 200px; margin: 0 auto 1rem;
+      border-radius: 0.375rem; overflow: hidden;
+      background: var(--BackgroundTertiary);
+    }
+    .wechat-modal .qr-placeholder img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .wechat-modal .qr-hint {
+      font-size: 0.75rem; color: var(--ForegroundTertiary); line-height: 1.5;
+    }
+    .wechat-modal-close {
+      position: absolute; top: 0.75rem; right: 0.75rem;
+      background: none; border: none; cursor: pointer;
+      color: var(--ForegroundTertiary); font-size: 1.25rem; line-height: 1;
+      width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center;
+      border-radius: 9999px;
+    }
+    .wechat-modal-close:hover { color: var(--ForegroundPrimary); background: var(--BackgroundHover); }
 
     /* ===== SECTION HEADERS ===== */
     .section-head {
@@ -937,6 +1023,47 @@
     .notion-block .notion-image img { width: 100%; object-fit: cover; }
     .notion-block .notion-image-caption { font-size: 0.875rem; color: var(--ForegroundTertiary); text-align: center; margin-top: 0.5rem; }
 
+    /* Code blocks */
+    .notion-block pre { background: var(--BackgroundSecondary); border: 1px solid var(--BordersPrimary); border-radius: 0.5rem; padding: 1rem 1.25rem; overflow-x: auto; font-size: 0.875rem; line-height: 1.6; }
+    .notion-block pre code { background: none; padding: 0; border-radius: 0; font-size: inherit; color: var(--ForegroundSecondary); font-family: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Consolas, monospace; }
+    .notion-block code { background: var(--BackgroundTertiary); padding: 0.125rem 0.375rem; border-radius: 0.25rem; font-size: 0.875em; font-family: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Consolas, monospace; color: var(--ForegroundPrimary); }
+
+    /* Blockquotes */
+    .notion-block blockquote { border-left: 3px solid var(--ForegroundTertiary); padding-left: 1rem; margin: 0; color: var(--ForegroundSecondary); font-style: italic; }
+    .notion-block blockquote p { color: inherit; }
+
+    /* Lists */
+    .notion-block ul { list-style: disc; padding-left: 1.5rem; color: var(--ForegroundSecondary); font-size: 1rem; line-height: 1.625; }
+    .notion-block ol { list-style: decimal; padding-left: 1.5rem; color: var(--ForegroundSecondary); font-size: 1rem; line-height: 1.625; }
+    .notion-block li { margin-bottom: 0.25rem; }
+    .notion-block li::marker { color: var(--ForegroundTertiary); }
+
+    /* Tables */
+    .notion-block table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .notion-block th, .notion-block td { border: 1px solid var(--BordersPrimary); padding: 0.5rem 0.75rem; text-align: left; }
+    .notion-block th { background: var(--BackgroundSecondary); font-weight: 600; color: var(--ForegroundPrimary); }
+    .notion-block td { color: var(--ForegroundSecondary); }
+
+    /* Horizontal rule */
+    .notion-block hr { border: none; border-top: 1px solid var(--BordersPrimary); margin: 1rem 0; }
+
+    /* Links in articles */
+    .notion-block a { color: var(--ForegroundPrimary); text-decoration: underline; text-underline-offset: 2px; transition: opacity 0.15s; }
+    .notion-block a:hover { opacity: 0.7; }
+
+    /* highlight.js theme overrides for dark/light */
+    .hljs-keyword, .hljs-selector-tag, .hljs-type { color: #c678dd; }
+    .hljs-string, .hljs-attr { color: #98c379; }
+    .hljs-number, .hljs-literal { color: #d19a66; }
+    .hljs-comment { color: var(--ForegroundTertiary); font-style: italic; }
+    .hljs-built_in, .hljs-title { color: #61afef; }
+    .hljs-function { color: #61afef; }
+    html.light .hljs-keyword, html.light .hljs-selector-tag, html.light .hljs-type { color: #a626a4; }
+    html.light .hljs-string, html.light .hljs-attr { color: #50a14f; }
+    html.light .hljs-number, html.light .hljs-literal { color: #986801; }
+    html.light .hljs-built_in, html.light .hljs-title { color: #4078f2; }
+    html.light .hljs-function { color: #4078f2; }
+
     /* ===== TRINKETS FULL PAGE (3-col) ===== */
     .trinkets-full-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
     @media (min-width: 640px) { .trinkets-full-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -1300,9 +1427,72 @@
       to   { opacity: 1; }
     }
 
+    /* ===== CUSTOM CURSOR (desktop only) ===== */
+    @media (pointer: fine) {
+      *, *::before, *::after { cursor: none !important; }
+      .cursor-dot {
+        position: fixed; top: 0; left: 0; z-index: 9999;
+        width: 6px; height: 6px;
+        background: var(--ForegroundPrimary);
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        transition: width 0.2s cubic-bezier(0.4,0,0.2,1),
+                    height 0.2s cubic-bezier(0.4,0,0.2,1),
+                    background 0.2s cubic-bezier(0.4,0,0.2,1),
+                    opacity 0.15s ease;
+      }
+      .cursor-ring {
+        position: fixed; top: 0; left: 0; z-index: 9998;
+        width: 36px; height: 36px;
+        border: 1.5px solid var(--ForegroundTertiary);
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        opacity: 0.5;
+        transition: width 0.35s cubic-bezier(0.4,0,0.2,1),
+                    height 0.35s cubic-bezier(0.4,0,0.2,1),
+                    border-color 0.2s ease,
+                    opacity 0.2s ease;
+      }
+      .cursor-dot.hover {
+        width: 10px; height: 10px;
+        mix-blend-mode: difference;
+        background: #fff;
+      }
+      .cursor-ring.hover {
+        width: 50px; height: 50px;
+        border-color: var(--ForegroundSecondary);
+        opacity: 0.35;
+      }
+      .cursor-dot.clicking {
+        width: 4px; height: 4px;
+      }
+      .cursor-ring.clicking {
+        width: 30px; height: 30px;
+        opacity: 0.6;
+      }
+      .cursor-dot.hidden, .cursor-ring.hidden {
+        opacity: 0;
+      }
+      .cursor-dot.text-mode {
+        width: 2px; height: 24px;
+        border-radius: 1px;
+        background: var(--ForegroundSecondary);
+        mix-blend-mode: normal;
+      }
+      .cursor-ring.text-mode {
+        opacity: 0;
+      }
+    }
+
   </style>
 </head>
 <body class="bg-BackgroundPrimary text-ForegroundPrimary">
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
   <!-- Drawer Overlay (Vaul-style) -->
   <div class="drawer-overlay" id="drawerOverlay"></div>
@@ -1323,19 +1513,19 @@
         </div>
         <div class="sidebar-divider" style="margin-top:1rem;"></div>
         <nav class="drawer-nav">
-          <a href="#" class="drawer-nav-link active" data-nav="home">Home</a>
-          <a href="#" class="drawer-nav-link" data-nav="projects">Projects</a>
-          <a href="#" class="drawer-nav-link" data-nav="resume">Resume</a>
-          <a href="#" class="drawer-nav-link" data-nav="writing">Writing</a>
-          <a href="#" class="drawer-nav-link" data-nav="friends">Friends</a>
-          <a href="#" class="drawer-nav-link" data-nav="trinkets">Trinkets</a>
+          <a href="#" class="drawer-nav-link active" data-nav="home" data-i18n="nav.home">Home</a>
+          <a href="#" class="drawer-nav-link" data-nav="projects" data-i18n="nav.projects">Projects</a>
+          <a href="#" class="drawer-nav-link" data-nav="resume" data-i18n="nav.resume">Resume</a>
+          <a href="#" class="drawer-nav-link" data-nav="writing" data-i18n="nav.writing">Writing</a>
+          <a href="#" class="drawer-nav-link" data-nav="friends" data-i18n="nav.friends">Friends</a>
+          <a href="#" class="drawer-nav-link" data-nav="trinkets" data-i18n="nav.trinkets">Trinkets</a>
         </nav>
       </div>
       <div class="drawer-footer">
         <div class="sidebar-divider"></div>
         <div style="display:flex;flex-direction:column;gap:0.5rem;padding-top:0.75rem;">
           <div>
-            <div class="clock-label">Local Time (<span class="tz-abbr">PST</span>)</div>
+            <div class="clock-label"><span data-i18n="clock.local_time">Local Time</span> (<span class="tz-abbr">PST</span>)</div>
             <div class="clock-time">
               <span class="date clock-date-m">03.31</span>
               <span class="sep">/</span>
@@ -1367,15 +1557,18 @@
     </button>
   </header>
 
-  <!-- Theme Toggle -->
-  <div class="theme-toggle-wrap">
-    <button class="theme-toggle-btn" id="themeToggle" title="Switch theme">
-      <div class="toggle-indicator"></div>
-      <div class="toggle-icons">
-        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
-      </div>
-    </button>
+  <!-- Top Controls (Language + Theme) -->
+  <div class="top-controls">
+    <button class="lang-toggle-btn" id="langToggle" title="Switch language">EN</button>
+    <div class="theme-toggle-wrap">
+      <button class="theme-toggle-btn" id="themeToggle" title="Switch theme">
+        <div class="toggle-indicator"></div>
+        <div class="toggle-icons">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+        </div>
+      </button>
+    </div>
   </div>
 
   <!-- Vaul-style wrapper (scales down when drawer opens, contains only main content) -->
@@ -1400,28 +1593,28 @@
         <div>
           <nav class="sidebar-nav">
             <ul class="nav-group">
-              <h3 class="nav-group-title">Work</h3>
+              <h3 class="nav-group-title" data-i18n="nav.group_work">Work</h3>
               <li><a href="#" class="nav-link active" data-nav="home">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-                Home</a></li>
+                <span data-i18n="nav.home">Home</span></a></li>
               <li><a href="#" class="nav-link" data-nav="projects">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3L11 9.999m4.973-5.972A13 13 0 0 0 5.902 2.373c-1.398.342-1.092 2.158.277 2.601a19.9 19.9 0 0 1 5.822 3.024m4 4.001a19.9 19.9 0 0 1 3.024 5.824c.444 1.369 2.26 1.676 2.603.278A13 13 0 0 0 20 8.069"/><path d="M18.352 3.352a1.205 1.205 0 0 0-1.704 0l-5.296 5.296a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l5.296-5.296a1.205 1.205 0 0 0 0-1.704z"/></svg>
-                Projects</a></li>
+                <span data-i18n="nav.projects">Projects</span></a></li>
               <li><a href="#" class="nav-link" data-nav="resume">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7v10m4-10v10m4-10l2 10"/></svg>
-                Resume</a></li>
+                <span data-i18n="nav.resume">Resume</span></a></li>
             </ul>
             <ul class="nav-group">
-              <h3 class="nav-group-title">Personal</h3>
+              <h3 class="nav-group-title" data-i18n="nav.group_personal">Personal</h3>
               <li><a href="#" class="nav-link" data-nav="writing">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/></svg>
-                Writing</a></li>
+                <span data-i18n="nav.writing">Writing</span></a></li>
               <li><a href="#" class="nav-link" data-nav="friends">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2v2m1.915 18a6 6 0 0 0-12 0M8 2v2"/><circle cx="12" cy="12" r="4"/><rect width="18" height="18" x="3" y="4" rx="2"/></svg>
-                Friends</a></li>
+                <span data-i18n="nav.friends">Friends</span></a></li>
               <li><a href="#" class="nav-link" data-nav="trinkets">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6m4.76-6a2 2 0 0 1 1.8 1.1l2.23 4.479a2 2 0 0 1 .21.891V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9.472a2 2 0 0 1 .211-.894L5.45 4.1A2 2 0 0 1 7.24 3zM3.054 9.013h17.893"/></svg>
-                Trinkets</a></li>
+                <span data-i18n="nav.trinkets">Trinkets</span></a></li>
             </ul>
           </nav>
         </div>
@@ -1430,7 +1623,7 @@
         <div class="sidebar-divider"></div>
         <div class="sidebar-footer-inner">
           <div>
-            <div class="clock-label">Local Time (<span id="tzAbbr">PST</span>)</div>
+            <div class="clock-label"><span data-i18n="clock.local_time">Local Time</span> (<span id="tzAbbr">PST</span>)</div>
             <div class="clock-time">
               <span class="date" id="clockDate">03.31</span>
               <span class="sep">/</span>
@@ -1463,26 +1656,26 @@
           <!-- Hero -->
           <section class="gap-6" data-animate>
             <h1 class="hero-heading">
-              Designing thoughtful brand &amp; product experiences.
-              <br><span class="hero-sub">Based in Orange County, CA.</span>
+              <span data-i18n="hero.heading">Designing thoughtful brand &amp; product experiences.</span>
+              <br><span class="hero-sub" data-i18n="hero.subheading">Based in Orange County, CA.</span>
             </h1>
             <div>
-              <p class="hero-desc">I've worked in varied startups throughout the past 20 years. I excel in 0-1 situations and enjoy crafting the vision of what could be.</p>
+              <p class="hero-desc" data-i18n="hero.description">I've worked in varied startups throughout the past 20 years. I excel in 0-1 situations and enjoy crafting the vision of what could be.</p>
               <div class="cta-row">
-                <a href="#" class="btn-filled">View Resume</a>
-                <a href="mailto:hello@ericsin.com" class="btn-outline"><span class="green-dot"></span> Open for Freelance</a>
+                <a href="#" class="btn-filled" data-i18n="hero.cta_primary">View Resume</a>
+                <button class="btn-outline" onclick="document.getElementById('wechatModal').classList.add('open')"><span class="green-dot"></span> <span data-i18n="hero.cta_secondary">Chat with Me</span></button>
               </div>
             </div>
           </section>
 
           <!-- Current Status -->
           <section class="gap-4" data-animate>
-            <div><h2 class="font-semibold">Current Status</h2></div>
+            <div><h2 class="font-semibold" data-i18n="status.title">Current Status</h2></div>
             <div class="status-grid">
               <!-- Music -->
               <div class="status-card">
                 <div class="status-card-inner">
-                  <span class="card-label">Current Listens</span>
+                  <span class="card-label" data-i18n="status.music_label">Current Listens</span>
                   <div class="music-row">
                     <div class="music-thumb"></div>
                     <div class="music-info">
@@ -1495,7 +1688,7 @@
               <!-- Game -->
               <div class="status-card">
                 <div class="status-card-inner">
-                  <span class="card-label">Currently Playing</span>
+                  <span class="card-label" data-i18n="status.game_label">Currently Playing</span>
                   <div class="music-row">
                     <div class="game-thumb"></div>
                   </div>
@@ -1504,7 +1697,7 @@
               <!-- WIP -->
               <div class="status-card">
                 <div class="status-card-inner">
-                  <span class="card-label">Work in Progress</span>
+                  <span class="card-label" data-i18n="status.wip_label">Work in Progress</span>
                   <div class="logo-img">
                     <div class="logo-img-inner">VESSEL<br>SUPPLY&reg;</div>
                   </div>
@@ -1516,8 +1709,8 @@
           <!-- Latest Articles -->
           <section class="gap-4" data-animate>
             <div class="section-head">
-              <h2 class="font-semibold">Latest Articles</h2>
-              <a href="#" class="view-all" data-navigate="writing">View All <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
+              <h2 class="font-semibold" data-i18n="home.latest_articles">Latest Articles</h2>
+              <a href="#" class="view-all" data-navigate="writing"><span data-i18n="home.view_all">View All</span> <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
             </div>
             <section style="padding-top:0;">
               <div class="articles-grid">
@@ -1557,8 +1750,8 @@
           <!-- Trinkets -->
           <section class="gap-4" data-animate>
             <div class="section-head">
-              <h2 class="font-semibold">Trinkets</h2>
-              <a href="#" class="view-all" data-navigate="trinkets">View All <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
+              <h2 class="font-semibold" data-i18n="home.latest_trinkets">Latest Trinkets</h2>
+              <a href="#" class="view-all" data-navigate="trinkets"><span data-i18n="home.view_all">View All</span> <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
             </div>
             <div class="trinkets-grid">
               <div class="trinket-card" data-trinket="0">
@@ -1608,13 +1801,13 @@
             </div>
           </div>
           <section class="page-header" data-animate>
-            <h1>Projects</h1>
-            <p>I've worked primarily in 0-1 digital product spaces to great success, helping to design thoughtful brand and product experiences. Below are a select collection of some of the businesses I've touched during that time.</p>
+            <h1 data-i18n="pages.projects_title">Projects</h1>
+            <p data-i18n="pages.projects_desc">I've worked primarily in 0-1 digital product spaces to great success, helping to design thoughtful brand and product experiences. Below are a select collection of some of the businesses I've touched during that time.</p>
           </section>
           <section style="padding-top:0;" data-animate>
             <ul class="tab-bar" data-filter="projects">
-              <li class="tab-item active" data-tab="all">All</li>
-              <li class="tab-item" data-tab="brand">Brand</li>
+              <li class="tab-item active" data-tab="all" data-i18n="filter.all">All</li>
+              <li class="tab-item" data-tab="brand" data-i18n="filter.brand">Brand</li>
               <li class="tab-item" data-tab="product">Product</li>
             </ul>
             <ul class="project-grid" style="margin-top:1rem;">
@@ -1679,11 +1872,11 @@
             </div>
           </div>
           <section class="page-header" data-animate>
-            <h1>Resume</h1>
-            <p>I operate in the space between product and brand design, while dabbling a little bit here and there with development. I gravitate toward complex niches and enjoy making them more accessible and simple.</p>
+            <h1 data-i18n="pages.resume_title">Resume</h1>
+            <p data-i18n="pages.resume_desc">I operate in the space between product and brand design, while dabbling a little bit here and there with development. I gravitate toward complex niches and enjoy making them more accessible and simple.</p>
           </section>
           <section class="work-list" data-animate>
-            <h1 class="subtitle">Work Experience</h1>
+            <h1 class="subtitle" data-i18n="resume.work_experience">Work Experience</h1>
             <ul class="exp-list">
               <li class="exp-item"><div class="exp-item-inner"><div class="exp-company"><div class="exp-logo"><img src="/images/logos/icon-You.png" alt=""></div><span>You.com</span></div><div class="exp-detail"><h2>Senior Product Designer</h2><p>Working with LLMs and AI to create a more thoughtful conversational AI experience.</p></div><div class="exp-date"></div></div></li>
               <li class="exp-item"><div class="exp-item-inner"><div class="exp-company"><div class="exp-logo"><img src="/images/logos/icon-MosaicFinance.png" alt=""></div><span>Mosaic Finance</span></div><div class="exp-detail"><h2>Senior Product Designer II</h2><p>Lead designer for FP&amp;A platform with a focus on financial modeling and analysis, data management, and executive reporting workflows and experiences.</p></div><div class="exp-date"></div></div></li>
@@ -1695,7 +1888,7 @@
             </ul>
           </section>
           <section class="work-list" data-animate>
-            <h1 class="subtitle">Clients</h1>
+            <h1 class="subtitle" data-i18n="resume.clients">Clients</h1>
             <ul class="client-list">
               <li class="client-item"><h2>OMOMO</h2><span class="services">Brand, Web</span><span class="date">Oct 2018</span></li>
               <li class="client-item"><h2>Vivian Kim</h2><span class="services">Brand, Web</span><span class="date">Apr 2023</span></li>
@@ -1752,8 +1945,8 @@
             </div>
           </div>
           <section class="page-header" data-animate>
-            <h1>Writing</h1>
-            <p>I have a lot of thoughts, and realized I didn't have a proper outlet for them until recently. This is now a place for all of my musings, explorations, and retrospectives that I feel may be of value for someone!</p>
+            <h1 data-i18n="pages.writing_title">Writing</h1>
+            <p data-i18n="pages.writing_desc">I have a lot of thoughts, and realized I didn't have a proper outlet for them until recently. This is now a place for all of my musings, explorations, and retrospectives that I feel may be of value for someone!</p>
           </section>
           <section data-animate style="padding-top:0;">
             <a href="#" data-detail="writing-958a4f15" class="featured-article">
@@ -1813,8 +2006,8 @@
             </div>
           </div>
           <section class="page-header" data-animate>
-            <h1 style="font-family:Martha,'LXGW WenKai',sans-serif;letter-spacing:0.025em;">Friends</h1>
-            <p>People I have strong relationships with, have great respect for, or just identify to be good people with kind hearts. Definitely worth a follow and a look at if you're looking for talent or great collaborators.</p>
+            <h1 style="font-family:Martha,'LXGW WenKai',sans-serif;letter-spacing:0.025em;" data-i18n="pages.friends_title">Friends</h1>
+            <p data-i18n="pages.friends_desc">People I have strong relationships with, have great respect for, or just identify to be good people with kind hearts. Definitely worth a follow and a look at if you're looking for talent or great collaborators.</p>
           </section>
           <section data-animate>
             <ul class="tab-bar" data-filter="friends">
@@ -1850,8 +2043,8 @@
         <!-- ===== TRINKETS PAGE ===== -->
         <div id="trinkets-page" data-page="trinkets">
           <section class="page-header" data-animate>
-            <h1>Trinkets</h1>
-            <p>These are a collection of things that I've bought that I enjoy, find useful, or straight up just look nice.</p>
+            <h1 data-i18n="pages.trinkets_title">Trinkets</h1>
+            <p data-i18n="pages.trinkets_desc">These are a collection of things that I've bought that I enjoy, find useful, or straight up just look nice.</p>
           </section>
           <section data-animate style="padding-top:0;">
             <div class="trinkets-full-grid" id="trinketsGrid">
@@ -2223,8 +2416,8 @@
         <footer class="site-footer" data-animate>
           <section>
             <div class="footer-bar">
-              <span>Built with Vue.JS &amp; Tailwind CSS</span>
-              <span>&copy; 2026 Eric Sin</span>
+              <span data-i18n="footer.left">Built with Vue.JS &amp; Tailwind CSS</span>
+              <span data-i18n="footer.right">&copy; 2026 Eric Sin</span>
             </div>
           </section>
         </footer>
@@ -2233,6 +2426,20 @@
   </div>
 
   </div><!-- /vaulWrapper -->
+
+  <!-- WeChat QR Modal -->
+  <div id="wechatModal" class="wechat-modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="wechat-modal" style="position:relative;">
+      <button class="wechat-modal-close" onclick="document.getElementById('wechatModal').classList.remove('open')" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <h3 data-i18n="wechat.title">Scan to Add WeChat</h3>
+      <div class="qr-placeholder">
+        <img src="./static/images/wechat-qr.png" alt="WeChat QR Code" onerror="this.parentElement.innerHTML='<div style=padding:2rem;color:var(--ForegroundTertiary);font-size:0.875rem>Place QR image at<br>static/images/wechat-qr.png</div>'">
+      </div>
+      <p class="qr-hint" data-i18n="wechat.hint">Open WeChat, scan the QR code to add as friend</p>
+    </div>
+  </div>
 
   <!-- Trinket Modal -->
   <div id="trinketModal" class="trinket-modal-overlay">
@@ -2250,7 +2457,7 @@
       <div class="trinket-modal-body">
         <p class="trinket-modal-desc" id="tmDesc"></p>
         <a class="trinket-modal-link" id="tmLink" href="#" target="_blank" rel="noopener noreferrer">
-          View Product <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
+          <span data-i18n="detail.view_product">View Product</span> <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
         </a>
       </div>
     </div>
@@ -2644,6 +2851,122 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && trinketModal.classList.contains('open')) closeTrinketModal();
     });
+
+    // ── Custom Cursor ──
+    (function() {
+      if (!matchMedia('(pointer: fine)').matches) return;
+      const dot = document.getElementById('cursorDot');
+      const ring = document.getElementById('cursorRing');
+      if (!dot || !ring) return;
+
+      let mx = -100, my = -100, rx = -100, ry = -100;
+      let rafId = null;
+
+      const hoverSelectors = 'a, button, [data-nav], [data-detail], [data-navigate], .nav-link, .drawer-nav-link, .tab-item, .trinket-card, .article-card, .project-card, .status-card, .social-btn, .friend-card, .back-btn, .theme-toggle-btn, .lang-toggle-btn, .view-all, .btn-filled, .btn-outline, .trinket-modal-close, .wechat-modal-close, input, textarea, select';
+      const textSelectors = 'p, h1, h2, h3, h4, h5, h6, span, li, .notion-block, .hero-desc, .writing-subtitle';
+
+      function tick() {
+        rx += (mx - rx) * 0.15;
+        ry += (my - ry) * 0.15;
+        ring.style.left = rx + 'px';
+        ring.style.top = ry + 'px';
+        dot.style.left = mx + 'px';
+        dot.style.top = my + 'px';
+        rafId = requestAnimationFrame(tick);
+      }
+      rafId = requestAnimationFrame(tick);
+
+      document.addEventListener('mousemove', function(e) {
+        mx = e.clientX; my = e.clientY;
+        dot.classList.remove('hidden');
+        ring.classList.remove('hidden');
+
+        const target = e.target.closest(hoverSelectors);
+        const textTarget = !target && e.target.closest(textSelectors);
+
+        if (target) {
+          dot.classList.add('hover');
+          ring.classList.add('hover');
+          dot.classList.remove('text-mode');
+          ring.classList.remove('text-mode');
+        } else if (textTarget) {
+          dot.classList.add('text-mode');
+          ring.classList.add('text-mode');
+          dot.classList.remove('hover');
+          ring.classList.remove('hover');
+        } else {
+          dot.classList.remove('hover', 'text-mode');
+          ring.classList.remove('hover', 'text-mode');
+        }
+      });
+
+      document.addEventListener('mousedown', function() {
+        dot.classList.add('clicking');
+        ring.classList.add('clicking');
+      });
+      document.addEventListener('mouseup', function() {
+        dot.classList.remove('clicking');
+        ring.classList.remove('clicking');
+      });
+
+      document.addEventListener('mouseleave', function() {
+        dot.classList.add('hidden');
+        ring.classList.add('hidden');
+      });
+      document.addEventListener('mouseenter', function() {
+        dot.classList.remove('hidden');
+        ring.classList.remove('hidden');
+      });
+    })();
+
+    // ── i18n ──
+    const __LOCALES__ = /*__LOCALES_PLACEHOLDER__*/ {};
+    const __DEFAULT_LOCALE__ = /*__DEFAULT_LOCALE_PLACEHOLDER__*/ 'en';
+    const __AVAILABLE_LOCALES__ = /*__AVAILABLE_LOCALES_PLACEHOLDER__*/ ['en','zh'];
+
+    let currentLocale = localStorage.getItem('locale') || __DEFAULT_LOCALE__;
+
+    function getNestedValue(obj, path) {
+      return path.split('.').reduce((o, k) => (o && o[k] !== undefined ? o[k] : null), obj);
+    }
+
+    function updateLangButton(lang) {
+      const langBtn = document.getElementById('langToggle');
+      if (langBtn) {
+        const nextIdx = (__AVAILABLE_LOCALES__.indexOf(lang) + 1) % __AVAILABLE_LOCALES__.length;
+        const nextLang = __AVAILABLE_LOCALES__[nextIdx];
+        langBtn.textContent = nextLang.toUpperCase();
+      }
+    }
+
+    function applyLocale(lang, force) {
+      const strings = __LOCALES__[lang];
+      if (!strings) return;
+      currentLocale = lang;
+      localStorage.setItem('locale', lang);
+      document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
+      if (force || lang !== __DEFAULT_LOCALE__) {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          const val = getNestedValue(strings, key);
+          if (val !== null) el.innerHTML = val;
+        });
+      }
+      updateLangButton(lang);
+    }
+
+    const langToggle = document.getElementById('langToggle');
+    if (langToggle) {
+      langToggle.addEventListener('click', () => {
+        const nextIdx = (__AVAILABLE_LOCALES__.indexOf(currentLocale) + 1) % __AVAILABLE_LOCALES__.length;
+        applyLocale(__AVAILABLE_LOCALES__[nextIdx], true);
+      });
+    }
+    if (currentLocale !== __DEFAULT_LOCALE__) {
+      applyLocale(currentLocale, true);
+    } else {
+      updateLangButton(currentLocale);
+    }
   </script>
 </body>
 </html>

@@ -1,0 +1,70 @@
+nav:
+  home: "首页"
+  projects: "项目"
+  resume: "简历"
+  writing: "文章"
+  friends: "朋友"
+  trinkets: "好物"
+  group_work: "工作"
+  group_personal: "个人"
+
+hero:
+  heading: "打造有思考的品牌与产品体验。"
+  subheading: "现居加州橙县。"
+  description: "过去 20 年来，我在多家初创公司工作。我擅长从 0 到 1 的场景，享受构建愿景的过程。"
+  cta_primary: "查看简历"
+  cta_secondary: "和他聊聊"
+
+status:
+  title: "当前状态"
+  music_label: "正在收听"
+  game_label: "正在玩"
+  wip_label: "进行中的项目"
+
+home:
+  latest_articles: "最新文章"
+  latest_trinkets: "最新好物"
+  view_all: "查看全部"
+
+pages:
+  projects_title: "项目"
+  projects_desc: "我主要在从 0 到 1 的数字产品领域工作，帮助设计富有思考的品牌与产品体验。以下是我参与过的部分精选项目。"
+  resume_title: "简历"
+  resume_desc: "我活跃在产品设计与品牌设计的交汇地带，曾作为设计师、管理者和顾问参与过各类企业和初创公司。"
+  writing_title: "文章"
+  writing_desc: "我有很多想法，最近才意识到自己一直没有一个合适的表达出口。这里是我所有思考、探索和回顾的空间，希望对你有所启发！"
+  friends_title: "朋友"
+  friends_desc: "与我有深厚关系的人，他们是我职业生涯中有幸合作过的伙伴。"
+  trinkets_title: "好物"
+  trinkets_desc: "这些是我在职业生涯中购买的、对我有特殊意义的物品。"
+
+resume:
+  work_experience: "工作经历"
+  clients: "客户"
+
+detail:
+  type: "类型"
+  team: "团队"
+  back_projects: "返回项目"
+  back_writing: "返回文章"
+  view_product: "查看产品"
+
+filter:
+  all: "全部"
+  brand: "品牌"
+  product: "产品"
+  engineer: "工程"
+  career: "职业"
+  life: "生活"
+  design: "设计"
+
+clock:
+  local_time: "当地时间"
+
+wechat:
+  title: "扫码添加微信"
+  hint: "打开微信扫一扫，添加好友"
+
+footer:
+  left: "使用 Vue.JS 和 Tailwind CSS 构建"
+  right: "&copy; 2026 Eric Sin"

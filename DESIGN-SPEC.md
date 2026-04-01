@@ -11,6 +11,12 @@
 2. [设计风格概述](#2-设计风格概述)
 3. [色彩系统](#3-色彩系统)
 4. [字体系统](#4-字体系统)
+   - [4.1 字体族总览](#41-字体族总览)
+   - [4.2 字体配对设计理念](#42-字体配对设计理念)
+   - [4.3 字体文件与加载](#43-字体文件与加载)
+   - [4.4 排版层级](#44-排版层级)
+   - [4.5 辅助字体使用场景](#45-辅助字体martha--lxgw-wenkai使用场景)
+   - [4.6 字体使用规范](#46-字体使用规范)
 5. [间距系统](#5-间距系统)
 6. [边框与圆角](#6-边框与圆角)
 7. [布局系统](#7-布局系统)
@@ -25,16 +31,24 @@
 
 ```
 ericsin-clone/
-├── index.html                  # 主页面（单页应用，包含所有 HTML/CSS/JS）
-├── profile-photo.jpg           # 头像图片
-├── PPNeueMontreal-Bold.woff    # 主字体 - Bold (800)
-├── PPNeueMontreal-Medium.woff  # 主字体 - Medium (600)
-├── PPNeueMontreal-Regular.woff # 主字体 - Regular (500)
-├── PPNeueMontreal-Light.woff   # 主字体 - Light (300)
-├── PPNeueMontreal-Thin.woff    # 主字体 - Thin (200)
-├── Martha-Regular.woff         # 辅助字体（衬线体，用于标签/按钮）
-├── package.json                # Node 依赖（Puppeteer，开发用）
-└── package-lock.json
+├── site.config.yml             # 全局配置（个人信息、字体 CDN、i18n 等）
+├── templates/
+│   └── index.html              # HTML 模板（构建基底）
+├── content/                    # 内容目录（Markdown + YAML）
+├── static/
+│   ├── fonts/                  # 英文字体文件（.woff）
+│   │   ├── PPNeueMontreal-Bold.woff
+│   │   ├── PPNeueMontreal-Medium.woff
+│   │   ├── PPNeueMontreal-Regular.woff
+│   │   ├── PPNeueMontreal-Light.woff
+│   │   ├── PPNeueMontreal-Thin.woff
+│   │   └── Martha-Regular.woff
+│   └── images/
+├── locales/                    # i18n 翻译文件
+├── build.js                    # 构建脚本
+├── dev.js                      # 开发服务器
+├── dist/                       # 构建输出
+└── index.html                  # 原始克隆页面（参考用）
 ```
 
 ---
@@ -44,7 +58,7 @@ ericsin-clone/
 ### 整体风格
 - **极简主义**：大量留白，信息层次清晰
 - **深色/浅色双主题**：支持明暗模式无缝切换，瞬时变色无过渡
-- **无衬线为主**：PP Neue Montreal 贯穿全局，Martha 衬线体仅用于标签/按钮等点缀
+- **无衬线为主**：PP Neue Montreal 贯穿全局，Martha 衬线体仅用于标签/按钮等点缀；中文分别使用 MiSans 和霞鹜文楷对应
 - **毛玻璃效果**：侧边栏、移动端导航栏、弹出式抽屉均使用 `backdrop-filter: blur(24px)` 搭配半透明背景
 - **微动效**：渐显（fadeIn）+ 交错延迟（stagger），无滑动/弹跳等夸张动画
 - **SPA 路由**：JavaScript 实现页面切换，无刷新
@@ -93,53 +107,141 @@ ericsin-clone/
 
 ## 4. 字体系统
 
-### 字体族
+### 4.1 字体族总览
 
-| 字体 | 用途 | CSS 引用 |
-|------|------|---------|
-| **PP Neue Montreal** | 主字体，标题、正文、UI 元素 | `PPNeueMontreal, sans-serif` |
-| **Martha** | 辅助字体，标签、按钮、分类名 | `Martha, sans-serif` |
+项目采用中英文双字体栈。英文字符优先使用本地 woff 字体，中文字符自动回退到 CDN 加载的对应中文字体。
 
-### 字重映射
+| 角色 | 英文字体 | 中文字体 | 风格 | CSS `font-family` |
+|------|---------|---------|------|-------------------|
+| **主字体** | PP Neue Montreal | MiSans (小米) | 新格洛特斯克无衬线 / 几何无衬线 | `PPNeueMontreal, "MiSans", sans-serif` |
+| **辅助字体** | Martha | 霞鹜文楷 (LXGW WenKai) | 古典衬线 / 人文楷体 | `Martha, "LXGW WenKai", sans-serif` |
 
-| PP Neue Montreal | 字重值 |
-|-----------------|--------|
-| Thin | 200 |
-| Light | 300 |
-| Regular | 500 |
-| Medium | 600 |
-| Bold | 800 |
+### 4.2 字体配对设计理念
 
-### 排版层级
+**PP Neue Montreal ↔ MiSans**
+- 两者均为中性、干净的无衬线体，笔画处理克制理性
+- MiSans 的几何倾向与 PP Neue Montreal 的 neo-grotesque 气质高度吻合
+- MiSans 提供 10 个字重（Thin 100 ~ Heavy 900），可覆盖 PP Neue Montreal 的全部 5 个字重
 
-| 层级 | 字号 | 字重 | 行高 | 字间距 | 用途 |
-|------|------|------|------|--------|------|
-| **H1 大标题** | `2.25rem` (36px) | 600 | `2.5rem` (40px) | `-0.01em` | 页面标题、Hero |
-| **H1 统计数字** | `2.5rem` (40px) | 700 | `1.2` | — | 项目详情统计数字 |
-| **H1 文章标题** | `1.75rem` (28px) | 400 | `1.25` | — | 写作详情页标题 |
-| **H2 详情标题** | `1.5rem` (24px) | 600 | `1.3` | `-0.02em` | 项目详情页标题 |
-| **H2 引用** | `1.25rem` (20px) | 400 | `1.6` | — | 项目详情页引用 |
-| **H2 内容标题** | `1.25rem` (20px) | 600 | `1.25` | `-0.005em` | Notion 内容 H2 |
-| **H3 内容标题** | `1.125rem` (18px) | 600 | `1.25` | — | Notion 内容 H3 |
-| **精选标题** | `1.25rem` (20px) | 600 | `1.4` | — | 精选文章标题 |
-| **抽屉导航** | `1.125rem` (18px) | 600 | — | — | 移动端抽屉导航链接 |
-| **正文大** | `1rem` (16px) | 400 | `1.5`~`1.625` | `normal` | 描述文字、Notion 正文 |
-| **正文** | `0.9375rem` (15px) | 400~600 | `133%`~`1.6` | — | 页面描述、详情描述、H3 |
-| **正文小** | `0.875rem` (14px) | 400 | `133%` | `0` | 侧边栏导航、公司名、正文 |
-| **标签** | `0.75rem` (12px) | 600 | `133%` | `0.05em` | 标签、时间、分类名、页脚 |
-| **标签(Martha)** | `0.75rem` (12px) | — | `133%` | `0.025em`~`0.05em` | 按钮文字、tab、写作标签 |
-| **小标签** | `0.6875rem` (11px) | — | — | `0.05em` | 写作详情标签 |
+**Martha ↔ 霞鹜文楷 (LXGW WenKai)**
+- Martha 是古典衬线体，用于标签/按钮等点缀场景
+- 霞鹜文楷以书写感和温润笔触呼应 Martha 的人文气息
+- 作为标签、导航标题等小尺寸点缀使用时，楷体的辨识度优于常规宋体
 
-### 字体使用 Martha 的场景
-- 侧边栏分组标题（`.nav-group-title`）
-- 侧边栏姓名区域（`.sidebar-name-block`）
-- 按钮文字（`.btn-filled`, `.btn-outline`）
-- Tab 栏（`.tab-item`）
-- 时钟标签（`.clock-label`, `.clock-time`）
-- 卡片标签（`.card-label`）
-- 文章标签（`.article-tag`）
-- 写作标签（`.writing-tag`）
-- Trinket 弹窗品牌名、链接
+### 4.3 字体文件与加载
+
+#### 英文字体（本地 woff 文件）
+
+| 文件 | font-family | font-weight | 说明 |
+|------|-------------|-------------|------|
+| `PPNeueMontreal-Thin.woff` | PPNeueMontreal | 200 | 极细 |
+| `PPNeueMontreal-Light.woff` | PPNeueMontreal | 300 | 细体 |
+| `PPNeueMontreal-Regular.woff` | PPNeueMontreal | 500 | 常规 |
+| `PPNeueMontreal-Medium.woff` | PPNeueMontreal | 600 | 中粗 |
+| `PPNeueMontreal-Bold.woff` | PPNeueMontreal | 800 | 粗体 |
+| `Martha-Regular.woff` | Martha | 200~800 (all) | 单一字重，所有粗度映射到同一文件 |
+
+存放位置：`static/fonts/`，构建后拷贝到 `dist/static/fonts/`。
+
+#### 中文字体（CDN 按需加载）
+
+通过 jsDelivr CDN 加载，字体文件已使用 **unicode-range 子集化**技术拆分，浏览器仅下载页面实际使用的字符分片。
+
+| 字体 | CDN 包 | 加载的字重 |
+|------|--------|-----------|
+| **MiSans** | `misans-webfont@4.3.1` | Thin(100)、ExtraLight(200)、Light(300)、Normal(350)、Regular(400)、Medium(500)、DemiBold(600)、SemiBold(650)、Bold(700)、Heavy(900) |
+| **LXGW WenKai** | `lxgw-wenkai-webfont@1.7.0` | Light(300)、Regular(400)、Bold(700) |
+
+CDN 地址集中配置在 `site.config.yml` → `site.fonts.chinese`：
+
+```yaml
+site:
+  fonts:
+    chinese:
+      - "https://cdn.jsdelivr.net/npm/misans-webfont@4.3.1/misans-style.min.css"
+      - "https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css"
+      - "https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-light.css"
+      - "https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-bold.css"
+```
+
+构建时自动注入为 `<link rel="stylesheet">` 标签。
+
+#### 字重对照映射
+
+| CSS font-weight | PP Neue Montreal | MiSans (回退) | 典型用途 |
+|----------------|-----------------|--------------|---------|
+| 200 | Thin | ExtraLight | — |
+| 300 | Light | Light | — |
+| 400 | — | Regular | body 默认 |
+| 500 | Regular | Medium | 正文 |
+| 600 | Medium | DemiBold | 标题、按钮 |
+| 700 | — | Bold | 统计数字 |
+| 800 | Bold | Heavy (900) | 大标题 |
+
+### 4.4 排版层级
+
+| 层级 | 字号 | 字重 | 行高 | 字间距 | 字体栈 | 用途 |
+|------|------|------|------|--------|--------|------|
+| **H1 大标题** | `2.25rem` (36px) | 600 | `2.5rem` (40px) | `-0.01em` | 主字体 | 页面标题、Hero |
+| **H1 统计数字** | `2.5rem` (40px) | 700 | `1.2` | — | 主字体 | 项目详情统计数字 |
+| **H1 文章标题** | `1.75rem` (28px) | 400 | `1.25` | — | 主字体 | 写作详情页标题 |
+| **H2 详情标题** | `1.5rem` (24px) | 600 | `1.3` | `-0.02em` | 主字体 | 项目详情页标题 |
+| **H2 引用** | `1.25rem` (20px) | 400 | `1.6` | — | 辅助字体 | 项目详情页引用（斜体） |
+| **H2 内容标题** | `1.25rem` (20px) | 600 | `1.25` | `-0.005em` | 主字体 | Notion 内容 H2 |
+| **H3 内容标题** | `1.125rem` (18px) | 600 | `1.25` | — | 主字体 | Notion 内容 H3 |
+| **精选标题** | `1.25rem` (20px) | 600 | `1.4` | — | 主字体 | 精选文章标题 |
+| **抽屉导航** | `1.125rem` (18px) | 600 | — | — | 主字体 | 移动端抽屉导航链接 |
+| **正文大** | `1rem` (16px) | 400 | `1.5`~`1.625` | `normal` | 主字体 | 描述文字、Notion 正文 |
+| **正文** | `0.9375rem` (15px) | 400~600 | `133%`~`1.6` | — | 主字体 | 页面描述、详情描述 |
+| **正文小** | `0.875rem` (14px) | 400 | `133%` | `0` | 主字体 | 侧边栏导航、公司名 |
+| **标签** | `0.75rem` (12px) | 600 | `133%` | `0.05em` | 主字体 | 标签、时间、分类名、页脚 |
+| **标签(辅助)** | `0.75rem` (12px) | — | `133%` | `0.025em`~`0.05em` | 辅助字体 | 按钮文字、tab、写作标签 |
+| **小标签** | `0.6875rem` (11px) | — | — | `0.05em` | 辅助字体 | 写作详情标签 |
+
+### 4.5 辅助字体（Martha / LXGW WenKai）使用场景
+
+以下场景使用辅助字体栈 `Martha, "LXGW WenKai", sans-serif`，通常伴随 `text-transform: uppercase`（英文）和 `letter-spacing: 0.025em~0.05em`：
+
+| 组件 | CSS 选择器 | 补充说明 |
+|------|-----------|---------|
+| 侧边栏分组标题 | `.nav-group-title` | 大写，letter-spacing: 0.025em |
+| 侧边栏姓名区域 | `.sidebar-name-block` | 大写，letter-spacing: 0.025em |
+| 填充按钮 | `.btn-filled` | 大写，letter-spacing: 0.025em |
+| 描边按钮 | `.btn-outline` | 大写，letter-spacing: 0.025em |
+| Tab 栏 | `.tab-item` | 大写，letter-spacing: 0.05em |
+| 时钟标签 | `.clock-label` | 大写 |
+| 时钟数字 | `.clock-time .digit` | — |
+| 卡片标签 | `.card-label` | 大写，letter-spacing: 0.025em |
+| 文章标签 | `.article-tag` | 大写，letter-spacing: 0.05em |
+| 写作标签 | `.writing-tag` | — |
+| 详情描述 | `.detail-desc` | 斜体 |
+| 详情引用 | `.detail-quote h2` | 斜体 |
+| Trinket 弹窗品牌名/链接 | `.trinket-modal-*` | — |
+| 朋友页面标题 | Friends 页 h1 | inline style |
+
+### 4.6 字体使用规范
+
+#### 新增组件时的字体选择原则
+
+1. **默认使用主字体栈**：所有标题、正文、描述性文字使用 `PPNeueMontreal, "MiSans", sans-serif`
+2. **仅在以下场景使用辅助字体栈**：
+   - 小尺寸标签/分类（≤ 12px）
+   - 按钮文字
+   - Tab/筛选栏
+   - 需要与主字体形成视觉层次对比的点缀文字
+3. **代码/等宽场景**使用系统等宽字体：`'SF Mono', SFMono-Regular, ui-monospace, Menlo, Consolas, monospace`
+4. **禁止混用**：同一组件内不得同时使用主字体和辅助字体（标题和标签分属不同层级除外）
+
+#### 中英文混排注意事项
+
+- 英文字符始终优先匹配本地 woff 字体（PP Neue Montreal / Martha），中文字符自动回退到 CDN 字体（MiSans / LXGW WenKai）
+- `font-weight` 映射时注意 MiSans 字重粒度更细（10 级），浏览器会自动匹配最接近的字重
+- 中英文基线对齐已通过 `ascent-override: 100%`（英文字体侧）优化
+- 中文内容行高建议不低于 `1.5`，确保阅读舒适度；英文纯文本可使用 `133%`（约 1.33）
+
+#### CDN 字体更新
+
+如需更换中文字体或升级版本，仅需修改 `site.config.yml` 中的 `site.fonts.chinese` 数组，重新构建即可生效。无需修改模板或 CSS。
 
 ---
 
@@ -316,7 +418,7 @@ ericsin-clone/
 - 背景: `var(--ForegroundSecondary)`, 文字: `var(--BackgroundPrimary)`
 - 悬停: 背景变为 `var(--ForegroundPrimary)`
 - 尺寸: `padding: 0.5rem 1rem`, 圆角: `0.375rem`
-- 字体: Martha, `0.75rem`, `letter-spacing: 0.025em`, `text-transform: uppercase`
+- 字体: 辅助字体栈, `0.75rem`, `letter-spacing: 0.025em`, `text-transform: uppercase`
 
 **描边按钮 `.btn-outline`**
 - 背景: 透明, 边框: `1px solid var(--BordersPrimary)`, 文字: `var(--ForegroundSecondary)`
@@ -356,7 +458,7 @@ ericsin-clone/
 ### Tab 栏
 - 底部边框: `1px solid var(--BordersPrimary)`
 - Tab 项默认 opacity: `0.4`, 选中: `1` + `border-bottom: 2px solid var(--ForegroundPrimary)`
-- 字体: Martha, `0.75rem`, `letter-spacing: 0.05em`, `text-transform: uppercase`
+- 字体: 辅助字体栈, `0.75rem`, `letter-spacing: 0.05em`, `text-transform: uppercase`
 
 ---
 
@@ -394,4 +496,4 @@ ericsin-clone/
 
 ---
 
-> **维护提示**: 修改样式时请优先使用上述 CSS 变量和 token，确保亮/暗模式的一致性。新增组件应遵循现有的间距系统（以 `1rem` 为基础单位）、圆角规则（卡片 4px、按钮/图片 6px、面板 8px）和动效时长规范。
+> **维护提示**: 修改样式时请优先使用上述 CSS 变量和 token，确保亮/暗模式的一致性。新增组件应遵循现有的间距系统（以 `1rem` 为基础单位）、圆角规则（卡片 4px、按钮/图片 6px、面板 8px）和动效时长规范。字体使用请参考 [4.6 字体使用规范](#46-字体使用规范)，始终使用完整的中英文字体栈声明（`PPNeueMontreal, "MiSans", sans-serif` 或 `Martha, "LXGW WenKai", sans-serif`），不要省略中文回退字体。
