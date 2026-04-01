@@ -1,0 +1,2644 @@
+<!DOCTYPE html>
+<html lang="en" class="dark lenis lenis-smooth" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eric Sin / Selected Works</title>
+  <meta name="description" content="Selected works of Eric Sin, Product & Brand Designer.">
+  <style>
+    /* ===== FONT FACES (original PP Neue Montreal + Martha) ===== */
+    @font-face { font-family: PPNeueMontreal; font-weight: 800; font-style: normal; src: url(./PPNeueMontreal-Bold.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: PPNeueMontreal; font-weight: 600; font-style: normal; src: url(./PPNeueMontreal-Medium.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: PPNeueMontreal; font-weight: 500; font-style: normal; src: url(./PPNeueMontreal-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: PPNeueMontreal; font-weight: 300; font-style: normal; src: url(./PPNeueMontreal-Light.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: PPNeueMontreal; font-weight: 200; font-style: normal; src: url(./PPNeueMontreal-Thin.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 200; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 300; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 500; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 600; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 800; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border: 0 solid #e5e7eb; }
+    html { line-height: 1.5; -webkit-text-size-adjust: 100%; tab-size: 4; -webkit-tap-highlight-color: transparent; }
+    body { line-height: inherit; }
+    img, svg, video { display: block; max-width: 100%; height: auto; vertical-align: middle; }
+    a { color: inherit; text-decoration: inherit; }
+    ul, ol { list-style: none; }
+    button { background: none; border: none; cursor: pointer; font: inherit; color: inherit; padding: 0; }
+    h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+    p { margin: 0; }
+
+    /* ===== THEME VARIABLES ===== */
+    html.light, :root[data-theme=light] {
+      --BordersPrimary: #e8e8ea;
+      --BackgroundPrimary: #fff;
+      --BackgroundSecondary: #f9f8f9;
+      --BackgroundTertiary: #eeedef;
+      --BackgroundHover: #eeedef;
+      --ForegroundPrimary: #282a2f;
+      --ForegroundSecondary: #3e424b;
+      --ForegroundTertiary: #8c8b8c;
+    }
+    html.dark, :root[data-theme=dark] {
+      --BordersPrimary: #23252b;
+      --BackgroundPrimary: #08090a;
+      --BackgroundSecondary: #1c1c1f;
+      --BackgroundTertiary: #28282c;
+      --BackgroundHover: #28282c;
+      --ForegroundPrimary: #fff;
+      --ForegroundSecondary: #d0d6e0;
+      --ForegroundTertiary: #8a8f98;
+    }
+
+    /* ===== BASE ===== */
+    body, html {
+      font-family: PPNeueMontreal, sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    body {
+      background-color: var(--BackgroundPrimary);
+      color: var(--ForegroundPrimary);
+    }
+    .alt-font, .font-alt { font-family: Martha, sans-serif; letter-spacing: 0.025em; }
+
+    :root * {
+      transition-property: color, background-color, border-color;
+      transition-duration: 0s;
+      transition-timing-function: ease-in-out;
+    }
+    .theme-switching *,
+    .theme-switching *::before,
+    .theme-switching *::after {
+      transition-duration: 0s !important;
+    }
+    .theme-switching .toggle-indicator {
+      transition-duration: 0.2s !important;
+      transition-property: transform !important;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    .theme-switching .toggle-icons svg {
+      transition-duration: 0.2s !important;
+      transition-property: color !important;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    /* ===== TYPOGRAPHY UTILS ===== */
+    .text-h1 { font-size: 2.25rem; font-weight: 600; letter-spacing: -0.01em; line-height: 2.5rem; }
+    .text-h3 { font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.005em; line-height: 133%; }
+    .text-body-sm { font-size: 0.875rem; letter-spacing: 0; line-height: 133%; }
+    .text-body-xs { font-size: 0.75rem; letter-spacing: 0; line-height: 133%; }
+    .text-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; line-height: 133%; }
+
+    .text-ForegroundPrimary { color: var(--ForegroundPrimary); }
+    .text-ForegroundSecondary { color: var(--ForegroundSecondary); }
+    .text-ForegroundTertiary { color: var(--ForegroundTertiary); }
+    .bg-BackgroundPrimary { background-color: var(--BackgroundPrimary); }
+    .bg-BackgroundSecondary { background-color: var(--BackgroundSecondary); }
+    .bg-BackgroundTertiary { background-color: var(--BackgroundTertiary); }
+    .uppercase { text-transform: uppercase; }
+    .font-semibold { font-weight: 600; }
+
+    /* ===== SIDEBAR ===== */
+    aside#sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: 16rem;
+      padding: 1rem;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      background-color: transparent;
+    }
+    .sidebar-inner {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      gap: 1rem;
+      padding: 0;
+      border-radius: 0.5rem;
+      background-color: transparent;
+      border: 1px solid var(--BordersPrimary);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+    .sidebar-top { display: grid; grid-template-columns: 1fr; gap: 0; }
+
+    /* Profile */
+    .sidebar-profile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .sidebar-avatar {
+      width: 2.5rem;
+      height: 2.5rem;
+      overflow: hidden;
+      border-radius: 0.375rem;
+      flex-shrink: 0;
+    }
+    .sidebar-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .sidebar-name-block { font-family: Martha, sans-serif; letter-spacing: 0.025em; }
+    .sidebar-name-block h1 {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      line-height: 133%;
+      color: var(--ForegroundPrimary);
+    }
+    .sidebar-name-block h2 {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      line-height: 133%;
+      color: var(--ForegroundTertiary);
+    }
+
+    .sidebar-divider { width: 100%; height: 1px; background-color: var(--BordersPrimary); }
+
+    /* Nav */
+    .sidebar-nav {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 1rem;
+      margin-bottom: auto;
+    }
+    .sidebar-nav .nav-group {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+    .sidebar-nav .nav-group-title {
+      font-family: Martha, sans-serif;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      line-height: 133%;
+      color: var(--ForegroundTertiary);
+      margin-bottom: 0.5rem;
+    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.375rem 0.5rem;
+      margin-left: -0.5rem;
+      margin-right: -0.5rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      opacity: 0.5;
+      background-color: transparent;
+    }
+    .nav-link:hover { background-color: var(--BackgroundHover); opacity: 0.8; }
+    .nav-link.active { background-color: var(--BackgroundTertiary); opacity: 1; }
+    .nav-link svg { width: 1em; height: 1em; flex-shrink: 0; }
+
+    /* Footer */
+    .sidebar-footer { display: flex; flex-direction: column; gap: 0.25rem; }
+    .sidebar-footer-inner { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.25rem 1rem; }
+    .clock-label {
+      font-family: Martha, sans-serif;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      line-height: 133%;
+      color: var(--ForegroundTertiary);
+    }
+    .clock-time {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      line-height: 133%;
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+    .clock-time .date { color: var(--ForegroundPrimary); }
+    .clock-time .sep { color: var(--ForegroundTertiary); }
+    .clock-time .time { color: var(--ForegroundPrimary); }
+    .clock-time .digit { font-family: Martha, sans-serif; }
+
+    .social-list { display: flex; flex-direction: row; gap: 0.5rem; }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 9999px;
+      background-color: var(--BackgroundTertiary);
+      transition: background-color 0.3s ease;
+    }
+    .social-btn:hover { background-color: rgba(from var(--ForegroundTertiary) r g b / 0.3); }
+    .social-btn svg { width: 0.875em; height: 0.875em; }
+
+    /* ===== THEME TOGGLE (fixed top right) ===== */
+    .theme-toggle-wrap {
+      position: fixed;
+      top: 0.625rem;
+      right: 0.5rem;
+      z-index: 50;
+    }
+    .theme-toggle-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      height: 2.25rem;
+      width: 72px;
+      border-radius: 9999px;
+      background-color: var(--BackgroundSecondary);
+      transition: background-color 0.15s;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+    }
+    .theme-toggle-btn:hover { background-color: var(--BackgroundHover); }
+    .toggle-indicator {
+      position: absolute;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 9999px;
+      background-color: var(--BackgroundPrimary);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+    }
+    html.dark .toggle-indicator { transform: translateX(36px); }
+    html.light .toggle-indicator { transform: translateX(4px); }
+    .toggle-icons {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 0 0.625rem;
+      z-index: 10;
+    }
+    .toggle-icons svg { width: 1.25rem; height: 1.25rem; transition: color 0.2s; }
+    html.dark .icon-sun { color: var(--ForegroundTertiary); }
+    html.dark .icon-moon { color: var(--ForegroundPrimary); }
+    html.light .icon-sun { color: var(--ForegroundPrimary); }
+    html.light .icon-moon { color: var(--ForegroundTertiary); }
+
+    /* ===== MAIN CONTENT ===== */
+    .main-wrap { margin: 0 0 0 16rem; margin-top: 0; }
+    main {
+      display: flex;
+      flex-direction: column;
+      max-width: 46.25rem;
+      margin: 0 auto;
+      padding: 3rem 1rem 0;
+    }
+    @media (min-width: 640px) { main { padding-left: 1.25rem; padding-right: 1.25rem; } }
+
+    section { display: flex; flex-direction: column; padding: 1.25rem 0; width: 100%; }
+    section.gap-6 { gap: 1.5rem; }
+    section.gap-4 { gap: 1rem; }
+
+    /* ===== HERO ===== */
+    #home h1.hero-heading {
+      font-size: 2.25rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 2.5rem;
+      max-width: 32rem;
+    }
+    .hero-sub { font-weight: 600; color: var(--ForegroundTertiary); }
+    .hero-desc {
+      max-width: 32rem;
+      color: var(--ForegroundSecondary);
+      font-size: 1rem;
+      line-height: 1.5;
+      font-style: normal;
+      font-family: PPNeueMontreal, sans-serif;
+      letter-spacing: normal;
+    }
+    .cta-row { display: flex; flex-direction: row; gap: 0.75rem; margin-top: 1rem; }
+    .btn-filled {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      font-family: Martha, sans-serif;
+      letter-spacing: 0.025em;
+      font-size: 0.75rem;
+      line-height: 133%;
+      border-radius: 0.375rem;
+      background-color: var(--ForegroundSecondary);
+      color: var(--BackgroundPrimary);
+      transition: background-color 0.3s;
+    }
+    .btn-filled:hover { background-color: var(--ForegroundPrimary); }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      font-family: Martha, sans-serif;
+      letter-spacing: 0.025em;
+      font-size: 0.75rem;
+      line-height: 133%;
+      border-radius: 0.375rem;
+      background-color: transparent;
+      border: 1px solid var(--BordersPrimary);
+      color: var(--ForegroundSecondary);
+      transition: all 0.3s;
+    }
+    .btn-outline:hover { background-color: var(--ForegroundPrimary); color: var(--BackgroundPrimary); }
+    .green-dot { width: 0.5rem; height: 0.5rem; background-color: #22c55e; border-radius: 9999px; display: inline-block; }
+
+    /* ===== SECTION HEADERS ===== */
+    .section-head {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .section-head h2 { font-size: 1rem; font-weight: 600; }
+    .section-head .view-all {
+      font-size: 0.75rem;
+      line-height: 133%;
+      color: var(--ForegroundTertiary);
+      transition: color 0.3s;
+    }
+    .section-head .view-all:hover { color: var(--ForegroundPrimary); }
+
+    /* ===== STATUS CARDS (3-col grid) ===== */
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .status-card {
+      border-radius: 0.25rem;
+      border: 1px solid var(--BordersPrimary);
+      background-color: transparent;
+      padding: 1rem;
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: background-color 0.3s ease;
+    }
+    .status-card { cursor: pointer; }
+    .status-card:hover { background-color: var(--BackgroundHover); }
+    .status-card-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+      height: 100%;
+      justify-content: space-between;
+    }
+    .card-label {
+      font-family: Martha, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.025em;
+      text-transform: uppercase;
+      color: var(--ForegroundTertiary);
+    }
+    .music-row { display: flex; flex-direction: row; align-items: center; gap: 0.5rem; }
+    .music-thumb {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.25rem;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #1a3a5c, #2a1a4c);
+    }
+    .music-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .music-info h4 { font-size: 0.875rem; letter-spacing: 0; line-height: 133%; }
+    .music-info p { font-size: 0.875rem; letter-spacing: 0; line-height: 133%; color: var(--ForegroundSecondary); }
+    .game-thumb {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.25rem;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #2a1520, #4a2040);
+    }
+    .game-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .logo-img { width: 60%; }
+    .logo-img-inner {
+      font-size: 1.125rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    /* ===== ARTICLE CARDS (2-col grid) ===== */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1rem;
+    }
+    @media (min-width: 640px) { .articles-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .article-card {
+      display: block;
+      overflow: hidden;
+      border-radius: 0.25rem;
+      background-color: transparent;
+      border: 1px solid var(--BordersPrimary);
+      transition: background-color 0.3s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .article-card:hover { background-color: var(--BackgroundHover); }
+    .article-thumb {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: var(--BackgroundTertiary);
+    }
+    .article-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .article-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .article-body h3 { font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.005em; line-height: 133%; }
+    .article-body p {
+      font-size: 0.875rem;
+      line-height: 133%;
+      color: var(--ForegroundSecondary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .article-tags {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .article-tag {
+      font-family: Martha, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ForegroundTertiary);
+      line-height: 133%;
+    }
+    .article-tag .dot { margin: 0 0.25rem; }
+
+    /* ===== TRINKET CARDS (3-col grid) ===== */
+    .trinkets-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (min-width: 640px) { .trinkets-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .trinket-card {
+      border-radius: 0.25rem;
+      border: 1px solid var(--BordersPrimary);
+      background-color: transparent;
+      padding: 1rem;
+      cursor: pointer;
+      overflow: hidden;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .trinket-card:hover { background-color: var(--BackgroundHover); }
+    .trinket-product { display: flex; flex-direction: column; gap: 0; }
+    .trinket-images { margin: -1rem -1rem 0; border-bottom: 1px solid var(--BordersPrimary); }
+    .trinket-img-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--BackgroundPrimary);
+      padding: 1.5rem;
+    }
+    html.dark .trinket-img-wrap { background-color: #0e0f10; }
+    .trinket-img-wrap img { max-width: 80%; max-height: 80%; object-fit: contain; }
+    .trinket-product h4 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      line-height: 1.625;
+      margin-top: 1rem;
+    }
+    .trinket-product p {
+      font-size: 0.875rem;
+      letter-spacing: 0;
+      line-height: 1.625;
+      color: var(--ForegroundSecondary);
+    }
+
+    /* ===== FOOTER ===== */
+    .site-footer section {
+      font-size: 0.75rem;
+      line-height: 133%;
+      color: var(--ForegroundTertiary);
+    }
+    .footer-bar {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border-top: 1px solid var(--BordersPrimary);
+      padding: 1rem 0;
+    }
+
+    /* ===== MOBILE HEADER ===== */
+    .mobile-header {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 50;
+      width: 100%;
+      padding: 1rem;
+      border-bottom: 1px solid var(--BordersPrimary);
+      background-color: rgba(from var(--BackgroundPrimary) r g b / 0.9);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+    .mobile-header button { padding: 0; display: flex; align-items: center; height: 24px; }
+    .mobile-header svg { width: 20px; height: 20px; }
+
+    /* ===== VAUL-STYLE BOTTOM DRAWER OVERLAY ===== */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+    /* ===== VAUL-STYLE BOTTOM DRAWER ===== */
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 60;
+      margin-top: 6rem;
+      flex-direction: column;
+      height: auto;
+      border-radius: 0.75rem 0.75rem 0 0;
+      overflow: hidden;
+      border: 1px solid;
+      border-bottom: none;
+      transform: translateY(100%);
+      transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    html.light .mobile-drawer { border-color: #e4e4e7; }
+    html.dark .mobile-drawer { border-color: rgb(39, 39, 42); }
+    .mobile-drawer.open { transform: translateY(0); }
+
+    .drawer-handle {
+      display: none;
+    }
+
+    .drawer-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      gap: 1rem;
+      padding: 0;
+      border-radius: 0.75rem 0.75rem 0 0;
+      -webkit-backdrop-filter: blur(24px);
+      backdrop-filter: blur(24px);
+    }
+    html.light .drawer-content {
+      background-color: rgba(249, 248, 249, 0.8);
+    }
+    html.dark .drawer-content {
+      background-color: rgba(28, 28, 31, 0.8);
+    }
+
+    /* Drawer profile */
+    .drawer-profile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.25rem 0;
+    }
+
+    /* Drawer nav (flat list, larger font, no icons, no group titles) */
+    .drawer-nav {
+      padding: 0.75rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      flex: 1;
+    }
+    .drawer-nav-link {
+      display: flex;
+      align-items: center;
+      padding: 0.375rem 0.5rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--ForegroundPrimary);
+      opacity: 0.3;
+      border-radius: 6px;
+      background-color: transparent;
+      transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                  background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .drawer-nav-link:hover {
+      opacity: 0.8;
+      background-color: var(--BackgroundHover);
+    }
+    .drawer-nav-link.active { opacity: 1; }
+
+    /* Drawer footer */
+    .drawer-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0 1.25rem 1.25rem;
+    }
+
+    /* ===== BACKGROUND SCALE-DOWN EFFECT (Vaul pattern) ===== */
+    #vaulWrapper {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 0;
+      overflow: visible;
+      transform-origin: center top;
+    }
+    #vaulWrapper.drawer-open {
+      transform: scale(0.9333) translate3d(0, calc(env(safe-area-inset-top) + 14px), 0);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    @media (max-width: 767px) {
+      aside#sidebar { display: none !important; }
+      .mobile-header { display: flex; align-items: center; }
+      .mobile-drawer { display: flex; }
+      .main-wrap { margin-left: 0; }
+      main { padding-top: 4.5rem; }
+      .status-grid { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 768px) {
+      .mobile-drawer { display: none !important; }
+      .drawer-overlay { display: none !important; }
+    }
+
+    /* ===== PAGE SYSTEM ===== */
+    [data-page] { display: none; }
+    [data-page].active { display: block; }
+
+    /* Page transition animations */
+    @keyframes pageLeave {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-12px); }
+    }
+    @keyframes pageEnter {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    [data-page].page-leaving {
+      display: block;
+      animation: pageLeave 0.2s cubic-bezier(0.4, 0, 1, 1) forwards;
+      pointer-events: none;
+    }
+    [data-page].page-entering {
+      display: block;
+      animation: pageEnter 0.35s cubic-bezier(0, 0, 0.2, 1) forwards;
+    }
+
+    /* Page header (shared across subpages) */
+    .page-header { display: flex; flex-direction: column; gap: 1rem; padding: 1.25rem 0; }
+    .page-header h1 { font-size: 2.25rem; font-weight: 600; letter-spacing: -0.01em; line-height: 2.5rem; max-width: 32rem; }
+    .page-header p { color: var(--ForegroundSecondary); font-size: 0.9375rem; line-height: 150%; }
+
+    /* ===== TAB FILTER ===== */
+    .tab-bar {
+      display: flex;
+      gap: 1.5rem;
+      border-bottom: 1px solid var(--BordersPrimary);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .tab-item {
+      display: block;
+      padding: 1rem 0;
+      text-transform: uppercase;
+      font-family: Martha, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      line-height: 133%;
+      color: var(--ForegroundPrimary);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      opacity: 0.4;
+      transition: opacity 0.3s, border-color 0.3s;
+    }
+    .tab-item:hover { opacity: 0.8; }
+    .tab-item.active { opacity: 1; border-bottom-color: var(--ForegroundPrimary); }
+
+    /* ===== PROJECT CARDS (2-col grid with 16:9 thumbnails) ===== */
+    .project-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 640px) { .project-grid { grid-template-columns: repeat(2, 1fr); } }
+    .project-card {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.25rem;
+      border: 1px solid var(--BordersPrimary);
+      background-color: transparent;
+      transition: background-color 0.3s ease-in-out;
+      text-decoration: none;
+      color: inherit;
+    }
+    .project-card:hover { background-color: var(--BackgroundHover); }
+    .project-card .thumb { aspect-ratio: 16/9; overflow: hidden; background: var(--BackgroundTertiary); }
+    .project-card .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .project-card .info {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+    }
+    .project-card .info-text { flex: 1; display: flex; flex-direction: column; gap: 0.25rem; }
+    .project-card .info-text h3 { font-size: 0.9375rem; font-weight: 600; letter-spacing: -0.005em; line-height: 133%; }
+    .project-card .info-text p {
+      font-size: 0.875rem;
+      color: var(--ForegroundSecondary);
+      letter-spacing: 0.05em;
+      text-transform: capitalize;
+    }
+
+    /* ===== RESUME PAGE ===== */
+    .work-list { display: flex; flex-direction: column; padding: 1.25rem 0; }
+    .work-list .subtitle {
+      font-family: Martha, sans-serif;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      line-height: 133%;
+      color: var(--ForegroundTertiary);
+      margin-bottom: 1.5rem;
+    }
+    .exp-list { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+    .exp-item {
+      position: relative;
+      padding-top: 1rem;
+      border-top: 1px solid var(--BordersPrimary);
+    }
+    .exp-item-inner { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 640px) { .exp-item-inner { grid-template-columns: 2fr 3fr 1fr; } }
+    .exp-company {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .exp-logo {
+      width: 2rem; height: 2rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      background: var(--BackgroundTertiary);
+      flex-shrink: 0;
+    }
+    .exp-logo img { width: 100%; height: 100%; object-fit: cover; }
+    .exp-company span { font-size: 0.875rem; color: var(--ForegroundSecondary); }
+    .exp-detail { display: flex; flex-direction: column; gap: 0.5rem; }
+    .exp-detail h2 { font-size: 0.875rem; }
+    .exp-detail p { font-size: 0.875rem; color: var(--ForegroundTertiary); white-space: pre-wrap; }
+    .exp-date { font-size: 0.875rem; color: var(--ForegroundSecondary); text-align: right; }
+
+    /* Client list */
+    .client-list { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+    .client-item {
+      padding-top: 1rem;
+      border-top: 1px solid var(--BordersPrimary);
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.5rem;
+    }
+    @media (min-width: 640px) { .client-item { grid-template-columns: 2fr 3fr 1fr; gap: 1rem; } }
+    .client-item h2 { font-size: 0.875rem; }
+    .client-item .services { font-size: 0.875rem; color: var(--ForegroundSecondary); }
+    .client-item .date { font-size: 0.75rem; color: var(--ForegroundSecondary); text-align: right; }
+
+    /* ===== WRITING PAGE ===== */
+    .featured-article {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      border: 1px solid var(--BordersPrimary);
+      border-radius: 0.25rem;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: background-color 0.3s;
+    }
+    .featured-article:hover { background-color: var(--BackgroundHover); }
+    @media (min-width: 640px) { .featured-article { grid-template-columns: 1fr 1fr; } }
+    .featured-article .feat-thumb { aspect-ratio: 16/9; overflow: hidden; background: var(--BackgroundTertiary); }
+    .featured-article .feat-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .featured-article .feat-body {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 0.75rem; padding: 1.25rem;
+    }
+    .featured-article .feat-body h3 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+    .featured-article .feat-body p { font-size: 0.875rem; color: var(--ForegroundSecondary); line-height: 150%; }
+
+    /* ===== FRIENDS PAGE ===== */
+    .friends-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 640px) { .friends-grid { grid-template-columns: repeat(2, 1fr); } }
+    .friend-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border: 1px solid var(--BordersPrimary);
+      border-radius: 0.25rem;
+      transition: background-color 0.3s ease-in-out;
+      text-decoration: none;
+      color: inherit;
+    }
+    .friend-card:hover { background-color: var(--BackgroundHover); }
+    .friend-avatar {
+      width: 2.5rem; height: 2.5rem;
+      border-radius: 9999px;
+      overflow: hidden;
+      background: var(--BackgroundTertiary);
+      flex-shrink: 0;
+    }
+    .friend-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .friend-info h3 { font-size: 0.875rem; font-weight: 600; }
+    .friend-info p { font-size: 0.875rem; color: var(--ForegroundSecondary); }
+
+    /* ===== DETAIL PAGES (Project & Writing) ===== */
+    .detail-back { padding-top: 0; padding-bottom: 0; }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      font-size: 0.75rem; color: var(--ForegroundTertiary);
+      background: none; border: none; cursor: pointer; padding: 0;
+      transition: color 0.3s;
+      font-family: inherit;
+    }
+    .back-btn:hover { color: var(--ForegroundPrimary); }
+    .back-btn svg { font-size: 0.875rem; }
+    .detail-content { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+    .detail-header h1 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.02em; }
+    .detail-desc { font-size: 0.9375rem; line-height: 1.6; color: var(--ForegroundSecondary); margin-top: 0.75rem; font-style: italic; font-family: Martha, sans-serif; }
+    .detail-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+    .detail-meta-col h3 { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ForegroundTertiary); margin-bottom: 0.5rem; }
+    .detail-meta-col p { font-size: 0.875rem; line-height: 1.6; color: var(--ForegroundSecondary); }
+    .detail-year { color: var(--ForegroundTertiary) !important; margin-top: 0.25rem; }
+    .detail-media-row { width: 100%; border-radius: 0.5rem; overflow: hidden; }
+    .detail-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .detail-img-wrap { border-radius: 0.5rem; overflow: hidden; }
+    .detail-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .detail-video { width: 100%; border-radius: 0.5rem; display: block; }
+    .detail-quote { padding: 2rem 0; }
+    .detail-quote h2 { font-size: 1.25rem; font-weight: 400; line-height: 1.6; font-style: italic; font-family: Martha, sans-serif; color: var(--ForegroundSecondary); }
+    .detail-stats { display: flex; gap: 3rem; padding: 1.5rem 0; }
+    .detail-stats .stat-item h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+    .detail-stats .stat-item p { font-size: 0.75rem; color: var(--ForegroundTertiary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.25rem; }
+
+    /* ===== WRITING DETAIL PAGE ===== */
+    .writing-article { display: flex; flex-direction: column; gap: 0; }
+    .writing-header { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .writing-header h1 { font-size: 1.75rem; font-weight: 400; line-height: 1.25; }
+    .writing-subtitle { font-size: 1rem; color: var(--ForegroundSecondary); margin-bottom: 1rem; line-height: 1.5; }
+    .writing-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; letter-spacing: 0.05em; text-transform: uppercase; }
+    .writing-tag {
+      font-size: 0.6875rem; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--ForegroundSecondary); border: 1px solid var(--BordersPrimary);
+      padding: 0.125rem 0.375rem; border-radius: 0.25rem;
+      font-family: Martha, sans-serif;
+    }
+    .writing-hero { margin-top: 1.5rem; }
+    .writing-hero img, .writing-hero-placeholder { width: 100%; border-radius: 0.375rem; aspect-ratio: 16/9; object-fit: cover; background: var(--BackgroundTertiary); overflow: hidden; }
+    .writing-caption { font-size: 0.875rem; color: var(--ForegroundTertiary); text-align: center; margin-top: 0.75rem; }
+    .notion-content { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+    .notion-block { }
+    .notion-block p { font-size: 1rem; line-height: 1.625; color: var(--ForegroundSecondary); }
+    .notion-block p:empty { height: 0; }
+    .notion-block h2 { font-size: 1.25rem; font-weight: 600; margin-top: 1rem; line-height: 1.25; letter-spacing: -0.005em; }
+    .notion-block h3 { font-size: 1.125rem; font-weight: 600; margin-top: 1.5rem; line-height: 1.25; }
+    .notion-block em { font-style: italic; }
+    .notion-block .notion-image { overflow: hidden; border-radius: 0.375rem; }
+    .notion-block .notion-image img { width: 100%; object-fit: cover; }
+    .notion-block .notion-image-caption { font-size: 0.875rem; color: var(--ForegroundTertiary); text-align: center; margin-top: 0.5rem; }
+
+    /* ===== TRINKETS FULL PAGE (3-col) ===== */
+    .trinkets-full-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    @media (min-width: 640px) { .trinkets-full-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    /* ===== TRINKET MODAL ===== */
+    /* Mobile-first: full-screen takeover */
+    .trinket-modal-overlay {
+      position: fixed; inset: 0; z-index: 50;
+      display: flex; justify-content: center; align-items: flex-start;
+      padding: 0.5rem 0;
+      background: var(--BackgroundPrimary);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+      overflow-y: auto; -webkit-overflow-scrolling: touch;
+    }
+    .trinket-modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .trinket-modal-card {
+      position: relative;
+      display: flex; flex-direction: column; align-items: flex-start;
+      width: 100%; height: 100%;
+      gap: 0.25rem;
+      background: transparent;
+      transform: translateY(16px); opacity: 0;
+      transition: transform 0.3s cubic-bezier(0,0,0.2,1), opacity 0.3s ease;
+    }
+    .trinket-modal-overlay.open .trinket-modal-card {
+      transform: translateY(0); opacity: 1;
+    }
+    .trinket-modal-close {
+      position: absolute; top: 0.75rem; right: 0.75rem; z-index: 2;
+      padding: 0.5rem;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 9999px; border: none; cursor: pointer;
+      background: transparent;
+      color: var(--ForegroundSecondary);
+      transition: color 0.2s;
+    }
+    .trinket-modal-close:hover { color: var(--ForegroundPrimary); }
+    .trinket-modal-header { padding: 1.25rem; margin-top: 0.5rem; }
+    .trinket-modal-brand {
+      font-size: 0.875rem; text-transform: uppercase;
+      color: var(--ForegroundSecondary); font-family: Martha, sans-serif;
+      margin-bottom: 0.5rem;
+    }
+    .trinket-modal-name { font-size: 1.75rem; font-weight: 600; line-height: 2rem; }
+    .trinket-modal-image {
+      width: 100%; overflow: hidden;
+      background: var(--BackgroundTertiary);
+      display: flex; align-items: center; justify-content: center;
+      aspect-ratio: 484 / 420;
+    }
+    .trinket-modal-image.has-img { aspect-ratio: auto; }
+    .trinket-modal-image img {
+      width: 100%; height: auto;
+      object-fit: cover; display: block;
+    }
+    .trinket-modal-image .tm-placeholder {
+      font-size: 5rem; line-height: 1;
+      color: var(--ForegroundTertiary); user-select: none;
+    }
+    .trinket-modal-body { padding: 1.25rem; }
+    .trinket-modal-desc {
+      font-size: 1rem; line-height: 1.5;
+      color: var(--ForegroundSecondary); margin-bottom: 0.75rem;
+    }
+    .trinket-modal-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 1rem; margin-top: 1rem; margin-bottom: 0.5rem;
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
+      font-family: Martha, sans-serif;
+      background: var(--ForegroundSecondary); color: var(--BackgroundPrimary);
+      border-radius: 0.375rem; text-decoration: none;
+      transition: background 0.3s;
+    }
+    .trinket-modal-link:hover { background: var(--ForegroundPrimary); }
+
+    /* Desktop/Tablet: centered modal card with overlay */
+    @media (min-width: 768px) {
+      .trinket-modal-overlay {
+        align-items: center;
+        padding: 0 1.25rem;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        overflow: hidden;
+      }
+      .trinket-modal-card {
+        max-width: 24rem; height: auto;
+        background: var(--BackgroundSecondary);
+        border-radius: 0.5rem;
+        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        overflow: hidden;
+        transform: translateY(16px) scale(0.97);
+      }
+      .trinket-modal-overlay.open .trinket-modal-card {
+        transform: translateY(0) scale(1);
+      }
+      .trinket-modal-header { margin-top: 0.5rem; }
+    }
+
+    /* ===== PLACEHOLDER IMAGES ===== */
+    .placeholder-blog-1 { background: linear-gradient(135deg, #0a3d2e 0%, #1a5c4e 40%, #2a7c6e 100%); }
+    .placeholder-blog-2 { background: linear-gradient(135deg, #8a6a00 0%, #c89a20 40%, #e8ba40 100%); }
+    .placeholder-trinket { background: #0e0f10; display:flex; align-items:center; justify-content:center; color: var(--ForegroundTertiary); font-size:0.75rem; }
+
+    /* ===== LENIS SMOOTH SCROLL ===== */
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    .lenis.lenis-stopped { overflow: hidden; }
+
+    /* ===== SCROLL-TRIGGERED ANIMATIONS (IntersectionObserver + fadeIn) ===== */
+    [data-animate] {
+      visibility: hidden;
+      opacity: 0;
+    }
+    [data-animate].is-visible {
+      visibility: visible;
+      animation: fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Stagger delays for children */
+    [data-animate].is-visible.delay-1 { animation-delay: 0.05s; }
+    [data-animate].is-visible.delay-2 { animation-delay: 0.1s; }
+    [data-animate].is-visible.delay-3 { animation-delay: 0.15s; }
+    [data-animate].is-visible.delay-4 { animation-delay: 0.2s; }
+
+    /* ===== GLOBAL IMAGE FADE-IN (matches original's transition-opacity pattern) ===== */
+    body img {
+      opacity: 0;
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    body img.img-loaded {
+      opacity: 1;
+    }
+    .sidebar-avatar,
+    .thumb,
+    .trinket-img-wrap,
+    .detail-img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .sidebar-avatar::before,
+    .thumb::before,
+    .trinket-img-wrap::before,
+    .detail-img-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-color: var(--BackgroundTertiary);
+      background-image: linear-gradient(100deg, transparent 30%, rgba(128,128,128,0.15) 50%, transparent 70%);
+      background-size: 200% 100%;
+      animation: skeletonShimmer 1.5s ease-in-out infinite;
+    }
+    .sidebar-avatar.img-ready::before,
+    .thumb.img-ready::before,
+    .trinket-img-wrap.img-ready::before,
+    .detail-img-wrap.img-ready::before {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .thumb img,
+    .trinket-img-wrap img,
+    .detail-img-wrap img {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== SKELETON LOADING PLACEHOLDERS ===== */
+    @keyframes skeletonShimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position: 400px 0; }
+    }
+    .skeleton-overlay {
+      display: none;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding-top: 0.5rem;
+    }
+    .skeleton-overlay.active { display: flex; }
+    .skeleton-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .skeleton-bar {
+      height: 0.75rem;
+      border-radius: 4px;
+      background: var(--BackgroundTertiary);
+      background-image: linear-gradient(100deg, rgba(128,128,128,0) 0%, rgba(128,128,128,0.18) 50%, rgba(128,128,128,0) 100%);
+      background-size: 400px 100%;
+      background-repeat: no-repeat;
+      animation: skeletonShimmer 2s ease infinite;
+    }
+    .skeleton-bar.w-35 { width: 35%; }
+    .skeleton-bar.w-45 { width: 45%; }
+    .skeleton-bar.w-55 { width: 55%; }
+    .skeleton-bar.w-65 { width: 65%; }
+    .skeleton-bar.w-75 { width: 75%; }
+    .skeleton-bar.w-85 { width: 85%; }
+    .skeleton-bar.w-95 { width: 95%; }
+    .skeleton-bar.w-100 { width: 100%; }
+    .skeleton-bar.h-lg { height: 1rem; }
+    .skeleton-bar.h-xl { height: 10rem; border-radius: 0.5rem; }
+    .skeleton-bar.h-card { height: 12rem; border-radius: 0.5rem; }
+    .skeleton-row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .skeleton-row .skeleton-circle {
+      width: 2.25rem;
+      height: 2.25rem;
+      min-width: 2.25rem;
+      border-radius: 0.5rem;
+      background: var(--BackgroundTertiary);
+      background-image: linear-gradient(100deg, rgba(128,128,128,0) 0%, rgba(128,128,128,0.18) 50%, rgba(128,128,128,0) 100%);
+      background-size: 400px 100%;
+      background-repeat: no-repeat;
+      animation: skeletonShimmer 2s ease infinite;
+    }
+    .skeleton-row .skeleton-group { flex: 1; }
+    .skeleton-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .skeleton-friend-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.75rem;
+      border: 1px solid var(--BorderPrimary);
+      border-radius: 0.5rem;
+    }
+    .skeleton-friend-row .skeleton-avatar {
+      width: 2rem;
+      height: 2rem;
+      min-width: 2rem;
+      border-radius: 50%;
+      background: var(--BackgroundTertiary);
+      background-image: linear-gradient(100deg, rgba(128,128,128,0) 0%, rgba(128,128,128,0.18) 50%, rgba(128,128,128,0) 100%);
+      background-size: 400px 100%;
+      background-repeat: no-repeat;
+      animation: skeletonShimmer 2s ease infinite;
+    }
+
+    /* ===== HOVER TRANSITIONS (exact match) ===== */
+    .nav-link {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .social-btn {
+      transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .status-card {
+      transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  text-decoration-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  fill 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  stroke 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .trinket-card {
+      transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-filled, .btn-outline {
+      transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .article-card {
+      transition: color 0.3s ease-in-out,
+                  background-color 0.3s ease-in-out,
+                  border-color 0.3s ease-in-out;
+    }
+    .section-head .view-all {
+      transition: color 0.3s ease-in-out,
+                  background-color 0.3s ease-in-out,
+                  border-color 0.3s ease-in-out;
+    }
+
+    /* ===== ARTICLE CARD: ARROW SLIDE-IN ON HOVER ===== */
+    .article-card { position: relative; }
+    .article-card .arrow-reveal {
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+      margin-left: auto;
+      display: inline-flex;
+    }
+    .article-card:hover .arrow-reveal {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ===== TRINKET CARD: ARROW SLIDE-IN ON HOVER ===== */
+    .trinket-card .arrow-reveal {
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+      margin-left: auto;
+      display: inline-flex;
+    }
+    .trinket-card:hover .arrow-reveal {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ===== PROJECT CARD: ARROW SLIDE-IN ON HOVER ===== */
+    .project-card .arrow-reveal {
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+      margin-left: auto;
+      display: inline-flex;
+    }
+    .group:hover .arrow-reveal,
+    .project-card:hover .arrow-reveal {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ===== THEME TOGGLE SLIDING INDICATOR ===== */
+    .toggle-indicator {
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .toggle-icons svg {
+      transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* (image fade-in handled by #app img rules above) */
+
+    /* ===== SKELETON LOADER ===== */
+    @keyframes skeleton-loading {
+      to { background-position-x: -20%; }
+    }
+    .skeleton {
+      background: linear-gradient(100deg, transparent, rgba(128,128,128,0.2) 50%, transparent);
+      background-position-x: 180%;
+      background-size: 200% 100%;
+      border-radius: 0.25rem;
+      background-color: var(--BackgroundTertiary);
+      animation: skeleton-loading 2s ease infinite;
+    }
+
+    /* ===== PAGE LOAD: main content fade in ===== */
+    main {
+      opacity: 0;
+      animation: mainFadeIn 0.5s ease 0.15s forwards;
+    }
+    @keyframes mainFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+  </style>
+</head>
+<body class="bg-BackgroundPrimary text-ForegroundPrimary">
+
+  <!-- Drawer Overlay (Vaul-style) -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+  <!-- Mobile Bottom Drawer (Vaul-style) -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-handle"><div class="drawer-handle-bar"></div></div>
+    <div class="drawer-content">
+      <div>
+        <div class="drawer-profile">
+          <figure class="sidebar-avatar">
+            <img src="./profile-photo.jpg" alt="Eric Sin">
+          </figure>
+          <div class="sidebar-name-block">
+            <h1>Eric Sin</h1>
+            <h2>Designer</h2>
+          </div>
+        </div>
+        <div class="sidebar-divider" style="margin-top:1rem;"></div>
+        <nav class="drawer-nav">
+          <a href="#" class="drawer-nav-link active" data-nav="home">Home</a>
+          <a href="#" class="drawer-nav-link" data-nav="projects">Projects</a>
+          <a href="#" class="drawer-nav-link" data-nav="resume">Resume</a>
+          <a href="#" class="drawer-nav-link" data-nav="writing">Writing</a>
+          <a href="#" class="drawer-nav-link" data-nav="friends">Friends</a>
+          <a href="#" class="drawer-nav-link" data-nav="trinkets">Trinkets</a>
+        </nav>
+      </div>
+      <div class="drawer-footer">
+        <div class="sidebar-divider"></div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;padding-top:0.75rem;">
+          <div>
+            <div class="clock-label">Local Time (<span class="tz-abbr">PST</span>)</div>
+            <div class="clock-time">
+              <span class="date clock-date-m">03.31</span>
+              <span class="sep">/</span>
+              <span class="time"><span class="digit clock-hour-m">00</span> : <span class="digit clock-min-m">00</span> <span class="clock-ampm-m">AM</span></span>
+            </div>
+          </div>
+          <div>
+            <ul class="social-list">
+              <li><a href="https://instagram.com/ericysin" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.028 2c1.125.003 1.696.009 2.189.023l.194.007c.224.008.445.018.712.03c1.064.05 1.79.218 2.427.465c.66.254 1.216.598 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.012.266.022.487.03.712l.006.194c.015.492.021 1.063.023 2.188l.001.746v1.31a79 79 0 0 1-.023 2.188l-.006.194c-.008.225-.018.446-.03.712c-.05 1.065-.22 1.79-.466 2.428a4.9 4.9 0 0 1-1.153 1.772a4.9 4.9 0 0 1-1.772 1.153c-.637.247-1.363.415-2.427.465l-.712.03-.194.006c-.493.014-1.064.021-2.189.023l-.746.001h-1.309a78 78 0 0 1-2.189-.023l-.194-.006a63 63 0 0 1-.712-.031c-1.064-.05-1.79-.218-2.428-.465a4.9 4.9 0 0 1-1.771-1.153a4.9 4.9 0 0 1-1.154-1.772c-.247-.637-.415-1.363-.465-2.428l-.03-.712-.005-.194A79 79 0 0 1 2 13.028v-2.056a79 79 0 0 1 .022-2.188l.007-.194c.008-.225.018-.446.03-.712c.05-1.065.218-1.79.465-2.428A4.9 4.9 0 0 1 3.68 3.678a4.9 4.9 0 0 1 1.77-1.153c.638-.247 1.363-.415 2.428-.465c.266-.012.488-.022.712-.03l.194-.006a79 79 0 0 1 2.188-.023zM12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10m0 2a3 3 0 1 1 .001 6a3 3 0 0 1 0-6m5.25-3.5a1.25 1.25 0 0 0 0 2.5a1.25 1.25 0 0 0 0-2.5"/></svg>
+              </a></li>
+              <li><a href="https://www.linkedin.com/in/quickfox/" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4-.002a2 2 0 0 1 4 .002M7 8.48H3V21h4zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91z"/></svg>
+              </a></li>
+              <li><a href="https://www.threads.net/@imericsin" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.705 11.108c-.162-2.987-1.794-4.697-4.534-4.714c-1.652-.01-3.033.69-3.879 1.973L9.8 9.4c.634-.961 1.635-1.16 2.36-1.153c.903.006 1.583.268 2.024.78c.32.372.535.887.642 1.536q-1.202-.204-2.59-.125c-2.606.15-4.28 1.67-4.168 3.781c.057 1.071.59 1.993 1.502 2.595c.77.509 1.764.757 2.795.701c1.363-.075 2.432-.594 3.178-1.545c.566-.722.924-1.658 1.082-2.836c.65.392 1.13.907 1.397 1.527c.452 1.054.478 2.786-.935 4.198c-1.238 1.236-2.726 1.772-4.975 1.788c-2.495-.018-4.382-.819-5.608-2.378c-1.15-1.46-1.743-3.57-1.765-6.269c.022-2.7.616-4.809 1.765-6.27c1.226-1.559 3.113-2.359 5.608-2.377c2.513.019 4.432.822 5.706 2.39c.625.768 1.095 1.734 1.406 2.86l1.766-.47c-.377-1.387-.969-2.582-1.774-3.573c-1.633-2.01-4.033-3.039-7.11-3.06c-3.071.021-5.432 1.055-7.019 3.071c-1.411 1.795-2.14 4.306-2.164 7.436c.024 3.13.753 5.627 2.164 7.422c1.587 2.016 3.96 3.05 7.03 3.071c2.731-.019 4.655-.734 6.24-2.317c2.075-2.073 2.012-4.67 1.329-6.264c-.525-1.225-1.57-2.206-2.98-2.81m-4.438 4.557c-1.142.064-2.328-.448-2.387-1.546c-.043-.814.58-1.722 2.457-1.83a9.4 9.4 0 0 1 2.533.174c-.216 2.702-1.485 3.14-2.603 3.202"/></svg>
+              </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Header -->
+  <header class="mobile-header" id="mobileHeader">
+    <button id="menuBtn" aria-label="Menu">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/></svg>
+    </button>
+  </header>
+
+  <!-- Theme Toggle -->
+  <div class="theme-toggle-wrap">
+    <button class="theme-toggle-btn" id="themeToggle" title="Switch theme">
+      <div class="toggle-indicator"></div>
+      <div class="toggle-icons">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </div>
+    </button>
+  </div>
+
+  <!-- Vaul-style wrapper (scales down when drawer opens, contains only main content) -->
+  <div id="vaulWrapper">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside id="sidebar">
+    <div class="sidebar-inner">
+      <div class="sidebar-top">
+        <div>
+          <div class="sidebar-profile">
+            <figure class="sidebar-avatar">
+              <img src="./profile-photo.jpg" alt="Eric Sin">
+            </figure>
+            <div class="sidebar-name-block">
+              <h1>Eric Sin</h1>
+              <h2>Designer</h2>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div>
+          <nav class="sidebar-nav">
+            <ul class="nav-group">
+              <h3 class="nav-group-title">Work</h3>
+              <li><a href="#" class="nav-link active" data-nav="home">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                Home</a></li>
+              <li><a href="#" class="nav-link" data-nav="projects">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 13-8.381 8.38a1 1 0 0 1-3.001-3L11 9.999m4.973-5.972A13 13 0 0 0 5.902 2.373c-1.398.342-1.092 2.158.277 2.601a19.9 19.9 0 0 1 5.822 3.024m4 4.001a19.9 19.9 0 0 1 3.024 5.824c.444 1.369 2.26 1.676 2.603.278A13 13 0 0 0 20 8.069"/><path d="M18.352 3.352a1.205 1.205 0 0 0-1.704 0l-5.296 5.296a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l5.296-5.296a1.205 1.205 0 0 0 0-1.704z"/></svg>
+                Projects</a></li>
+              <li><a href="#" class="nav-link" data-nav="resume">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7v10m4-10v10m4-10l2 10"/></svg>
+                Resume</a></li>
+            </ul>
+            <ul class="nav-group">
+              <h3 class="nav-group-title">Personal</h3>
+              <li><a href="#" class="nav-link" data-nav="writing">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/></svg>
+                Writing</a></li>
+              <li><a href="#" class="nav-link" data-nav="friends">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2v2m1.915 18a6 6 0 0 0-12 0M8 2v2"/><circle cx="12" cy="12" r="4"/><rect width="18" height="18" x="3" y="4" rx="2"/></svg>
+                Friends</a></li>
+              <li><a href="#" class="nav-link" data-nav="trinkets">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6m4.76-6a2 2 0 0 1 1.8 1.1l2.23 4.479a2 2 0 0 1 .21.891V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9.472a2 2 0 0 1 .211-.894L5.45 4.1A2 2 0 0 1 7.24 3zM3.054 9.013h17.893"/></svg>
+                Trinkets</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <footer class="sidebar-footer">
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-footer-inner">
+          <div>
+            <div class="clock-label">Local Time (<span id="tzAbbr">PST</span>)</div>
+            <div class="clock-time">
+              <span class="date" id="clockDate">03.31</span>
+              <span class="sep">/</span>
+              <span class="time"><span class="digit" id="clockHour">00</span> : <span class="digit" id="clockMin">00</span> <span id="clockAmPm">AM</span></span>
+            </div>
+          </div>
+          <div>
+            <ul class="social-list">
+              <li><a href="https://instagram.com/ericysin" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.028 2c1.125.003 1.696.009 2.189.023l.194.007c.224.008.445.018.712.03c1.064.05 1.79.218 2.427.465c.66.254 1.216.598 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.012.266.022.487.03.712l.006.194c.015.492.021 1.063.023 2.188l.001.746v1.31a79 79 0 0 1-.023 2.188l-.006.194c-.008.225-.018.446-.03.712c-.05 1.065-.22 1.79-.466 2.428a4.9 4.9 0 0 1-1.153 1.772a4.9 4.9 0 0 1-1.772 1.153c-.637.247-1.363.415-2.427.465l-.712.03-.194.006c-.493.014-1.064.021-2.189.023l-.746.001h-1.309a78 78 0 0 1-2.189-.023l-.194-.006a63 63 0 0 1-.712-.031c-1.064-.05-1.79-.218-2.428-.465a4.9 4.9 0 0 1-1.771-1.153a4.9 4.9 0 0 1-1.154-1.772c-.247-.637-.415-1.363-.465-2.428l-.03-.712-.005-.194A79 79 0 0 1 2 13.028v-2.056a79 79 0 0 1 .022-2.188l.007-.194c.008-.225.018-.446.03-.712c.05-1.065.218-1.79.465-2.428A4.9 4.9 0 0 1 3.68 3.678a4.9 4.9 0 0 1 1.77-1.153c.638-.247 1.363-.415 2.428-.465c.266-.012.488-.022.712-.03l.194-.006a79 79 0 0 1 2.188-.023zM12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10m0 2a3 3 0 1 1 .001 6a3 3 0 0 1 0-6m5.25-3.5a1.25 1.25 0 0 0 0 2.5a1.25 1.25 0 0 0 0-2.5"/></svg>
+              </a></li>
+              <li><a href="https://www.linkedin.com/in/quickfox/" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4-.002a2 2 0 0 1 4 .002M7 8.48H3V21h4zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91z"/></svg>
+              </a></li>
+              <li><a href="https://www.threads.net/@imericsin" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.705 11.108c-.162-2.987-1.794-4.697-4.534-4.714c-1.652-.01-3.033.69-3.879 1.973L9.8 9.4c.634-.961 1.635-1.16 2.36-1.153c.903.006 1.583.268 2.024.78c.32.372.535.887.642 1.536q-1.202-.204-2.59-.125c-2.606.15-4.28 1.67-4.168 3.781c.057 1.071.59 1.993 1.502 2.595c.77.509 1.764.757 2.795.701c1.363-.075 2.432-.594 3.178-1.545c.566-.722.924-1.658 1.082-2.836c.65.392 1.13.907 1.397 1.527c.452 1.054.478 2.786-.935 4.198c-1.238 1.236-2.726 1.772-4.975 1.788c-2.495-.018-4.382-.819-5.608-2.378c-1.15-1.46-1.743-3.57-1.765-6.269c.022-2.7.616-4.809 1.765-6.27c1.226-1.559 3.113-2.359 5.608-2.377c2.513.019 4.432.822 5.706 2.39c.625.768 1.095 1.734 1.406 2.86l1.766-.47c-.377-1.387-.969-2.582-1.774-3.573c-1.633-2.01-4.033-3.039-7.11-3.06c-3.071.021-5.432 1.055-7.019 3.071c-1.411 1.795-2.14 4.306-2.164 7.436c.024 3.13.753 5.627 2.164 7.422c1.587 2.016 3.96 3.05 7.03 3.071c2.731-.019 4.655-.734 6.24-2.317c2.075-2.073 2.012-4.67 1.329-6.264c-.525-1.225-1.57-2.206-2.98-2.81m-4.438 4.557c-1.142.064-2.328-.448-2.387-1.546c-.043-.814.58-1.722 2.457-1.83a9.4 9.4 0 0 1 2.533.174c-.216 2.702-1.485 3.14-2.603 3.202"/></svg>
+              </a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <div class="main-wrap">
+    <div id="app">
+      <main>
+        <div id="home" data-page="home" class="active">
+          <!-- Hero -->
+          <section class="gap-6" data-animate>
+            <h1 class="hero-heading">
+              Designing thoughtful brand &amp; product experiences.
+              <br><span class="hero-sub">Based in Orange County, CA.</span>
+            </h1>
+            <div>
+              <p class="hero-desc">I've worked in varied startups throughout the past 20 years. I excel in 0-1 situations and enjoy crafting the vision of what could be.</p>
+              <div class="cta-row">
+                <a href="#" class="btn-filled">View Resume</a>
+                <a href="mailto:hello@ericsin.com" class="btn-outline"><span class="green-dot"></span> Open for Freelance</a>
+              </div>
+            </div>
+          </section>
+
+          <!-- Current Status -->
+          <section class="gap-4" data-animate>
+            <div><h2 class="font-semibold">Current Status</h2></div>
+            <div class="status-grid">
+              <!-- Music -->
+              <div class="status-card">
+                <div class="status-card-inner">
+                  <span class="card-label">Current Listens</span>
+                  <div class="music-row">
+                    <div class="music-thumb"></div>
+                    <div class="music-info">
+                      <h4>Bubble Gum</h4>
+                      <p>NewJeans</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Game -->
+              <div class="status-card">
+                <div class="status-card-inner">
+                  <span class="card-label">Currently Playing</span>
+                  <div class="music-row">
+                    <div class="game-thumb"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- WIP -->
+              <div class="status-card">
+                <div class="status-card-inner">
+                  <span class="card-label">Work in Progress</span>
+                  <div class="logo-img">
+                    <div class="logo-img-inner">VESSEL<br>SUPPLY&reg;</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Latest Articles -->
+          <section class="gap-4" data-animate>
+            <div class="section-head">
+              <h2 class="font-semibold">Latest Articles</h2>
+              <a href="#" class="view-all" data-navigate="writing">View All <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
+            </div>
+            <section style="padding-top:0;">
+              <div class="articles-grid">
+                <a href="#" data-detail="writing-8cbe3efc" class="article-card">
+                  <div class="article-thumb placeholder-blog-1"></div>
+                  <div class="article-body">
+                    <h3>How I accomplished nothing I wanted to by 30</h3>
+                    <p>This post was written in 2019, via Medium.</p>
+                    <div class="article-tags" style="display:flex;align-items:center;justify-content:space-between;">
+                      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                        <span class="article-tag">Career <span class="dot">&bull;</span></span>
+                        <span class="article-tag">Life</span>
+                      </div>
+                      <span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span>
+                    </div>
+                  </div>
+                </a>
+                <a href="#" data-detail="writing-958a4f15" class="article-card">
+                  <div class="article-thumb placeholder-blog-2"></div>
+                  <div class="article-body">
+                    <h3>You shouldn't become a designer.</h3>
+                    <p>A few reasons why being a &ldquo;designer&rdquo; in any sense is a terrible idea in 2024.</p>
+                    <div class="article-tags" style="display:flex;align-items:center;justify-content:space-between;">
+                      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                        <span class="article-tag">Career <span class="dot">&bull;</span></span>
+                        <span class="article-tag">Design <span class="dot">&bull;</span></span>
+                        <span class="article-tag">Life</span>
+                      </div>
+                      <span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </section>
+          </section>
+
+          <!-- Trinkets -->
+          <section class="gap-4" data-animate>
+            <div class="section-head">
+              <h2 class="font-semibold">Trinkets</h2>
+              <a href="#" class="view-all" data-navigate="trinkets">View All <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></a>
+            </div>
+            <div class="trinkets-grid">
+              <div class="trinket-card" data-trinket="0">
+                <div class="trinket-product">
+                  <div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/7b740f52-a1aa-4cea-b221-daa9e7640846/IWC_Le_Petit_Prince_Mark_XVIII-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#9201;</div>'"></div></div>
+                  <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+                    <div><h4>&ldquo;Le Petit Prince&rdquo; Pilot</h4><p>IWC</p></div>
+                    <span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span>
+                  </div>
+                </div>
+              </div>
+              <div class="trinket-card" data-trinket="3">
+                <div class="trinket-product">
+                  <div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/9e39d4e7-ac6d-46c7-b728-162ff424e638/CM-15-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#9835;</div>'"></div></div>
+                  <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+                    <div><h4>CM-15</h4><p>Teenage Engineering</p></div>
+                    <span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span>
+                  </div>
+                </div>
+              </div>
+              <div class="trinket-card" data-trinket="4">
+                <div class="trinket-product">
+                  <div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/86688057-2369-4881-82af-24489618c24d/Computer_1-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#128187;</div>'"></div></div>
+                  <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+                    <div><h4>Computer-1</h4><p>Teenage Engineering</p></div>
+                    <span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- ===== PROJECTS PAGE ===== -->
+        <div id="projects" data-page="projects">
+          <div class="skeleton-overlay" data-skeleton>
+            <div class="skeleton-group">
+              <div class="skeleton-bar h-lg w-35"></div>
+              <div class="skeleton-bar w-95"></div>
+              <div class="skeleton-bar w-75"></div>
+            </div>
+            <div class="skeleton-grid-2">
+              <div class="skeleton-bar h-card"></div>
+              <div class="skeleton-bar h-card"></div>
+              <div class="skeleton-bar h-card"></div>
+              <div class="skeleton-bar h-card"></div>
+            </div>
+          </div>
+          <section class="page-header" data-animate>
+            <h1>Projects</h1>
+            <p>I've worked primarily in 0-1 digital product spaces to great success, helping to design thoughtful brand and product experiences. Below are a select collection of some of the businesses I've touched during that time.</p>
+          </section>
+          <section style="padding-top:0;" data-animate>
+            <ul class="tab-bar" data-filter="projects">
+              <li class="tab-item active" data-tab="all">All</li>
+              <li class="tab-item" data-tab="brand">Brand</li>
+              <li class="tab-item" data-tab="product">Product</li>
+            </ul>
+            <ul class="project-grid" style="margin-top:1rem;">
+              <li class="group" data-category="brand"><a href="#" data-detail="project-apmc" class="project-card"><div class="thumb"><img src="https://a-us.storyblok.com/f/1021504/1280x720/0b86ccbbf4/apmc_thumbnail.png" alt="APMC"></div><div class="info"><div class="info-text"><h3>APMC</h3><p>Brand &bull; 2025</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></a></li>
+              <li class="group" data-category="product"><a href="#" data-detail="project-you" class="project-card"><div class="thumb"><img src="https://a-us.storyblok.com/f/1021504/1264x738/0fd81fd7c2/ydc-cover.jpg" alt="You.com"></div><div class="info"><div class="info-text"><h3>You.com</h3><p>Product &bull; 2024</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></a></li>
+              <li class="group" data-category="product"><a href="#" data-detail="project-mosaic" class="project-card"><div class="thumb"><img src="https://a-us.storyblok.com/f/1021504/740x420/fea41a7fd2/thumbnail-mosaic.jpg" alt="Mosaic Finance"></div><div class="info"><div class="info-text"><h3>Mosaic Finance</h3><p>Product &bull; 2023-24</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></a></li>
+              <li class="group" data-category="product"><a href="#" data-detail="project-auditboard-tprm" class="project-card"><div class="thumb"><img src="https://a-us.storyblok.com/f/1021504/740x420/ea8800990c/thumbnail-auditboard-tprm.jpg" alt="AuditBoard TPRM"></div><div class="info"><div class="info-text"><h3>AuditBoard TPRM</h3><p>Product &bull; 2022-2023</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></a></li>
+              <li class="group" data-category="brand"><a href="#" data-detail="project-teladerma" class="project-card"><div class="thumb"><img src="https://a-us.storyblok.com/f/1021504/1261x741/a190c97052/thumb-telederma-min.jpg" alt="Teladerma"></div><div class="info"><div class="info-text"><h3>Teladerma</h3><p>Brand &bull; 2024</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></a></li>
+              <li class="group" data-category="brand"><a href="#" data-detail="project-revops" class="project-card"><div class="thumb"><img src="https://a-us.storyblok.com/f/1021504/1261x740/16d6813ef4/thumb-revops-min.jpg" alt="REVOPS"></div><div class="info"><div class="info-text"><h3>REVOPS</h3><p>Brand &bull; 2024</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></a></li>
+              <li class="group" data-category="brand"><a href="#" data-detail="project-sage-dermatology" class="project-card"><div class="thumb"><img src="https://a-us.storyblok.com/f/1021504/1260x741/39ea9cb99f/thumb-sage-min.jpg" alt="Sage Dermatology"></div><div class="info"><div class="info-text"><h3>Sage Dermatology</h3><p>Brand &bull; 2023</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></a></li>
+              <li class="group" data-category="brand"><a href="#" data-detail="project-domain-money" class="project-card"><div class="thumb"><img src="https://a-us.storyblok.com/f/1021504/1260x740/789113c9f0/thumb-domainmoney-min.jpg" alt="Domain Money"></div><div class="info"><div class="info-text"><h3>Domain Money</h3><p>Brand &bull; 2022</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></a></li>
+              <li class="group" data-category="brand"><a href="#" data-detail="project-arete" class="project-card"><div class="thumb"><img src="https://a-us.storyblok.com/f/1021504/3840x2160/3d48c6796b/2-min.jpg" alt="Areté"></div><div class="info"><div class="info-text"><h3>Areté</h3><p>Brand &bull; 2021</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></a></li>
+              <li class="group" data-category="brand"><a href="#" data-detail="project-lime" class="project-card"><div class="thumb"><img src="https://a-us.storyblok.com/f/1021504/1260x741/5e74628dd0/thumb-lime-min.jpg" alt="Lime"></div><div class="info"><div class="info-text"><h3>Lime</h3><p>Brand &bull; 2021</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></a></li>
+              <li class="group" data-category="brand"><a href="#" data-detail="project-omomo" class="project-card"><div class="thumb"><img src="https://a-us.storyblok.com/f/1021504/1260x741/c46d1e7976/thumb-omomo-min.jpg" alt="OMOMO"></div><div class="info"><div class="info-text"><h3>OMOMO</h3><p>Brand &bull; 2018</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></a></li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- ===== RESUME PAGE ===== -->
+        <div id="resume" data-page="resume">
+          <div class="skeleton-overlay" data-skeleton>
+            <div class="skeleton-group">
+              <div class="skeleton-bar h-lg w-35"></div>
+              <div class="skeleton-bar w-95"></div>
+              <div class="skeleton-bar w-85"></div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-circle"></div>
+              <div class="skeleton-group">
+                <div class="skeleton-bar h-lg w-45"></div>
+                <div class="skeleton-bar w-95"></div>
+                <div class="skeleton-bar w-85"></div>
+                <div class="skeleton-bar w-65"></div>
+              </div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-circle"></div>
+              <div class="skeleton-group">
+                <div class="skeleton-bar h-lg w-35"></div>
+                <div class="skeleton-bar w-95"></div>
+                <div class="skeleton-bar w-85"></div>
+                <div class="skeleton-bar w-75"></div>
+              </div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-circle"></div>
+              <div class="skeleton-group">
+                <div class="skeleton-bar h-lg w-55"></div>
+                <div class="skeleton-bar w-85"></div>
+                <div class="skeleton-bar w-65"></div>
+              </div>
+            </div>
+            <div class="skeleton-row">
+              <div class="skeleton-circle"></div>
+              <div class="skeleton-group">
+                <div class="skeleton-bar h-lg w-35"></div>
+                <div class="skeleton-bar w-95"></div>
+                <div class="skeleton-bar w-85"></div>
+                <div class="skeleton-bar w-95"></div>
+                <div class="skeleton-bar w-45"></div>
+              </div>
+            </div>
+          </div>
+          <section class="page-header" data-animate>
+            <h1>Resume</h1>
+            <p>I operate in the space between product and brand design, while dabbling a little bit here and there with development. I gravitate toward complex niches and enjoy making them more accessible and simple.</p>
+          </section>
+          <section class="work-list" data-animate>
+            <h1 class="subtitle">Work Experience</h1>
+            <ul class="exp-list">
+              <li class="exp-item"><div class="exp-item-inner"><div class="exp-company"><div class="exp-logo"><img src="/images/logos/icon-You.png" alt=""></div><span>You.com</span></div><div class="exp-detail"><h2>Senior Product Designer</h2><p>Working with LLMs and AI to create a more thoughtful conversational AI experience.</p></div><div class="exp-date"></div></div></li>
+              <li class="exp-item"><div class="exp-item-inner"><div class="exp-company"><div class="exp-logo"><img src="/images/logos/icon-MosaicFinance.png" alt=""></div><span>Mosaic Finance</span></div><div class="exp-detail"><h2>Senior Product Designer II</h2><p>Lead designer for FP&amp;A platform with a focus on financial modeling and analysis, data management, and executive reporting workflows and experiences.</p></div><div class="exp-date"></div></div></li>
+              <li class="exp-item"><div class="exp-item-inner"><div class="exp-company"><div class="exp-logo"><img src="/images/logos/icon-AuditBoard.png" alt=""></div><span>AuditBoard</span></div><div class="exp-detail"><h2>Senior Product Designer, TPRM</h2><p>Lead designer for 0-1 third-party risk management product.</p></div><div class="exp-date"></div></div></li>
+              <li class="exp-item"><div class="exp-item-inner"><div class="exp-company"><div class="exp-logo"><img src="/images/logos/icon-AuditBoard.png" alt=""></div><span>AuditBoard</span></div><div class="exp-detail"><h2>Design Manager</h2><p>Led AuditBoard's brand design team in creating thoughtful design through digital experiences and events, also helped to design and art direct key brand experiences for AuditBoard, including its annual branded conference, Audit &amp; Beyond.</p></div><div class="exp-date"></div></div></li>
+              <li class="exp-item"><div class="exp-item-inner"><div class="exp-company"><div class="exp-logo"><img src="/images/logos/icon-AParentMediaCo.png" alt=""></div><span>A Parent Media Co.</span></div><div class="exp-detail"><h2>Director, Design</h2><p>Oversaw and led brand and product design for key flagship products under the APMC umbrella, including Kidoodle.TV, SafeExchange, and various white-label solutions.</p></div><div class="exp-date"></div></div></li>
+              <li class="exp-item"><div class="exp-item-inner"><div class="exp-company"><div class="exp-logo"><img src="/images/logos/icon-RoosterCreatives.png" alt=""></div><span>Rooster Creatives</span></div><div class="exp-detail"><h2>Senior Designer</h2><p>Helped to design and launch brand initiatives for business in the Southern California area (OMOMO, Boiling Point, Urbanfloor, etc.)</p></div><div class="exp-date"></div></div></li>
+              <li class="exp-item"><div class="exp-item-inner"><div class="exp-company"><div class="exp-logo"><img src="/images/logos/icon-AParentMediaCo.png" alt=""></div><span>A Parent Media Co.</span></div><div class="exp-detail"><h2>Founding Designer</h2><p>First designer for a 0-1 digital streaming platform geared towards children. Designed and built foundations for brand and product across platforms including Roku, Apple, Android, and more.</p></div><div class="exp-date"></div></div></li>
+            </ul>
+          </section>
+          <section class="work-list" data-animate>
+            <h1 class="subtitle">Clients</h1>
+            <ul class="client-list">
+              <li class="client-item"><h2>OMOMO</h2><span class="services">Brand, Web</span><span class="date">Oct 2018</span></li>
+              <li class="client-item"><h2>Vivian Kim</h2><span class="services">Brand, Web</span><span class="date">Apr 2023</span></li>
+              <li class="client-item"><h2>Ann Lee Consulting</h2><span class="services">Brand, Web</span><span class="date">Feb 2022</span></li>
+              <li class="client-item"><h2>Areté</h2><span class="services">Brand, Web</span><span class="date">Jun 2022</span></li>
+              <li class="client-item"><h2>Aircarbon</h2><span class="services">Web</span><span class="date">Feb 2023</span></li>
+              <li class="client-item"><h2>Cottonwood Home</h2><span class="services">Brand</span><span class="date">Jul 2018</span></li>
+              <li class="client-item"><h2>Quest AI</h2><span class="services">Brand</span><span class="date">Aug 2019</span></li>
+              <li class="client-item"><h2>Urbanfloor</h2><span class="services">Brand, Web</span><span class="date">Apr 2018</span></li>
+              <li class="client-item"><h2>Audit &amp; Beyond</h2><span class="services">Brand, Web</span><span class="date">Oct 2020</span></li>
+              <li class="client-item"><h2>Domain Money</h2><span class="services">Product, Brand, Web</span><span class="date">Jul 2022</span></li>
+              <li class="client-item"><h2>Global Mission Church</h2><span class="services">Brand, Web</span><span class="date">Mar 2020</span></li>
+              <li class="client-item"><h2>Refresh AI</h2><span class="services">Product, Brand</span><span class="date">May 2024</span></li>
+              <li class="client-item"><h2>Gappify</h2><span class="services">Brand, Web</span><span class="date">Feb 2024</span></li>
+              <li class="client-item"><h2>Good Stewards Church</h2><span class="services">Brand, Web</span><span class="date">Apr 2021</span></li>
+              <li class="client-item"><h2>Sage Dermatology</h2><span class="services">Brand, Web</span><span class="date">Apr 2023</span></li>
+              <li class="client-item"><h2>Chapter One</h2><span class="services">Brand, Web</span><span class="date">Apr 2020</span></li>
+              <li class="client-item"><h2>Klarity</h2><span class="services">Web</span><span class="date">Apr 2024</span></li>
+              <li class="client-item"><h2>FLOE Optometry</h2><span class="services">Web</span><span class="date">Sep 2020</span></li>
+              <li class="client-item"><h2>Powerade</h2><span class="services">Brand</span><span class="date">Aug 2019</span></li>
+              <li class="client-item"><h2>Mecca Foods</h2><span class="services">Brand</span><span class="date">May 2019</span></li>
+              <li class="client-item"><h2>Humble Design</h2><span class="services">Brand</span><span class="date">Aug 2019</span></li>
+              <li class="client-item"><h2>Frankie Margotta</h2><span class="services">Brand, Web</span><span class="date">Jan 2021</span></li>
+              <li class="client-item"><h2>Teladerma</h2><span class="services">Brand, Web</span><span class="date">Feb 2024</span></li>
+              <li class="client-item"><h2>Lime</h2><span class="services">Web</span><span class="date">Nov 2021</span></li>
+              <li class="client-item"><h2>Lily Link</h2><span class="services">Product, Brand</span><span class="date">Apr 2024</span></li>
+              <li class="client-item"><h2>REVOPS</h2><span class="services">Brand</span><span class="date">Mar 2024</span></li>
+              <li class="client-item"><h2>Cozie</h2><span class="services">Brand</span><span class="date">Apr 2024</span></li>
+              <li class="client-item"><h2>Day One Ventures</h2><span class="services">Brand</span><span class="date">Mar 2023</span></li>
+              <li class="client-item"><h2>Veil &amp; Vinyls</h2><span class="services">Web</span><span class="date">Jul 2020</span></li>
+              <li class="client-item"><h2>Lifespark</h2><span class="services">Brand</span><span class="date">Mar 2020</span></li>
+              <li class="client-item"><h2>John Kim</h2><span class="services">Web</span><span class="date">Oct 2019</span></li>
+              <li class="client-item"><h2>KOLORLESS</h2><span class="services">Brand</span><span class="date">Nov 2019</span></li>
+              <li class="client-item"><h2>LVL UP Expo</h2><span class="services">Brand, Web</span><span class="date">Aug 2021</span></li>
+              <li class="client-item"><h2>Boiling Point</h2><span class="services">Brand</span><span class="date">Jun 2018</span></li>
+              <li class="client-item"><h2>Autobound</h2><span class="services">Brand, Web</span><span class="date">Jul 2022</span></li>
+              <li class="client-item"><h2>Ori Living</h2><span class="services">Web</span><span class="date">Aug 2021</span></li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- ===== WRITING PAGE ===== -->
+        <div id="writing" data-page="writing">
+          <div class="skeleton-overlay" data-skeleton>
+            <div class="skeleton-group">
+              <div class="skeleton-bar h-lg w-35"></div>
+              <div class="skeleton-bar w-95"></div>
+              <div class="skeleton-bar w-75"></div>
+            </div>
+            <div class="skeleton-bar h-xl w-100"></div>
+            <div class="skeleton-grid-2">
+              <div class="skeleton-bar h-card"></div>
+              <div class="skeleton-bar h-card"></div>
+            </div>
+          </div>
+          <section class="page-header" data-animate>
+            <h1>Writing</h1>
+            <p>I have a lot of thoughts, and realized I didn't have a proper outlet for them until recently. This is now a place for all of my musings, explorations, and retrospectives that I feel may be of value for someone!</p>
+          </section>
+          <section data-animate style="padding-top:0;">
+            <a href="#" data-detail="writing-958a4f15" class="featured-article">
+              <div class="feat-thumb placeholder-blog-2"></div>
+              <div class="feat-body">
+                <h3>You shouldn't become a designer.</h3>
+                <p>A few reasons why being a "designer" in any sense is a terrible idea in 2024.</p>
+                <div class="article-tags"><span class="article-tag">Career</span><span class="article-tag"> &bull; </span><span class="article-tag">Design</span><span class="article-tag"> &bull; </span><span class="article-tag">Life</span></div>
+              </div>
+            </a>
+          </section>
+          <section data-animate>
+            <ul class="tab-bar" data-filter="writing">
+              <li class="tab-item active" data-tab="all">All</li>
+              <li class="tab-item" data-tab="career">Career</li>
+              <li class="tab-item" data-tab="life">Life</li>
+              <li class="tab-item" data-tab="design">Design</li>
+            </ul>
+            <div class="articles-grid" style="margin-top:1rem;">
+              <a href="#" data-detail="writing-8cbe3efc" class="article-card" data-category="career life">
+                <div class="article-thumb placeholder-blog-1"></div>
+                <div class="article-body">
+                  <h3>How I accomplished nothing I wanted to by 30</h3>
+                  <p>This post was written in 2019, via Medium.</p>
+                  <div class="article-tags" style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;gap:0.5rem;flex-wrap:wrap;"><span class="article-tag">Career <span class="dot">&bull;</span></span><span class="article-tag">Life</span></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div>
+                </div>
+              </a>
+              <a href="#" data-detail="writing-958a4f15" class="article-card" data-category="career design life">
+                <div class="article-thumb placeholder-blog-2"></div>
+                <div class="article-body">
+                  <h3>You shouldn't become a designer.</h3>
+                  <p>A few reasons why being a "designer" in any sense is a terrible idea in 2024.</p>
+                  <div class="article-tags" style="display:flex;align-items:center;justify-content:space-between;"><div style="display:flex;gap:0.5rem;flex-wrap:wrap;"><span class="article-tag">Career <span class="dot">&bull;</span></span><span class="article-tag">Design <span class="dot">&bull;</span></span><span class="article-tag">Life</span></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div>
+                </div>
+              </a>
+            </div>
+          </section>
+        </div>
+
+        <!-- ===== FRIENDS PAGE ===== -->
+        <div id="friends" data-page="friends">
+          <div class="skeleton-overlay" data-skeleton>
+            <div class="skeleton-group">
+              <div class="skeleton-bar h-lg w-35"></div>
+              <div class="skeleton-bar w-95"></div>
+              <div class="skeleton-bar w-75"></div>
+            </div>
+            <div class="skeleton-grid-2">
+              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-55"></div><div class="skeleton-bar w-35"></div></div></div>
+              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-45"></div><div class="skeleton-bar w-35"></div></div></div>
+              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-55"></div><div class="skeleton-bar w-45"></div></div></div>
+              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-45"></div><div class="skeleton-bar w-55"></div></div></div>
+              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-35"></div><div class="skeleton-bar w-45"></div></div></div>
+              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-55"></div><div class="skeleton-bar w-35"></div></div></div>
+              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-45"></div><div class="skeleton-bar w-35"></div></div></div>
+              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-55"></div><div class="skeleton-bar w-45"></div></div></div>
+            </div>
+          </div>
+          <section class="page-header" data-animate>
+            <h1 style="font-family:Martha,sans-serif;letter-spacing:0.025em;">Friends</h1>
+            <p>People I have strong relationships with, have great respect for, or just identify to be good people with kind hearts. Definitely worth a follow and a look at if you're looking for talent or great collaborators.</p>
+          </section>
+          <section data-animate>
+            <ul class="tab-bar" data-filter="friends">
+              <li class="tab-item active" data-tab="all">All</li>
+              <li class="tab-item" data-tab="brand">Brand</li>
+              <li class="tab-item" data-tab="engineer">Engineer</li>
+              <li class="tab-item" data-tab="product">Product</li>
+            </ul>
+            <div class="friends-grid" style="margin-top:1rem;">
+              <a href="https://www.brianhui.me/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Brian Hui</h3><p>Product Designer</p></div></a>
+              <a href="https://www.linkedin.com/in/derrickkslee/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Derrick Lee</h3><p>Product Designer</p></div></a>
+              <a href="https://www.linkedin.com/in/domenictaft/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Domenic Taft</h3><p>Product Designer</p></div></a>
+              <a href="http://emilyasami.com/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>Emily Asami</h3><p>Art Director</p></div></a>
+              <a href="https://www.linkedin.com/in/erinwchan/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Erin Lode</h3><p>Product Designer</p></div></a>
+              <a href="https://www.linkedin.com/in/henry-jay-yu-5531199/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Jay Yu</h3><p>Head of Product Design &amp; Research</p></div></a>
+              <a href="https://www.linkedin.com/in/julianrotondo/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>Julian Rotondo</h3><p>Art Director</p></div></a>
+              <a href="https://www.linkedin.com/in/justinkellner/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Justin Kellner</h3><p>Product Designer</p></div></a>
+              <a href="https://www.linkedin.com/in/michelle-tu-0073571a/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Michelle Tu</h3><p>Product Designer</p></div></a>
+              <a href="https://www.linkedin.com/in/natewcarr/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Nate Carr</h3><p>Product Design Manager</p></div></a>
+              <a href="https://www.linkedin.com/in/petrinakoh/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="engineer"><div class="friend-avatar"></div><div class="friend-info"><h3>Petrina Koh</h3><p>Software Engineer</p></div></a>
+              <a href="http://playlist.studio" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>Ray Sison</h3><p>Partner, Design</p></div></a>
+              <a href="https://ryanjohnson.me/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Ryan Johnson</h3><p>Product Designer</p></div></a>
+              <a href="http://playlist.studio" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>Sang Kim</h3><p>Partner, Design</p></div></a>
+              <a href="http://playlist.studio" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>Sojin Ouh</h3><p>Partner, Design</p></div></a>
+              <a href="https://www.linkedin.com/in/tarating/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Tara Ting</h3><p>Head of Product Design</p></div></a>
+              <a href="https://williamcweigel.design/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>William Weigel</h3><p>Art Director</p></div></a>
+              <a href="https://www.atom63.io/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>You Zhang</h3><p>Motion Designer</p></div></a>
+              <a href="http://playlist.studio" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>Yuan Wei</h3><p>Partner, Design</p></div></a>
+            </div>
+          </section>
+        </div>
+
+        <!-- ===== TRINKETS PAGE ===== -->
+        <div id="trinkets-page" data-page="trinkets">
+          <section class="page-header" data-animate>
+            <h1>Trinkets</h1>
+            <p>These are a collection of things that I've bought that I enjoy, find useful, or straight up just look nice.</p>
+          </section>
+          <section data-animate style="padding-top:0;">
+            <div class="trinkets-full-grid" id="trinketsGrid">
+              <div class="trinket-card" data-trinket="0"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/7b740f52-a1aa-4cea-b221-daa9e7640846/IWC_Le_Petit_Prince_Mark_XVIII-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#9201;</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>&ldquo;Le Petit Prince&rdquo; Pilot</h4><p>IWC</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></div></div>
+              <div class="trinket-card" data-trinket="1"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/b6a578c3-9b20-4122-bbc3-2418a9e1905a/Airpods_Max-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#127911;</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>AirPods Max</h4><p>Apple</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></div></div>
+              <div class="trinket-card" data-trinket="2"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/706cab56-7684-487a-935d-0e378d616765/Airpods_Pro-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#127897;</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>AirPods Pro</h4><p>Apple</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></div></div>
+              <div class="trinket-card" data-trinket="3"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/9e39d4e7-ac6d-46c7-b728-162ff424e638/CM-15-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#9835;</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>CM-15</h4><p>Teenage Engineering</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></div></div>
+              <div class="trinket-card" data-trinket="4"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/86688057-2369-4881-82af-24489618c24d/Computer_1-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#128187;</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>Computer-1</h4><p>Teenage Engineering</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></div></div>
+              <div class="trinket-card" data-trinket="5"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/121fd195-ba63-49ce-9303-499247c3451c/Leica_Q-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#128247;</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>Leica Q2</h4><p>Leica</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></div></div>
+              <div class="trinket-card" data-trinket="6"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/bfa98bc1-9e71-4b50-ae84-0328c9503bf0/Lofree_Flow-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#9000;</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>Lofree Flow</h4><p>Lofree</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></div></div>
+              <div class="trinket-card" data-trinket="7"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/f70c37fe-1bf9-4286-bf34-c1cb86116183/Murakami_X_NewJeans_Cap-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#129506;</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>Murakami Baseball Cap</h4><p>NewJeans</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></div></div>
+              <div class="trinket-card" data-trinket="8"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/bf06246a-05a5-4d7e-9ff0-2cacf9ae5a03/Naga_V2-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#128433;</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>Naga V2 Pro</h4><p>Razer</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></div></div>
+              <div class="trinket-card" data-trinket="9"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/91c4939e-f25f-4a7b-9b3b-cce9fc3adb67/Pocket-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#127918;</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>Pocket</h4><p>Analogue</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></div></div>
+              <div class="trinket-card" data-trinket="10"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/6a3c1c72-d28a-4c6f-a10b-f9ad5af87d57/Nintendo_Switch_OLED-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#127918;</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>Switch OLED</h4><p>Nintendo</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></div></div>
+              <div class="trinket-card" data-trinket="11"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/0b5900fe-8973-4f7e-909e-31c5cb90354a/Fractal_Terra-min.png" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>&#128187;</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>Terra Jade</h4><p>Fractal</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></div></div>
+            </div>
+          </section>
+        </div>
+
+
+        <div id="project-apmc" data-page="project-apmc">
+          <section class="detail-back">
+            <button class="back-btn" onclick="navigateTo('projects')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg> Back to Projects</button>
+          </section>
+          <div class="detail-content">
+            <section class="detail-header" data-animate>
+              <h1>APMC (A Parent Media Co. Inc.)</h1>
+              <p class="detail-desc">APMC (A Parent Media Co. Inc.) is a Calgary-based business that builds and powers monetizable streaming solutions for brands and creators. As of 2025, the business had been running for more than a decade and needed to consolidate, define, and refresh the brand's visual identity.</p>
+              <div class="detail-meta">
+                <div class="detail-meta-col"><h3>Type</h3><p>Identity Design, Web Design, Art Direction</p><p class="detail-year">2025</p></div>
+                <div class="detail-meta-col"><h3>Team</h3><p>Sunhee Lee, Maricha Tempel</p></div>
+              </div>
+            </section>
+            <div class="detail-media-row" data-animate><video src="https://a-us.storyblok.com/f/1021504/x/ce422afc07/apmc_01.mp4" autoplay loop muted playsinline class="detail-video"></video></div>
+<div class="detail-media-row" data-animate><video src="https://a-us.storyblok.com/f/1021504/x/a7ab51fb3c/apmc_02.mp4" autoplay loop muted playsinline class="detail-video"></video></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2560x1440/7b443c731f/apmc_03.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2560x1440/0d3e06bd2f/apmc_04.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2560x1440/eb594b0155/apmc_05.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row detail-grid-2" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/980x980/f58bdbe52e/apmc_06.jpg/m/1600x0" alt="" loading="lazy"></div><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/980x980/95d159f0a2/apmc_07.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2560x1440/cef56c69e3/apmc_08.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2560x1440/c5908852ea/apmc_09.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2560x1440/16806fe040/apmc_10.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><video src="https://a-us.storyblok.com/f/1021504/x/99ff487691/apmc_11.mp4" autoplay loop muted playsinline class="detail-video"></video></div>
+
+            
+          </div>
+        </div>
+
+        <div id="project-you" data-page="project-you">
+          <section class="detail-back">
+            <button class="back-btn" onclick="navigateTo('projects')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg> Back to Projects</button>
+          </section>
+          <div class="detail-content">
+            <section class="detail-header" data-animate>
+              <h1>You.com</h1>
+              <p class="detail-desc">You.com is an AI-powered search engine and productivity tool. As a Senior Product Designer, I worked with LLMs and AI to create a more thoughtful conversational AI experience.</p>
+              <div class="detail-meta">
+                <div class="detail-meta-col"><h3>Type</h3><p>Product Design</p><p class="detail-year">2024</p></div>
+                
+              </div>
+            </section>
+            <div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1264x738/0fd81fd7c2/ydc-cover.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+
+            
+          </div>
+        </div>
+
+        <div id="project-mosaic" data-page="project-mosaic">
+          <section class="detail-back">
+            <button class="back-btn" onclick="navigateTo('projects')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg> Back to Projects</button>
+          </section>
+          <div class="detail-content">
+            <section class="detail-header" data-animate>
+              <h1>Mosaic Finance</h1>
+              <p class="detail-desc">Mosaic is an FP&A platform with a focus on financial modeling and analysis, data management, and executive reporting workflows and experiences.</p>
+              <div class="detail-meta">
+                <div class="detail-meta-col"><h3>Type</h3><p>Product Design</p><p class="detail-year">2023-24</p></div>
+                
+              </div>
+            </section>
+            <div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/740x420/fea41a7fd2/thumbnail-mosaic.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+
+            
+          </div>
+        </div>
+
+        <div id="project-auditboard-tprm" data-page="project-auditboard-tprm">
+          <section class="detail-back">
+            <button class="back-btn" onclick="navigateTo('projects')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg> Back to Projects</button>
+          </section>
+          <div class="detail-content">
+            <section class="detail-header" data-animate>
+              <h1>AuditBoard TPRM</h1>
+              <p class="detail-desc">Designing a 0-1 product experience focused around third-party risk within an established platform serving the audit, risk, and compliance market.</p>
+              <div class="detail-meta">
+                <div class="detail-meta-col"><h3>Type</h3><p>Sr. Product Designer</p><p class="detail-year">2022-2023</p></div>
+                <div class="detail-meta-col"><h3>Team</h3><p>Jay Yu, Head of Design<br>Michelle Tu, Product Designer</p></div>
+              </div>
+            </section>
+            <div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2574x1520/ecba070f75/hero-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1264/33bf06704b/prototype-1-min.jpg" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1264/1f4f79c527/prototype-2-min.jpg" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1264/39c0c5a001/prototype-3-min.jpg" alt="" loading="lazy"></div></div>
+<div class="detail-media-row detail-grid-2" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1264x1264/98db54bfb8/question-card-1-min.jpg" alt="" loading="lazy"></div><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1264x1264/7a9e553051/question-card-2-min.jpg" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1264x1264/19e374c001/question-card-3-min.jpg" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1264/17971897b9/substitution-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1264/33798cb31b/prototype-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+
+            <section class="detail-quote" data-animate><h2>Third-party risk management—just a fancy way to say: "We don't want your problems to be OUR problems."</h2></section>
+<section class="detail-quote" data-animate><h2>Design culture building by driving inspiration, challenging the status quo, and expanding core libraries.</h2></section>
+<section class="detail-quote" data-animate><h2>Understanding the nature of third-party risk and socializing the jobs-to-be-done helped us solve the right problems.</h2></section>
+<section class="detail-stats" data-animate><div class="stat-item"><h1>$2M</h1><p>ARR in Year 1</p></div><div class="stat-item"><h1>25+</h1><p>Customer Partners</p></div></section>
+<section class="detail-quote" data-animate><h2>In deeply contextual spaces like audit, risk, and compliance—humility and curiosity were the most powerful tools.</h2></section>
+          </div>
+        </div>
+
+        <div id="project-teladerma" data-page="project-teladerma">
+          <section class="detail-back">
+            <button class="back-btn" onclick="navigateTo('projects')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg> Back to Projects</button>
+          </section>
+          <div class="detail-content">
+            <section class="detail-header" data-animate>
+              <h1>Teladerma</h1>
+              <p class="detail-desc">Teladerma is a startup that aims to provide patients with more practical access to board-certified dermatologists using technology.</p>
+              <div class="detail-meta">
+                <div class="detail-meta-col"><h3>Type</h3><p>Identity Design, Web Design, Web Development</p><p class="detail-year">2024</p></div>
+                
+              </div>
+            </section>
+            <div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1448/d5d466d043/01.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row detail-grid-2" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/0b93582cb6/02.jpg/m/1600x0" alt="" loading="lazy"></div><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/3d0bdaf860/03.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1450/dcbd55cf87/05.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+
+            
+          </div>
+        </div>
+
+        <div id="project-revops" data-page="project-revops">
+          <section class="detail-back">
+            <button class="back-btn" onclick="navigateTo('projects')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg> Back to Projects</button>
+          </section>
+          <div class="detail-content">
+            <section class="detail-header" data-animate>
+              <h1>REVOPS</h1>
+              <p class="detail-desc">REVOPS seeks to elevate confidence in equipment financing with expert advisors providing a seamlessly streamlined experience and transparency.</p>
+              <div class="detail-meta">
+                <div class="detail-meta-col"><h3>Type</h3><p>Identity Design</p><p class="detail-year">2024</p></div>
+                
+              </div>
+            </section>
+            <div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/3200x1800/7c26983857/01-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row detail-grid-2" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/6c428b0899/02-min.jpg/m/1600x0" alt="" loading="lazy"></div><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/589ce847f7/03-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/3200x1800/66b5fea271/04-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/3200x1800/aca5710e05/05-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/3200x1800/e56dbec1ef/07-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/3200x1800/29910cec2b/08-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+
+            
+          </div>
+        </div>
+
+        <div id="project-sage-dermatology" data-page="project-sage-dermatology">
+          <section class="detail-back">
+            <button class="back-btn" onclick="navigateTo('projects')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg> Back to Projects</button>
+          </section>
+          <div class="detail-content">
+            <section class="detail-header" data-animate>
+              <h1>Sage Dermatology</h1>
+              <p class="detail-desc">Sage Dermatology is a full-service dermatology centre in Toronto, Canada focused on evidence-based dermatological treatment.</p>
+              <div class="detail-meta">
+                <div class="detail-meta-col"><h3>Type</h3><p>Identity Design, Web Design, Web Development</p><p class="detail-year">2023</p></div>
+                <div class="detail-meta-col"><h3>Team</h3><p>Joanne Park</p></div>
+              </div>
+            </section>
+            <div class="detail-media-row detail-grid-2" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/e5bc296599/02-min.jpg/m/1600x0" alt="" loading="lazy"></div><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/5eb314f100/03-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1451/7034efefc9/04-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1451/fe9a0cb7cd/05-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1451/9cbe4e4cca/06-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1451/910e2abe0e/07-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+
+            
+          </div>
+        </div>
+
+        <div id="project-domain-money" data-page="project-domain-money">
+          <section class="detail-back">
+            <button class="back-btn" onclick="navigateTo('projects')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg> Back to Projects</button>
+          </section>
+          <div class="detail-content">
+            <section class="detail-header" data-animate>
+              <h1>Domain Money</h1>
+              <p class="detail-desc">Seeking to legitimize investments in the cryptocurrency space, Domain Money created an elevated platform that sought to invite the mainstream audience to web 3.</p>
+              <div class="detail-meta">
+                <div class="detail-meta-col"><h3>Type</h3><p>Web Design, Web Development</p><p class="detail-year">2022</p></div>
+                <div class="detail-meta-col"><h3>Team</h3><p>Ray Sison, Yuan Wei, Sojin Ouh, Sang Kim</p></div>
+              </div>
+            </section>
+            <div class="detail-media-row detail-grid-2" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/59fcf4d66b/02.jpg/m/1600x0" alt="" loading="lazy"></div><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/58e28e675a/03.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1520/e25184763a/05.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row detail-grid-2" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/0cef7cb775/06.jpg/m/1600x0" alt="" loading="lazy"></div><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/b6c9ef6d6e/07.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1520/7d608478ab/08.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row detail-grid-2" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1263/348474e95d/09.jpg/m/1600x0" alt="" loading="lazy"></div><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1263/bfe207a060/10.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+
+            
+          </div>
+        </div>
+
+        <div id="project-arete" data-page="project-arete">
+          <section class="detail-back">
+            <button class="back-btn" onclick="navigateTo('projects')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg> Back to Projects</button>
+          </section>
+          <div class="detail-content">
+            <section class="detail-header" data-animate>
+              <h1>Areté</h1>
+              <p class="detail-desc">Areté is a creative agency seeking to deliver artisan craftsmanship through authentic storytelling—all without compromising on quality and service.</p>
+              <div class="detail-meta">
+                <div class="detail-meta-col"><h3>Type</h3><p>Identity Design, Web Design, Web Development</p><p class="detail-year">2021</p></div>
+                
+              </div>
+            </section>
+            <div class="detail-media-row detail-grid-2" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/4d22e547a9/3-min.jpg/m/1600x0" alt="" loading="lazy"></div><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/7db80d7d8e/4-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/3840x2160/3d48c6796b/2-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/3840x2160/54329da092/5-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/3840x2160/c8f37eca64/6-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+
+            
+          </div>
+        </div>
+
+        <div id="project-lime" data-page="project-lime">
+          <section class="detail-back">
+            <button class="back-btn" onclick="navigateTo('projects')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg> Back to Projects</button>
+          </section>
+          <div class="detail-content">
+            <section class="detail-header" data-animate>
+              <h1>Lime</h1>
+              <p class="detail-desc">Lime is a creative studio focused on building beautiful digital experiences with a focus on simplicity and elegance.</p>
+              <div class="detail-meta">
+                <div class="detail-meta-col"><h3>Type</h3><p>Web Design</p><p class="detail-year">2021</p></div>
+                
+              </div>
+            </section>
+            <div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1260x741/5e74628dd0/thumb-lime-min.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+
+            
+          </div>
+        </div>
+
+        <div id="project-omomo" data-page="project-omomo">
+          <section class="detail-back">
+            <button class="back-btn" onclick="navigateTo('projects')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg> Back to Projects</button>
+          </section>
+          <div class="detail-content">
+            <section class="detail-header" data-animate>
+              <h1>OMOMO</h1>
+              <p class="detail-desc">OMOMO is a tea shop in Orange County, California seeking to elevate the culture of boba through inspired crafting and a premium experience.</p>
+              <div class="detail-meta">
+                <div class="detail-meta-col"><h3>Type</h3><p>Identity Design, Web Design, Art Direction, Print & Packaging</p><p class="detail-year">2018</p></div>
+                <div class="detail-meta-col"><h3>Team</h3><p>Michelle Tu, Ethan Lin, Eric Chen</p></div>
+              </div>
+            </section>
+            <div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2580x1450/a55fa429ef/01.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2580x1450/34760c8ef4/02.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row detail-grid-2" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/03098e2d89/03.jpg/m/1600x0" alt="" loading="lazy"></div><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1262/e9fa560b3c/04.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1450/7f8d175e10/05.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/2578x1449/31d0b291d4/06.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+<div class="detail-media-row detail-grid-2" data-animate><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1263/861edfac95/07.jpg/m/1600x0" alt="" loading="lazy"></div><div class="detail-img-wrap"><img src="https://a-us.storyblok.com/f/1021504/1262x1263/3a0c66a260/08.jpg/m/1600x0" alt="" loading="lazy"></div></div>
+
+            
+          </div>
+        </div>
+
+        <div id="writing-8cbe3efc" data-page="writing-8cbe3efc">
+          <section class="detail-back">
+            <button class="back-btn" onclick="navigateTo('writing')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg> Back to Writings</button>
+          </section>
+          <article class="writing-article">
+            <section class="writing-header" data-animate>
+              <h1>How I accomplished nothing I wanted to by 30</h1>
+              <p class="writing-subtitle">This post was written in 2019, via Medium.</p>
+              <div class="writing-tags"><span class="writing-tag">Career</span><span class="writing-tag">Life</span></div>
+            </section>
+            <div class="notion-content">
+              <div class="notion-block" data-animate>
+                <div class="notion-image"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/6657a537-8c1e-4657-bec8-5e9e14b72dad/post-image-2-min.jpg" alt="" onerror="this.style.display='none';this.parentElement.style.aspectRatio='16/9';this.parentElement.style.background='var(--BackgroundTertiary)'"></div>
+                <div class="notion-image-caption">A reflection that still rings true to me, at 35.</div>
+              </div>
+              <div class="notion-block" data-animate><p>There was a period in my life when my future was filled with unlimited potential and possibilities. Life was something that was intriguing, exciting, and full of wonder. Every day, I couldn't wait until I was old enough to "do that thing", "be my own man", or "fulfill my dreams".</p></div>
+              <div class="notion-block" data-animate><p>As I got older, life acquired a different taste. Somewhere along the line, it became less about possibility and dreaming, and more about stability and compromise. As I closed out my twenties, all I could think about was what I failed to accomplish in this regard.</p></div>
+              <div class="notion-block" data-animate><p>I hadn't gotten married by 21…</p></div>
+              <div class="notion-block" data-animate><p>and then by 24…</p></div>
+              <div class="notion-block" data-animate><p><em>and then 28…</em></p></div>
+              <div class="notion-block" data-animate><p><strong>and now, 30.</strong></p></div>
+              <div class="notion-block" data-animate><p>I never got to own my own studio by 25. I never became a wildly successful designer that people recognized off the street. I never got to work with Nike. I never got to work with my design heroes. I never got to buy my sick penthouse.</p></div>
+              <div class="notion-block" data-animate><p>It's even sadder if I dive deeper to back when I was a pre-teen. I never became an astronaut. I never figured out time-travel. I never discovered a new planet. I never went to space. I never figured out how to clone myself so I could make my clone do all the things that I didn't want to do in my life (cloning is hard, guys).</p></div>
+              <div class="notion-block" data-animate>
+                <div class="notion-image"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/2443f877-e063-4d6f-945f-f216d617022b/image.png" alt="" onerror="this.style.display='none'"></div>
+                <div class="notion-image-caption">This strip from Calvin and Hobbes was way too heavy for me at a young age.</div>
+              </div>
+              <div class="notion-block" data-animate><p>As a youth I was so fixated on accomplishing all these things by certain timelines — almost as if my life was operating on a ticking clock. Every day became less exciting and became more about shortened deadlines. By my mid-twenties, life had turned into one big task list. I couldn't help but wonder: <strong>What had happened in my life so that compromise became the indicator for growth?</strong></p></div>
+              <div class="notion-block" data-animate>
+                <div class="notion-image"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/06f8404e-3a61-4987-b699-f864ddcb63d1/image.png" alt="" onerror="this.style.display='none'"></div>
+                <div class="notion-image-caption">This was totally not me.</div>
+              </div>
+              <div class="notion-block" data-animate><p>I didn't have a "freakout" when I turned 30. Friends, How I Met Your Mother, and other tv comedies from the 00's told me that this was a significant change that I would feel, and that I would mourn the loss of my youth when it came around — but it did the opposite.</p></div>
+              <div class="notion-block" data-animate><p>I came to accept the terms of life that I refused to sign-off on for the past two decades: <strong>Life isn't a sprint. It's a marathon and you're the only one running it.</strong> From there on, it became about finding the right pace for me, and the perspective to match.</p></div>
+              <div class="notion-block" data-animate><p>I had a massive checklist of things I wanted to get done by this time. I failed on all of them. But I've done so much more than that list could ever detail.</p></div>
+              <div class="notion-block" data-animate><p>It's interesting how we spend our entire lives planning things out, only to be constantly reminded that life doesn't play by our rules. The sooner we accept that, the sooner we can experience these curveballs in a more joyful perspective — embracing change and the challenges that come along the way that aren't necessarily "wrenches" in our plans, but alternate roads we never could have imagined ourselves.</p></div>
+              <div class="notion-block" data-animate><p>My life looks nothing like what I imagined it to a year ago, much less 10 — and I'm sure yours does too.</p></div>
+              <div class="notion-block" data-animate><p>And you know what? I think that's what's supposed to make life fun.</p></div>
+            </div>
+          </article>
+        </div>
+
+        <div id="writing-958a4f15" data-page="writing-958a4f15">
+          <section class="detail-back">
+            <button class="back-btn" onclick="navigateTo('writing')"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg> Back to Writings</button>
+          </section>
+          <article class="writing-article">
+            <section class="writing-header" data-animate>
+              <h1>You shouldn't become a designer.</h1>
+              <p class="writing-subtitle">A few reasons why being a "designer" in any sense is a terrible idea in 2024.</p>
+              <div class="writing-tags"><span class="writing-tag">Career</span><span class="writing-tag">Design</span><span class="writing-tag">Life</span></div>
+            </section>
+            <div class="notion-content">
+              <div class="notion-block" data-animate>
+                <div class="notion-image"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/6e047945-5cd9-4985-a360-564701f854da/blog_01.jpg" alt="" onerror="this.style.display='none';this.parentElement.style.aspectRatio='16/9';this.parentElement.style.background='var(--BackgroundTertiary)'"></div>
+                <div class="notion-image-caption">Design isn't for everyone—and I'd even venture to say it isn't for the majority of people.</div>
+              </div>
+              <div class="notion-block" data-animate><p>As of this year, I would confidently be able to say I've been working as a designer (in a variety of different capacities) for about 15 years. During that time, I've gone from being a founding designer, a design leader, and a high level individual contributor at quite a few organizations. I've seen some succeed in an incredulous manner, some fail crushingly, and some just "figure it out" at a steady pace. And the thing is, I've been periodically asking myself the same question throughout:</p></div>
+              <div class="notion-block" data-animate><p><em>"Do I even still want to be a designer?"</em></p></div>
+              <div class="notion-block" data-animate><p>And ultimately, I come back to the answer of: Yes—but the reason always changes. Because of that, I think those reasons have helped to inform a few "whys" that I think are important to know if you decide to embark on quite an unclear career path like this one.</p></div>
+              <div class="notion-block" data-animate><p>So here are some reasons why I wish I hadn't become a designer:</p></div>
+              <div class="notion-block" data-animate><h2>1. Much of the time, design is not creative.</h2></div>
+              <div class="notion-block" data-animate><p>I've always been into graphic design, digital design, digital art, web design, yadda yadda yadda… If you do some digging, you'll see artifacts of myself from different times, when I dabbled in almost every niche within design I could possibly throw myself into. The reason? I loved to create, and I loved to be inspired.</p></div>
+              <div class="notion-block" data-animate><p>For a lot of younger people, design is probably intriguing because of this notion of "expressing yourself creatively". It feels like an attractive option to be able to flex your creative muscles, create some work you're proud of (often visually motivated), and be able to say: "that's something I made!" after it all.</p></div>
+              <div class="notion-block" data-animate>
+                <div class="notion-image"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/6bc24fc5-8b83-4783-8196-1122886ac917/image.png" alt="" onerror="this.style.display='none'"></div>
+                <div class="notion-image-caption">Get used to the term "stakeholder management". It'll be most of what you do.</div>
+              </div>
+              <div class="notion-block" data-animate><p>This isn't to say that you won't have glimpses of these moments—it's just that they're far and few compared to the day-to-day drudgery work you might end up doing. Design is much of the time a problem-solving exercise, no matter the focus. As a graphic designer, you'll spend more time trying to figure out how to execute on a strategy from a marketing partner. As a web designer, you'll have to spend a lot more time with developer alignment and handoff. As a product designer, you'll have cross-functional stakeholders who have strong convictions on how a problem should be answered. And all of these problems have probably been answered by someone in a some way in the index of endless output of ideas that we call the internet.</p></div>
+              <div class="notion-block" data-animate><p>You'll spend less time being "creative" from your conventional understanding of the word and look for ways to solve problems while dealing with constraints. If you want to be creative and expressive, I'd look into going into content creation or a form of traditional art.</p></div>
+              <div class="notion-block" data-animate><h2>2. For most people, design is not lucrative.</h2></div>
+              <div class="notion-block" data-animate><p>I don't think people get into creative fields thinking they're going to make a <em>ton</em> of money, but it's probably important to know that as you get older and life starts to move at a different pace, more money will become a priority.</p></div>
+              <div class="notion-block" data-animate><p>I personally didn't get into the field expecting to make what I make now, and I'm incredibly blessed that I've been given the opportunities to do so. I was fully expecting to live a simple life making $60-$80k a year when I was younger and more naive, but no matter how optimistic you are… eventually reality hits.</p></div>
+              <div class="notion-block" data-animate>
+                <div class="notion-image"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/ba7f3cce-c57e-4b53-bbe6-cc97dbbe27f9/image.png" alt="" onerror="this.style.display='none'"></div>
+              </div>
+              <div class="notion-block" data-animate><p>If you've ever wanted to own a home, have children, get married—understand the tradeoffs you're making by picking this field.</p></div>
+              <div class="notion-block" data-animate><p>Design is demanding, often requiring its admirers to sacrifice times, relationships, and headspace for a non-guaranteed promise of success. Agency life brings overtime, stress, and short turnarounds. In-house work is draining, political, and creatively limiting. And freelance? That's a different animal on its own that wants every essence of you.</p></div>
+              <div class="notion-block" data-animate><h2>3. Design careers are less about craft, more about relationships.</h2></div>
+              <div class="notion-block" data-animate><p>And for my third and final point… you'll soon come to realize that to excel in this path, you have to learn how to "play the game".</p></div>
+              <div class="notion-block" data-animate><p>Office politics is unfortunately what fuels success in all careers, and design is no exception. I once foolishly believed that I could win the world with just my talent and hard work, but I saw my peers move faster and farther by making the right relationships, constantly shooting their shots, and focusing on being opportunistic. It was a painful experience that took me way too long to learn, and I was well into my late twenties by the time this truth sunk in.</p></div>
+              <div class="notion-block" data-animate>
+                <div class="notion-image"><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/d73336b9-7d05-460e-b953-935e63799d05/image.png" alt="" onerror="this.style.display='none'"></div>
+              </div>
+              <div class="notion-block" data-animate><p>I do a lot better nowadays, but it took a lot of focus and determination… along with kind hearts, good coffee, and insightful conversation.</p></div>
+              <div class="notion-block" data-animate><p>What drove my career to this point was less about my deep understanding of Figma, building products, and creative tools, but the value and relationship I was able to create with the people who were influential near me.</p></div>
+              <div class="notion-block" data-animate><h3>Okay, I get it... So what?</h3></div>
+              <div class="notion-block" data-animate><p>Well, if I didn't deter you with all that—congratulations! You've fallen into the trap of love for design, like I foolishly had 15 years ago. But fret not, I have some good news.</p></div>
+              <div class="notion-block" data-animate><p>If you still are interested, it probably means you genuinely care about the work you do and you have a passion for crafting and building things. Your interest in this field is less about the clout or money and probably more towards the craft of it.</p></div>
+              <div class="notion-block" data-animate><p>So here's the advice I have for a fellow (and maybe younger?) artisan. Love the craft. Keep sharp and constantly keep learning. The ones who continue to learn are the ones who continue to grow. Humility will be the backbone of your growth, as you'll always be looking to learn from every opportunity. While others hoard money and influence, you'll become insanely valuable by becoming wealthy in knowledge.</p></div>
+              <div class="notion-block" data-animate><p>With that, I wish you the best of luck. Give it your all, create some awesome stuff, and take advantage of every opportunity you have to prove that you're a real one. Make it a mission to show everybody what a real designer looks like—what a real craftsman is.</p></div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Footer -->
+        <footer class="site-footer" data-animate>
+          <section>
+            <div class="footer-bar">
+              <span>Built with Vue.JS &amp; Tailwind CSS</span>
+              <span>&copy; 2026 Eric Sin</span>
+            </div>
+          </section>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  </div><!-- /vaulWrapper -->
+
+  <!-- Trinket Modal -->
+  <div id="trinketModal" class="trinket-modal-overlay">
+    <div class="trinket-modal-card">
+      <button class="trinket-modal-close" id="trinketModalClose" aria-label="Close Modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="trinket-modal-header">
+        <h6 class="trinket-modal-brand" id="tmBrand"></h6>
+        <h1 class="trinket-modal-name" id="tmName"></h1>
+      </div>
+      <div class="trinket-modal-image" id="tmImageWrap">
+        <img id="tmImage" src="" alt="">
+      </div>
+      <div class="trinket-modal-body">
+        <p class="trinket-modal-desc" id="tmDesc"></p>
+        <a class="trinket-modal-link" id="tmLink" href="#" target="_blank" rel="noopener noreferrer">
+          View Product <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <script>
+    // ===== LENIS SMOOTH SCROLL =====
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      smoothWheel: true
+    });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // ===== THEME TOGGLE =====
+    const html = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    toggle.addEventListener('click', () => {
+      html.classList.add('theme-switching');
+      const next = html.classList.contains('dark') ? 'light' : 'dark';
+      html.classList.remove('light', 'dark');
+      html.classList.add(next);
+      html.dataset.theme = next;
+      localStorage.setItem('color-mode', next);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          html.classList.remove('theme-switching');
+        });
+      });
+    });
+    const saved = localStorage.getItem('color-mode');
+    if (saved) {
+      html.classList.remove('light', 'dark');
+      html.classList.add(saved);
+      html.dataset.theme = saved;
+    }
+
+    // ===== CLOCK (PST) =====
+    function updateClock() {
+      const now = new Date();
+      const pst = new Date(now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+      const mm = String(pst.getMonth() + 1).padStart(2, '0');
+      const dd = String(pst.getDate()).padStart(2, '0');
+      const dateStr = mm + '.' + dd;
+      let h = pst.getHours();
+      const ampm = h >= 12 ? 'PM' : 'AM';
+      h = h % 12; if (h === 0) h = 12;
+      const hStr = String(h).padStart(2, '0');
+      const mStr = String(pst.getMinutes()).padStart(2, '0');
+
+      document.getElementById('clockDate').textContent = dateStr;
+      document.getElementById('clockHour').textContent = hStr;
+      document.getElementById('clockMin').textContent = mStr;
+      document.getElementById('clockAmPm').textContent = ampm;
+
+      document.querySelectorAll('.clock-date-m').forEach(e => e.textContent = dateStr);
+      document.querySelectorAll('.clock-hour-m').forEach(e => e.textContent = hStr);
+      document.querySelectorAll('.clock-min-m').forEach(e => e.textContent = mStr);
+      document.querySelectorAll('.clock-ampm-m').forEach(e => e.textContent = ampm);
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // ===== MOBILE DRAWER (Vaul-style bottom sheet) =====
+    const drawer = document.getElementById('mobileDrawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+    const vaulWrapper = document.getElementById('vaulWrapper');
+    const menuBtn = document.getElementById('menuBtn');
+    let scrollY = 0;
+
+    function openDrawer() {
+      scrollY = window.scrollY;
+      drawer.classList.add('open');
+      drawerOverlay.classList.add('open');
+      vaulWrapper.classList.add('drawer-open');
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      lenis.stop();
+    }
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      drawerOverlay.classList.remove('open');
+      vaulWrapper.classList.remove('drawer-open');
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      window.scrollTo(0, scrollY);
+      lenis.start();
+    }
+
+    if (menuBtn) {
+      menuBtn.onclick = () => {
+        if (drawer.classList.contains('open')) closeDrawer();
+        else openDrawer();
+      };
+      drawerOverlay.onclick = closeDrawer;
+    }
+
+    document.querySelectorAll('.drawer-nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const page = link.dataset.nav;
+        navigateTo(page);
+        closeDrawer();
+      });
+    });
+
+    // ===== SPA ROUTING =====
+    let isTransitioning = false;
+    const visitedPages = new Set();
+    const initialPage = document.querySelector('[data-page].active');
+    if (initialPage) visitedPages.add(initialPage.getAttribute('data-page'));
+
+    function navigateTo(pageName) {
+      if (isTransitioning) return;
+
+      const currentPage = document.querySelector('[data-page].active');
+      const target = document.querySelector(`[data-page="${pageName}"]`);
+      if (!target || target === currentPage) return;
+
+      isTransitioning = true;
+      const isFirstVisit = !visitedPages.has(pageName);
+      visitedPages.add(pageName);
+
+      // Update sidebar nav active state immediately
+      const navPage = pageName.startsWith('project-') ? 'projects'
+                    : pageName.startsWith('writing-') ? 'writing'
+                    : pageName;
+      document.querySelectorAll('.nav-link').forEach(l => {
+        l.classList.toggle('active', l.dataset.nav === navPage);
+      });
+      document.querySelectorAll('.drawer-nav-link').forEach(l => {
+        l.classList.toggle('active', l.dataset.nav === navPage);
+      });
+
+      if (isFirstVisit) {
+        target.querySelectorAll('[data-animate]').forEach(el => {
+          el.classList.remove('is-visible');
+          observer.unobserve(el);
+        });
+      } else {
+        target.querySelectorAll('[data-animate]').forEach(el => {
+          el.classList.add('is-visible');
+          observer.unobserve(el);
+        });
+      }
+
+      // Phase 1: Animate old page out
+      if (currentPage) {
+        currentPage.classList.add('page-leaving');
+        currentPage.classList.remove('active');
+      }
+
+      const leaveTime = currentPage ? 200 : 0;
+
+      setTimeout(() => {
+        if (currentPage) {
+          currentPage.classList.remove('page-leaving');
+        }
+
+        lenis.scrollTo(0, { immediate: true });
+        window.scrollTo(0, 0);
+
+        // Phase 2: Fade in new page
+        target.classList.add('active', 'page-entering');
+
+        // Re-init image fade-in for the new page
+        target.querySelectorAll('img.img-loaded').forEach(i => i.classList.remove('img-loaded'));
+        target.querySelectorAll('.img-ready').forEach(w => w.classList.remove('img-ready'));
+        initImageFadeIn(target);
+
+        if (isFirstVisit) {
+          // First visit: staggered reveal of sections
+          const animEls = target.querySelectorAll('[data-animate]');
+          const viewportH = window.innerHeight;
+          let staggerIdx = 0;
+
+          animEls.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < viewportH + 40) {
+              const delay = Math.min(staggerIdx * 80, 400);
+              staggerIdx++;
+              setTimeout(() => el.classList.add('is-visible'), delay);
+            } else {
+              observer.observe(el);
+            }
+          });
+        }
+
+        setTimeout(() => {
+          target.classList.remove('page-entering');
+          isTransitioning = false;
+        }, 400);
+      }, leaveTime);
+    }
+
+    // Sidebar nav clicks
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigateTo(link.dataset.nav);
+      });
+    });
+
+    // Home CTA "View Resume" link
+    document.querySelectorAll('.btn-filled').forEach(btn => {
+      if (btn.textContent.trim() === 'View Resume') {
+        btn.addEventListener('click', (e) => { e.preventDefault(); navigateTo('resume'); });
+      }
+    });
+
+    // View All & data-navigate links → SPA navigation
+    document.querySelectorAll('[data-navigate]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigateTo(link.dataset.navigate);
+      });
+    });
+
+    // Detail page navigation (project/writing cards)
+    document.querySelectorAll('[data-detail]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigateTo(link.dataset.detail);
+      });
+    });
+
+    // ===== TAB FILTERS =====
+    document.querySelectorAll('.tab-bar').forEach(bar => {
+      bar.querySelectorAll('.tab-item').forEach(tab => {
+        tab.addEventListener('click', () => {
+          bar.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          const filter = tab.dataset.tab;
+          const container = bar.nextElementSibling;
+          if (!container) return;
+          const items = container.querySelectorAll('[data-category]');
+          items.forEach(item => {
+            if (filter === 'all' || item.dataset.category.includes(filter)) {
+              item.style.display = '';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+
+    // ===== GLOBAL IMAGE FADE-IN ON LOAD =====
+    const IMG_WRAP_SEL = '.thumb, .trinket-img-wrap, .detail-img-wrap, .sidebar-avatar, .exp-logo';
+    function initImageFadeIn(scope) {
+      const root = scope || document.body;
+      root.querySelectorAll('img').forEach(img => {
+        if (img.classList.contains('img-loaded')) return;
+        const markLoaded = () => {
+          if (img.classList.contains('img-loaded')) return;
+          img.classList.add('img-loaded');
+          const wrap = img.closest(IMG_WRAP_SEL);
+          if (wrap) wrap.classList.add('img-ready');
+        };
+        img.addEventListener('load', markLoaded, { once: true });
+        img.addEventListener('error', markLoaded, { once: true });
+        if (img.complete && img.naturalWidth > 0) {
+          markLoaded();
+        } else {
+          setTimeout(() => {
+            if (img.complete && !img.classList.contains('img-loaded')) markLoaded();
+          }, 50);
+        }
+      });
+    }
+    initImageFadeIn();
+
+    // ===== INTERSECTION OBSERVER: SCROLL-TRIGGERED fadeIn =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    // Initial page load: stagger above-viewport home sections, observe the rest
+    requestAnimationFrame(() => {
+      const viewportH = window.innerHeight;
+      const homeSections = document.querySelectorAll('[data-page="home"] [data-animate]');
+      let staggerIdx = 0;
+      homeSections.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < viewportH + 40) {
+          const delay = Math.min(staggerIdx * 80, 400);
+          staggerIdx++;
+          setTimeout(() => el.classList.add('is-visible'), delay);
+        } else {
+          observer.observe(el);
+        }
+      });
+
+      // Also observe elements outside [data-page] (e.g. the site footer)
+      document.querySelectorAll('main > [data-animate]').forEach(el => {
+        if (!el.closest('[data-page]')) {
+          observer.observe(el);
+        }
+      });
+    });
+
+    // ===== TRINKET MODAL =====
+    const trinketData = [
+      { brand: "IWC", name: "\u201cLe Petit Prince\u201d Pilot", image: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/7b740f52-a1aa-4cea-b221-daa9e7640846/IWC_Le_Petit_Prince_Mark_XVIII-min.png", description: "Bought this in celebration of my first ever annual bonus from AuditBoard back in the day. I still wear it daily, and it\u2019s probably one of my \u201cheirlooms\u201d now.", link: "https://www.iwc.com/us/en/past-collections/pilot-watches/iw327010-pilot_s-watch-mark-xviii-edition-le-petit-prince.html" },
+      { brand: "Apple", name: "AirPods Max", image: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/b6a578c3-9b20-4122-bbc3-2418a9e1905a/Airpods_Max-min.png", description: "Yeah, I use this pretty daily. I used to use the Pros exclusively and avoided headphones because I had glasses but once I got LASIK, this was a purchase I really appreciated, esp. when I\u2019m out at coffee shops.", link: "https://www.apple.com/airpods-max/" },
+      { brand: "Apple", name: "AirPods Pro", image: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/706cab56-7684-487a-935d-0e378d616765/Airpods_Pro-min.png", description: "Standard. It\u2019s pretty dope, I\u2019ve had mine for about 2 years now and it\u2019s still just as effective. Highly recommend\u2014one of Apple\u2019s best products.", link: "https://www.apple.com/airpods-pro/" },
+      { brand: "Teenage Engineering", name: "CM-15", image: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/9e39d4e7-ac6d-46c7-b728-162ff424e638/CM-15-min.png", description: "I bought this because of the teenage engineering craze. Mainly to see if it was worth the hype and to be honest, it\u2019s okay. The audio quality is pretty stellar though, just don\u2019t use it quite enough yet.", link: "https://teenage.engineering/products/cm-15" },
+      { brand: "Teenage Engineering", name: "Computer-1", image: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/86688057-2369-4881-82af-24489618c24d/Computer_1-min.png", description: "Built this over a weekend. Got it working and it looks super dope but the actual computer isn\u2019t too powerful. I ended up building another SFF PC, but it\u2019s still nice to look at and if you don\u2019t game frequently, it\u2019s a nice little solution.", link: "https://teenage.engineering/store/computer-1/" },
+      { brand: "Leica", name: "Leica Q2", image: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/121fd195-ba63-49ce-9303-499247c3451c/Leica_Q-min.png", description: "I don\u2019t take a lot of photos but my Q2 does get me to try to capture some nice moments. I\u2019ve used it almost exclusively for my shots and a Leica is just hard to beat.", link: "https://leica-camera.com/en-US/photography/cameras/q/q2-black" },
+      { brand: "Lofree", name: "Lofree Flow", image: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/bfa98bc1-9e71-4b50-ae84-0328c9503bf0/Lofree_Flow-min.png", description: "Bought this because I actually got the Nomad [e] from Work Louder, and absolutely hated it. $400 down the drain, don\u2019t recommend. I quickly found a recommendation for this keyboard and I\u2019m a fan.", link: "https://www.amazon.com/LOFREE-Mechanical-Rechargeable-Keyboards-Connection/dp/B0CQQWHW6V" },
+      { brand: "NewJeans", name: "Murakami Baseball Cap", image: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/f70c37fe-1bf9-4286-bf34-c1cb86116183/Murakami_X_NewJeans_Cap-min.png", description: "I needed a hat and I like NewJeans and Murakami.", link: "https://store.linefriends.com/products/newjeans-x-murakami-baseball-cap-black" },
+      { brand: "Razer", name: "Naga V2 Pro", image: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/bf06246a-05a5-4d7e-9ff0-2cacf9ae5a03/Naga_V2-min.png", description: "This mouse is dope\u2014it lets you swap the side buttons so you can have a 0-9 numpad, or mouse 4/5 buttons. Pretty much use it every day.", link: "https://www.razer.com/gaming-mice/Razer-Naga-V2-Pro/RZ01-04400100-R3U1" },
+      { brand: "Analogue", name: "Pocket", image: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/91c4939e-f25f-4a7b-9b3b-cce9fc3adb67/Pocket-min.png", description: "The first retro handheld I got\u2014admittedly the design and branding won me over but it\u2019s a really neat device that plays SNES/GBA games really well. I love it. Would recommend.", link: "https://www.analogue.co/pocket" },
+      { brand: "Nintendo", name: "Switch OLED", image: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/6a3c1c72-d28a-4c6f-a10b-f9ad5af87d57/Nintendo_Switch_OLED-min.png", description: "My wife and I played a lot of games on Switch while we were dating. She bought me the OLED as a gift and it\u2019s pretty nice!", link: "https://www.nintendo.com/us/store/products/nintendo-switch-oled-model-white-set/" },
+      { brand: "Fractal", name: "Terra Jade", image: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/0b5900fe-8973-4f7e-909e-31c5cb90354a/Fractal_Terra-min.png", description: "My current build is in this. It pretty much holds everything from my previous case and looks beautiful. Temps are pretty solid\u2014would recommend for anyone interested in SFF PCs.", link: "https://www.fractal-design.com/products/cases/terra/terra/terra-jade/" }
+    ];
+
+    const trinketModal = document.getElementById('trinketModal');
+    const tmBrand = document.getElementById('tmBrand');
+    const tmName = document.getElementById('tmName');
+    const tmImage = document.getElementById('tmImage');
+    const tmDesc = document.getElementById('tmDesc');
+    const tmLink = document.getElementById('tmLink');
+    const trinketModalClose = document.getElementById('trinketModalClose');
+
+    const tmImageWrap = document.getElementById('tmImageWrap');
+
+    const trinketEmojis = ['&#9201;','&#127911;','&#127897;','&#9835;','&#128187;','&#128247;','&#9000;','&#129506;','&#128433;','&#127918;','&#127918;','&#128187;'];
+
+    function openTrinketModal(idx) {
+      const t = trinketData[idx];
+      if (!t) return;
+      tmBrand.textContent = t.brand;
+      tmName.textContent = t.name;
+      tmDesc.textContent = t.description;
+      tmLink.href = t.link;
+
+      tmImageWrap.innerHTML = '';
+      tmImageWrap.classList.remove('has-img', 'img-ready');
+      const img = document.createElement('img');
+      img.alt = t.name;
+      img.onload = function() {
+        tmImageWrap.classList.add('has-img', 'img-ready');
+        img.classList.add('img-loaded');
+      };
+      img.onerror = function() {
+        tmImageWrap.classList.remove('has-img');
+        tmImageWrap.innerHTML = '<div class="tm-placeholder">' + (trinketEmojis[idx] || '&#128230;') + '</div>';
+      };
+      img.src = t.image;
+      tmImageWrap.appendChild(img);
+
+      trinketModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeTrinketModal() {
+      trinketModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('[data-trinket]').forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        const idx = parseInt(card.getAttribute('data-trinket'), 10);
+        openTrinketModal(idx);
+      });
+    });
+
+    trinketModalClose.addEventListener('click', closeTrinketModal);
+    trinketModal.addEventListener('click', (e) => {
+      if (e.target === trinketModal) closeTrinketModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && trinketModal.classList.contains('open')) closeTrinketModal();
+    });
+  </script>
+</body>
+</html>
