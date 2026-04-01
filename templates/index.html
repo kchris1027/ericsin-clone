@@ -234,8 +234,8 @@
     .clock-time .time { color: var(--ForegroundPrimary); }
     .clock-time .digit { font-family: Martha, "LXGW WenKai", sans-serif; }
 
-    .social-list { display: flex; flex-direction: row; gap: 0.5rem; }
-    .social-btn {
+    .social-list, .utility-bar { display: flex; flex-direction: row; gap: 0.5rem; list-style: none; }
+    .utility-btn {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -243,10 +243,11 @@
       height: 2rem;
       border-radius: 9999px;
       background-color: var(--BackgroundTertiary);
-      transition: background-color 0.3s ease;
+      color: var(--ForegroundTertiary);
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    .social-btn:hover { background-color: rgba(from var(--ForegroundTertiary) r g b / 0.3); }
-    .social-btn svg { width: 0.875em; height: 0.875em; }
+    .utility-btn:hover { background-color: rgba(from var(--ForegroundTertiary) r g b / 0.3); color: var(--ForegroundPrimary); }
+    .utility-btn svg { width: 0.875em; height: 0.875em; }
 
     /* ===== FIXED TOP-RIGHT CONTROLS ===== */
     .top-controls {
@@ -259,24 +260,23 @@
       gap: 0.375rem;
     }
     .lang-toggle-btn {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
-      height: 2.25rem;
-      width: 2.25rem;
+      width: 2rem; height: 2rem;
       border-radius: 9999px;
-      background-color: var(--BackgroundSecondary);
-      font-size: 0.75rem;
+      border: none;
+      background-color: var(--BackgroundTertiary);
+      font-size: 0.625rem;
       font-weight: 600;
-      color: var(--ForegroundSecondary);
-      letter-spacing: 0;
-      transition: background-color 0.15s, color 0.15s;
+      color: var(--ForegroundTertiary);
+      letter-spacing: 0.03em;
+      transition: background-color 0.3s ease, color 0.3s ease;
       cursor: pointer;
-      box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
       user-select: none;
       font-family: PPNeueMontreal, "MiSans", sans-serif;
     }
-    .lang-toggle-btn:hover { background-color: var(--BackgroundHover); color: var(--ForegroundPrimary); }
+    .lang-toggle-btn:hover { background-color: rgba(from var(--ForegroundTertiary) r g b / 0.3); color: var(--ForegroundPrimary); }
 
     /* ===== THEME TOGGLE ===== */
     .theme-toggle-wrap {
@@ -942,31 +942,91 @@
     .featured-article .feat-body h3 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
     .featured-article .feat-body p { font-size: 0.875rem; color: var(--ForegroundSecondary); line-height: 150%; }
 
-    /* ===== FRIENDS PAGE ===== */
-    .friends-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-    @media (min-width: 640px) { .friends-grid { grid-template-columns: repeat(2, 1fr); } }
-    .friend-card {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
+    /* ===== GAMES PAGE ===== */
+    .featured-game {
+      display: grid; grid-template-columns: 1fr;
+      border: 1px solid var(--BordersPrimary);
+      border-radius: 0.25rem; overflow: hidden;
+      text-decoration: none; color: inherit; cursor: pointer;
+      background-color: transparent;
+      transition: background-color 0.3s;
+    }
+    .featured-game:hover { background-color: var(--BackgroundHover); }
+    @media (min-width: 640px) { .featured-game { grid-template-columns: 1fr 1fr; } }
+    .featured-game .feat-thumb {
+      overflow: hidden; min-height: 10rem;
+      background: var(--BackgroundTertiary);
+    }
+    .featured-game .feat-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .featured-game .feat-body {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 0.5rem; padding: 1.25rem;
+    }
+    .featured-game .feat-label {
+      font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em;
+      font-family: Martha, "LXGW WenKai", sans-serif;
+      color: var(--ForegroundTertiary); opacity: 0.7;
+      display: flex; align-items: center; gap: 0.375rem;
+    }
+    .featured-game .feat-label svg { width: 0.75rem; height: 0.75rem; }
+    .featured-game .feat-body h3 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+    .featured-game .feat-body p {
+      font-size: 0.875rem; color: var(--ForegroundSecondary); line-height: 150%;
+    }
+    .featured-game .feat-meta {
+      display: flex; gap: 1rem; align-items: center;
+      font-size: 0.6875rem; color: var(--ForegroundTertiary);
+      font-family: Martha, "LXGW WenKai", sans-serif;
+      letter-spacing: 0.03em; text-transform: uppercase;
+    }
+    .featured-game .feat-meta span { display: flex; align-items: center; gap: 0.25rem; }
+    .games-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    @media (min-width: 640px) { .games-grid { grid-template-columns: repeat(3, 1fr); } }
+    .game-card {
+      display: block;
       border: 1px solid var(--BordersPrimary);
       border-radius: 0.25rem;
+      overflow: hidden;
+      background-color: transparent;
       transition: background-color 0.3s ease-in-out;
       text-decoration: none;
       color: inherit;
     }
-    .friend-card:hover { background-color: var(--BackgroundHover); }
-    .friend-avatar {
-      width: 2.5rem; height: 2.5rem;
-      border-radius: 9999px;
+    .game-card:hover { background-color: var(--BackgroundHover); }
+    .game-cover {
+      aspect-ratio: 460 / 215;
       overflow: hidden;
       background: var(--BackgroundTertiary);
-      flex-shrink: 0;
+      border-bottom: 1px solid var(--BordersPrimary);
     }
-    .friend-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .friend-info h3 { font-size: 0.875rem; font-weight: 600; }
-    .friend-info p { font-size: 0.875rem; color: var(--ForegroundSecondary); }
+    .game-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .game-info {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; gap: 0.5rem;
+    }
+    .game-info-text { flex: 1; min-width: 0; }
+    .game-info-text h3 {
+      font-size: 0.875rem; font-weight: 600;
+      letter-spacing: -0.005em; line-height: 1.4;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .game-genre {
+      font-family: Martha, "LXGW WenKai", sans-serif;
+      font-size: 0.6875rem; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--ForegroundTertiary); margin-top: 0.125rem;
+    }
+    .game-steam-icon {
+      flex-shrink: 0; width: 1.125rem; height: 1.125rem;
+      color: var(--ForegroundTertiary);
+      transition: color 0.2s ease;
+    }
+    .game-card:hover .game-steam-icon { color: var(--ForegroundPrimary); }
+    .game-card .arrow-reveal {
+      opacity: 0; transform: translateX(-8px);
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+      display: inline-flex; flex-shrink: 0;
+    }
+    .game-card:hover .arrow-reveal { opacity: 1; transform: translateX(0); }
 
     /* ===== DETAIL PAGES (Project & Writing) ===== */
     .detail-back { padding-top: 0; padding-bottom: 0; }
@@ -1163,6 +1223,154 @@
       .trinket-modal-header { margin-top: 0.5rem; }
     }
 
+    /* ===== GAME MODAL ===== */
+    .game-modal-overlay {
+      position: fixed; inset: 0; z-index: 50;
+      display: flex; justify-content: center; align-items: flex-start;
+      padding: 0.5rem 0;
+      background: var(--BackgroundPrimary);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+      overflow-y: auto; -webkit-overflow-scrolling: touch;
+    }
+    .game-modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .game-modal-card {
+      position: relative;
+      display: flex; flex-direction: column; align-items: stretch;
+      width: 100%; height: 100%;
+      gap: 0.25rem;
+      background: transparent;
+      transform: translateY(16px); opacity: 0;
+      transition: transform 0.3s cubic-bezier(0,0,0.2,1), opacity 0.3s ease;
+    }
+    .game-modal-overlay.open .game-modal-card {
+      transform: translateY(0); opacity: 1;
+    }
+    .game-modal-close {
+      position: absolute; top: 0.75rem; right: 0.75rem; z-index: 2;
+      padding: 0.5rem;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 9999px; border: none; cursor: pointer;
+      background: transparent;
+      color: var(--ForegroundSecondary);
+      transition: color 0.2s;
+    }
+    .game-modal-close:hover { color: var(--ForegroundPrimary); }
+    .game-modal-header { padding: 1.25rem; margin-top: 0.5rem; }
+    .game-modal-genre {
+      font-size: 0.875rem; text-transform: uppercase;
+      color: var(--ForegroundSecondary); font-family: Martha, "LXGW WenKai", sans-serif;
+      margin-bottom: 0.5rem;
+    }
+    .game-modal-name { font-size: 1.75rem; font-weight: 600; line-height: 2rem; }
+    .game-modal-image {
+      width: 100%; overflow: hidden;
+      background: var(--BackgroundTertiary);
+      aspect-ratio: 460 / 215;
+      flex-shrink: 0;
+    }
+    .game-modal-image img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      opacity: 1 !important;
+    }
+    .game-modal-body { padding: 1.25rem; }
+    .game-modal-rating {
+      display: flex; align-items: center; gap: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--BordersPrimary);
+    }
+    .game-modal-score-ring {
+      position: relative;
+      width: 4.5rem; height: 4.5rem;
+      flex-shrink: 0;
+    }
+    .game-modal-score-ring svg {
+      width: 100%; height: 100%;
+      transform: rotate(-90deg);
+    }
+    .game-modal-score-ring .ring-bg {
+      fill: none; stroke: var(--BordersPrimary); stroke-width: 2.5;
+    }
+    .game-modal-score-ring .ring-fill {
+      fill: none; stroke: var(--ForegroundPrimary); stroke-width: 2.5;
+      stroke-linecap: round;
+    }
+    .game-modal-score-value {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.125rem; font-weight: 600;
+      color: var(--ForegroundPrimary);
+      font-variant-numeric: tabular-nums;
+    }
+    .game-modal-rating-info {
+      flex: 1; min-width: 0;
+      display: flex; flex-direction: column; gap: 0.125rem;
+    }
+    .game-modal-rating-label {
+      font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em;
+      font-family: Martha, "LXGW WenKai", sans-serif;
+      color: var(--ForegroundTertiary);
+      opacity: 0.7;
+    }
+    .game-modal-rating-text {
+      font-size: 0.6875rem;
+      color: var(--ForegroundTertiary);
+      opacity: 0.4;
+      line-height: 1.4;
+    }
+    .game-modal-meta {
+      display: flex; justify-content: space-between;
+      padding: 0.875rem 0;
+    }
+    .game-modal-meta-item {
+      display: flex; flex-direction: column; gap: 0.125rem;
+      flex: 1;
+    }
+    .game-modal-meta-item:nth-child(2) { text-align: center; }
+    .game-modal-meta-item:last-child { text-align: right; }
+    .game-modal-meta-label {
+      font-size: 0.5625rem; text-transform: uppercase; letter-spacing: 0.1em;
+      font-family: Martha, "LXGW WenKai", sans-serif;
+      color: var(--ForegroundTertiary); opacity: 0.5;
+    }
+    .game-modal-meta-value {
+      font-size: 0.8125rem; font-weight: 500;
+      color: var(--ForegroundSecondary);
+    }
+    .game-modal-link {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.625rem 1.25rem; margin-top: 0.25rem;
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
+      font-family: Martha, "LXGW WenKai", sans-serif;
+      width: 100%;
+      background: var(--ForegroundSecondary); color: var(--BackgroundPrimary);
+      border-radius: 0.375rem; text-decoration: none;
+      transition: background 0.3s;
+    }
+    .game-modal-link:hover { background: var(--ForegroundPrimary); }
+    @media (min-width: 768px) {
+      .game-modal-overlay {
+        align-items: center;
+        padding: 0 1.25rem;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        overflow: hidden;
+      }
+      .game-modal-card {
+        max-width: 28rem; height: auto;
+        background: var(--BackgroundSecondary);
+        border-radius: 0.5rem;
+        box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        overflow: hidden;
+        transform: translateY(16px) scale(0.97);
+      }
+      .game-modal-overlay.open .game-modal-card {
+        transform: translateY(0) scale(1);
+      }
+      .game-modal-header { margin-top: 0.5rem; }
+    }
+
     /* ===== PLACEHOLDER IMAGES ===== */
     .placeholder-blog-1 { background: linear-gradient(135deg, #0a3d2e 0%, #1a5c4e 40%, #2a7c6e 100%); }
     .placeholder-blog-2 { background: linear-gradient(135deg, #8a6a00 0%, #c89a20 40%, #e8ba40 100%); }
@@ -1295,31 +1503,12 @@
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
-    .skeleton-friend-row {
-      display: flex;
-      gap: 0.75rem;
-      align-items: center;
-      padding: 0.75rem;
-      border: 1px solid var(--BorderPrimary);
-      border-radius: 0.5rem;
-    }
-    .skeleton-friend-row .skeleton-avatar {
-      width: 2rem;
-      height: 2rem;
-      min-width: 2rem;
-      border-radius: 50%;
-      background: var(--BackgroundTertiary);
-      background-image: linear-gradient(100deg, rgba(128,128,128,0) 0%, rgba(128,128,128,0.18) 50%, rgba(128,128,128,0) 100%);
-      background-size: 400px 100%;
-      background-repeat: no-repeat;
-      animation: skeletonShimmer 2s ease infinite;
-    }
 
     /* ===== HOVER TRANSITIONS (exact match) ===== */
     .nav-link {
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .social-btn {
+    .utility-btn {
       transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
                   background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
                   border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1517,7 +1706,7 @@
           <a href="#" class="drawer-nav-link" data-nav="projects" data-i18n="nav.projects">Projects</a>
           <a href="#" class="drawer-nav-link" data-nav="resume" data-i18n="nav.resume">Resume</a>
           <a href="#" class="drawer-nav-link" data-nav="writing" data-i18n="nav.writing">Writing</a>
-          <a href="#" class="drawer-nav-link" data-nav="friends" data-i18n="nav.friends">Friends</a>
+          <a href="#" class="drawer-nav-link" data-nav="games" data-i18n="nav.games">Games</a>
           <a href="#" class="drawer-nav-link" data-nav="trinkets" data-i18n="nav.trinkets">Trinkets</a>
         </nav>
       </div>
@@ -1534,15 +1723,7 @@
           </div>
           <div>
             <ul class="social-list">
-              <li><a href="https://instagram.com/ericysin" target="_blank" rel="noopener noreferrer" class="social-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.028 2c1.125.003 1.696.009 2.189.023l.194.007c.224.008.445.018.712.03c1.064.05 1.79.218 2.427.465c.66.254 1.216.598 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.012.266.022.487.03.712l.006.194c.015.492.021 1.063.023 2.188l.001.746v1.31a79 79 0 0 1-.023 2.188l-.006.194c-.008.225-.018.446-.03.712c-.05 1.065-.22 1.79-.466 2.428a4.9 4.9 0 0 1-1.153 1.772a4.9 4.9 0 0 1-1.772 1.153c-.637.247-1.363.415-2.427.465l-.712.03-.194.006c-.493.014-1.064.021-2.189.023l-.746.001h-1.309a78 78 0 0 1-2.189-.023l-.194-.006a63 63 0 0 1-.712-.031c-1.064-.05-1.79-.218-2.428-.465a4.9 4.9 0 0 1-1.771-1.153a4.9 4.9 0 0 1-1.154-1.772c-.247-.637-.415-1.363-.465-2.428l-.03-.712-.005-.194A79 79 0 0 1 2 13.028v-2.056a79 79 0 0 1 .022-2.188l.007-.194c.008-.225.018-.446.03-.712c.05-1.065.218-1.79.465-2.428A4.9 4.9 0 0 1 3.68 3.678a4.9 4.9 0 0 1 1.77-1.153c.638-.247 1.363-.415 2.428-.465c.266-.012.488-.022.712-.03l.194-.006a79 79 0 0 1 2.188-.023zM12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10m0 2a3 3 0 1 1 .001 6a3 3 0 0 1 0-6m5.25-3.5a1.25 1.25 0 0 0 0 2.5a1.25 1.25 0 0 0 0-2.5"/></svg>
-              </a></li>
-              <li><a href="https://www.linkedin.com/in/quickfox/" target="_blank" rel="noopener noreferrer" class="social-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4-.002a2 2 0 0 1 4 .002M7 8.48H3V21h4zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91z"/></svg>
-              </a></li>
-              <li><a href="https://www.threads.net/@imericsin" target="_blank" rel="noopener noreferrer" class="social-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.705 11.108c-.162-2.987-1.794-4.697-4.534-4.714c-1.652-.01-3.033.69-3.879 1.973L9.8 9.4c.634-.961 1.635-1.16 2.36-1.153c.903.006 1.583.268 2.024.78c.32.372.535.887.642 1.536q-1.202-.204-2.59-.125c-2.606.15-4.28 1.67-4.168 3.781c.057 1.071.59 1.993 1.502 2.595c.77.509 1.764.757 2.795.701c1.363-.075 2.432-.594 3.178-1.545c.566-.722.924-1.658 1.082-2.836c.65.392 1.13.907 1.397 1.527c.452 1.054.478 2.786-.935 4.198c-1.238 1.236-2.726 1.772-4.975 1.788c-2.495-.018-4.382-.819-5.608-2.378c-1.15-1.46-1.743-3.57-1.765-6.269c.022-2.7.616-4.809 1.765-6.27c1.226-1.559 3.113-2.359 5.608-2.377c2.513.019 4.432.822 5.706 2.39c.625.768 1.095 1.734 1.406 2.86l1.766-.47c-.377-1.387-.969-2.582-1.774-3.573c-1.633-2.01-4.033-3.039-7.11-3.06c-3.071.021-5.432 1.055-7.019 3.071c-1.411 1.795-2.14 4.306-2.164 7.436c.024 3.13.753 5.627 2.164 7.422c1.587 2.016 3.96 3.05 7.03 3.071c2.731-.019 4.655-.734 6.24-2.317c2.075-2.073 2.012-4.67 1.329-6.264c-.525-1.225-1.57-2.206-2.98-2.81m-4.438 4.557c-1.142.064-2.328-.448-2.387-1.546c-.043-.814.58-1.722 2.457-1.83a9.4 9.4 0 0 1 2.533.174c-.216 2.702-1.485 3.14-2.603 3.202"/></svg>
-              </a></li>
+              <li><button class="lang-toggle-btn" id="langToggle" title="Switch language">EN</button></li>
             </ul>
           </div>
         </div>
@@ -1557,9 +1738,8 @@
     </button>
   </header>
 
-  <!-- Top Controls (Language + Theme) -->
+  <!-- Top Controls (Theme) -->
   <div class="top-controls">
-    <button class="lang-toggle-btn" id="langToggle" title="Switch language">EN</button>
     <div class="theme-toggle-wrap">
       <button class="theme-toggle-btn" id="themeToggle" title="Switch theme">
         <div class="toggle-indicator"></div>
@@ -1609,9 +1789,9 @@
               <li><a href="#" class="nav-link" data-nav="writing">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/></svg>
                 <span data-i18n="nav.writing">Writing</span></a></li>
-              <li><a href="#" class="nav-link" data-nav="friends">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2v2m1.915 18a6 6 0 0 0-12 0M8 2v2"/><circle cx="12" cy="12" r="4"/><rect width="18" height="18" x="3" y="4" rx="2"/></svg>
-                <span data-i18n="nav.friends">Friends</span></a></li>
+              <li><a href="#" class="nav-link" data-nav="games">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>
+                <span data-i18n="nav.games">Games</span></a></li>
               <li><a href="#" class="nav-link" data-nav="trinkets">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6m4.76-6a2 2 0 0 1 1.8 1.1l2.23 4.479a2 2 0 0 1 .21.891V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9.472a2 2 0 0 1 .211-.894L5.45 4.1A2 2 0 0 1 7.24 3zM3.054 9.013h17.893"/></svg>
                 <span data-i18n="nav.trinkets">Trinkets</span></a></li>
@@ -1632,15 +1812,7 @@
           </div>
           <div>
             <ul class="social-list">
-              <li><a href="https://instagram.com/ericysin" target="_blank" rel="noopener noreferrer" class="social-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.028 2c1.125.003 1.696.009 2.189.023l.194.007c.224.008.445.018.712.03c1.064.05 1.79.218 2.427.465c.66.254 1.216.598 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.012.266.022.487.03.712l.006.194c.015.492.021 1.063.023 2.188l.001.746v1.31a79 79 0 0 1-.023 2.188l-.006.194c-.008.225-.018.446-.03.712c-.05 1.065-.22 1.79-.466 2.428a4.9 4.9 0 0 1-1.153 1.772a4.9 4.9 0 0 1-1.772 1.153c-.637.247-1.363.415-2.427.465l-.712.03-.194.006c-.493.014-1.064.021-2.189.023l-.746.001h-1.309a78 78 0 0 1-2.189-.023l-.194-.006a63 63 0 0 1-.712-.031c-1.064-.05-1.79-.218-2.428-.465a4.9 4.9 0 0 1-1.771-1.153a4.9 4.9 0 0 1-1.154-1.772c-.247-.637-.415-1.363-.465-2.428l-.03-.712-.005-.194A79 79 0 0 1 2 13.028v-2.056a79 79 0 0 1 .022-2.188l.007-.194c.008-.225.018-.446.03-.712c.05-1.065.218-1.79.465-2.428A4.9 4.9 0 0 1 3.68 3.678a4.9 4.9 0 0 1 1.77-1.153c.638-.247 1.363-.415 2.428-.465c.266-.012.488-.022.712-.03l.194-.006a79 79 0 0 1 2.188-.023zM12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10m0 2a3 3 0 1 1 .001 6a3 3 0 0 1 0-6m5.25-3.5a1.25 1.25 0 0 0 0 2.5a1.25 1.25 0 0 0 0-2.5"/></svg>
-              </a></li>
-              <li><a href="https://www.linkedin.com/in/quickfox/" target="_blank" rel="noopener noreferrer" class="social-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4-.002a2 2 0 0 1 4 .002M7 8.48H3V21h4zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91z"/></svg>
-              </a></li>
-              <li><a href="https://www.threads.net/@imericsin" target="_blank" rel="noopener noreferrer" class="social-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.705 11.108c-.162-2.987-1.794-4.697-4.534-4.714c-1.652-.01-3.033.69-3.879 1.973L9.8 9.4c.634-.961 1.635-1.16 2.36-1.153c.903.006 1.583.268 2.024.78c.32.372.535.887.642 1.536q-1.202-.204-2.59-.125c-2.606.15-4.28 1.67-4.168 3.781c.057 1.071.59 1.993 1.502 2.595c.77.509 1.764.757 2.795.701c1.363-.075 2.432-.594 3.178-1.545c.566-.722.924-1.658 1.082-2.836c.65.392 1.13.907 1.397 1.527c.452 1.054.478 2.786-.935 4.198c-1.238 1.236-2.726 1.772-4.975 1.788c-2.495-.018-4.382-.819-5.608-2.378c-1.15-1.46-1.743-3.57-1.765-6.269c.022-2.7.616-4.809 1.765-6.27c1.226-1.559 3.113-2.359 5.608-2.377c2.513.019 4.432.822 5.706 2.39c.625.768 1.095 1.734 1.406 2.86l1.766-.47c-.377-1.387-.969-2.582-1.774-3.573c-1.633-2.01-4.033-3.039-7.11-3.06c-3.071.021-5.432 1.055-7.019 3.071c-1.411 1.795-2.14 4.306-2.164 7.436c.024 3.13.753 5.627 2.164 7.422c1.587 2.016 3.96 3.05 7.03 3.071c2.731-.019 4.655-.734 6.24-2.317c2.075-2.073 2.012-4.67 1.329-6.264c-.525-1.225-1.57-2.206-2.98-2.81m-4.438 4.557c-1.142.064-2.328-.448-2.387-1.546c-.043-.814.58-1.722 2.457-1.83a9.4 9.4 0 0 1 2.533.174c-.216 2.702-1.485 3.14-2.603 3.202"/></svg>
-              </a></li>
+              <li><button class="lang-toggle-btn" id="langToggle" title="Switch language">EN</button></li>
             </ul>
           </div>
         </div>
@@ -1986,56 +2158,52 @@
           </section>
         </div>
 
-        <!-- ===== FRIENDS PAGE ===== -->
-        <div id="friends" data-page="friends">
+        <!-- ===== GAMES PAGE ===== -->
+        <div id="games" data-page="games">
           <div class="skeleton-overlay" data-skeleton>
             <div class="skeleton-group">
               <div class="skeleton-bar h-lg w-35"></div>
               <div class="skeleton-bar w-95"></div>
               <div class="skeleton-bar w-75"></div>
             </div>
-            <div class="skeleton-grid-2">
-              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-55"></div><div class="skeleton-bar w-35"></div></div></div>
-              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-45"></div><div class="skeleton-bar w-35"></div></div></div>
-              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-55"></div><div class="skeleton-bar w-45"></div></div></div>
-              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-45"></div><div class="skeleton-bar w-55"></div></div></div>
-              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-35"></div><div class="skeleton-bar w-45"></div></div></div>
-              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-55"></div><div class="skeleton-bar w-35"></div></div></div>
-              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-45"></div><div class="skeleton-bar w-35"></div></div></div>
-              <div class="skeleton-friend-row"><div class="skeleton-avatar"></div><div class="skeleton-group"><div class="skeleton-bar w-55"></div><div class="skeleton-bar w-45"></div></div></div>
+            <div class="skeleton-grid-2" style="grid-template-columns:repeat(2,1fr);">
+              <div class="skeleton-group" style="gap:0.5rem"><div class="skeleton-bar" style="height:6rem;width:100%"></div><div class="skeleton-bar w-55"></div><div class="skeleton-bar w-35"></div></div>
+              <div class="skeleton-group" style="gap:0.5rem"><div class="skeleton-bar" style="height:6rem;width:100%"></div><div class="skeleton-bar w-45"></div><div class="skeleton-bar w-35"></div></div>
+              <div class="skeleton-group" style="gap:0.5rem"><div class="skeleton-bar" style="height:6rem;width:100%"></div><div class="skeleton-bar w-55"></div><div class="skeleton-bar w-45"></div></div>
+              <div class="skeleton-group" style="gap:0.5rem"><div class="skeleton-bar" style="height:6rem;width:100%"></div><div class="skeleton-bar w-45"></div><div class="skeleton-bar w-55"></div></div>
             </div>
           </div>
           <section class="page-header" data-animate>
-            <h1 style="font-family:Martha,'LXGW WenKai',sans-serif;letter-spacing:0.025em;" data-i18n="pages.friends_title">Friends</h1>
-            <p data-i18n="pages.friends_desc">People I have strong relationships with, have great respect for, or just identify to be good people with kind hearts. Definitely worth a follow and a look at if you're looking for talent or great collaborators.</p>
+            <h1 data-i18n="pages.games_title">Games</h1>
+            <p data-i18n="pages.games_desc">A collection of games I've played and enjoyed. From epic adventures to competitive shooters — these are the titles that left an impression.</p>
+          </section>
+          <section data-animate style="padding-top:0;">
+            <div class="featured-game" data-game="0">
+              <div class="feat-thumb"><img src="" alt="" loading="lazy"></div>
+              <div class="feat-body">
+                <div class="feat-label"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg> <span data-i18n="games.favorite">All-Time Favorite</span></div>
+                <h3 class="feat-game-name"></h3>
+                <p class="feat-game-comment"></p>
+                <div class="feat-meta">
+                  <span class="feat-game-genre"></span>
+                  <span>&bull;</span>
+                  <span class="feat-game-rating"></span>
+                </div>
+              </div>
+            </div>
           </section>
           <section data-animate>
-            <ul class="tab-bar" data-filter="friends">
-              <li class="tab-item active" data-tab="all">All</li>
-              <li class="tab-item" data-tab="brand">Brand</li>
-              <li class="tab-item" data-tab="engineer">Engineer</li>
-              <li class="tab-item" data-tab="product">Product</li>
+            <ul class="tab-bar" data-filter="games">
+              <li class="tab-item active" data-tab="all" data-i18n="filter.all">All</li>
+              <li class="tab-item" data-tab="2025">2025</li>
+              <li class="tab-item" data-tab="2024">2024</li>
+              <li class="tab-item" data-tab="2023">2023</li>
+              <li class="tab-item" data-tab="2022">2022</li>
+              <li class="tab-item" data-tab="2020">2020</li>
+              <li class="tab-item" data-tab="2019">2019</li>
             </ul>
-            <div class="friends-grid" style="margin-top:1rem;">
-              <a href="https://www.brianhui.me/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Brian Hui</h3><p>Product Designer</p></div></a>
-              <a href="https://www.linkedin.com/in/derrickkslee/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Derrick Lee</h3><p>Product Designer</p></div></a>
-              <a href="https://www.linkedin.com/in/domenictaft/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Domenic Taft</h3><p>Product Designer</p></div></a>
-              <a href="http://emilyasami.com/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>Emily Asami</h3><p>Art Director</p></div></a>
-              <a href="https://www.linkedin.com/in/erinwchan/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Erin Lode</h3><p>Product Designer</p></div></a>
-              <a href="https://www.linkedin.com/in/henry-jay-yu-5531199/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Jay Yu</h3><p>Head of Product Design &amp; Research</p></div></a>
-              <a href="https://www.linkedin.com/in/julianrotondo/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>Julian Rotondo</h3><p>Art Director</p></div></a>
-              <a href="https://www.linkedin.com/in/justinkellner/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Justin Kellner</h3><p>Product Designer</p></div></a>
-              <a href="https://www.linkedin.com/in/michelle-tu-0073571a/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Michelle Tu</h3><p>Product Designer</p></div></a>
-              <a href="https://www.linkedin.com/in/natewcarr/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Nate Carr</h3><p>Product Design Manager</p></div></a>
-              <a href="https://www.linkedin.com/in/petrinakoh/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="engineer"><div class="friend-avatar"></div><div class="friend-info"><h3>Petrina Koh</h3><p>Software Engineer</p></div></a>
-              <a href="http://playlist.studio" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>Ray Sison</h3><p>Partner, Design</p></div></a>
-              <a href="https://ryanjohnson.me/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Ryan Johnson</h3><p>Product Designer</p></div></a>
-              <a href="http://playlist.studio" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>Sang Kim</h3><p>Partner, Design</p></div></a>
-              <a href="http://playlist.studio" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>Sojin Ouh</h3><p>Partner, Design</p></div></a>
-              <a href="https://www.linkedin.com/in/tarating/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="product"><div class="friend-avatar"></div><div class="friend-info"><h3>Tara Ting</h3><p>Head of Product Design</p></div></a>
-              <a href="https://williamcweigel.design/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>William Weigel</h3><p>Art Director</p></div></a>
-              <a href="https://www.atom63.io/" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>You Zhang</h3><p>Motion Designer</p></div></a>
-              <a href="http://playlist.studio" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="brand"><div class="friend-avatar"></div><div class="friend-info"><h3>Yuan Wei</h3><p>Partner, Design</p></div></a>
+            <div class="games-grid" style="margin-top:1rem;">
+              <!-- game cards injected by build -->
             </div>
           </section>
         </div>
@@ -2463,6 +2631,52 @@
     </div>
   </div>
 
+  <!-- Game Modal -->
+  <div id="gameModal" class="game-modal-overlay">
+    <div class="game-modal-card">
+      <button class="game-modal-close" id="gameModalClose" aria-label="Close Modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="game-modal-header">
+        <h6 class="game-modal-genre" id="gmGenre"></h6>
+        <h1 class="game-modal-name" id="gmName"></h1>
+      </div>
+      <div class="game-modal-image" id="gmImageWrap"></div>
+      <div class="game-modal-body">
+        <div class="game-modal-rating">
+          <div class="game-modal-score-ring">
+            <svg viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="15.5"></circle>
+              <circle class="ring-fill" id="gmRing" cx="18" cy="18" r="15.5" stroke-dasharray="97.39" stroke-dashoffset="97.39"></circle>
+            </svg>
+            <span class="game-modal-score-value" id="gmScore">0.0</span>
+          </div>
+          <div class="game-modal-rating-info">
+            <div class="game-modal-rating-label" data-i18n="games.rating">Rating</div>
+            <div class="game-modal-rating-text" data-i18n="games.rating_hint">Personal score out of 10</div>
+          </div>
+        </div>
+        <div class="game-modal-meta">
+          <div class="game-modal-meta-item">
+            <span class="game-modal-meta-label" data-i18n="games.played">Played</span>
+            <span class="game-modal-meta-value" id="gmYear"></span>
+          </div>
+          <div class="game-modal-meta-item">
+            <span class="game-modal-meta-label" data-i18n="games.developer_label">Developer</span>
+            <span class="game-modal-meta-value" id="gmDeveloper"></span>
+          </div>
+          <div class="game-modal-meta-item">
+            <span class="game-modal-meta-label" data-i18n="games.platform_label">Platform</span>
+            <span class="game-modal-meta-value" id="gmPlatform"></span>
+          </div>
+        </div>
+        <a class="game-modal-link" id="gmLink" href="#" target="_blank" rel="noopener noreferrer" style="display:none;">
+          <span data-i18n="games.view_steam">View on Steam</span> <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- Lenis Smooth Scroll -->
   <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 
@@ -2634,7 +2848,9 @@
 
         // Re-init image fade-in for the new page
         target.querySelectorAll('img.img-loaded').forEach(i => i.classList.remove('img-loaded'));
-        target.querySelectorAll('.img-ready').forEach(w => w.classList.remove('img-ready'));
+        target.querySelectorAll('.img-ready').forEach(w => {
+          if (w.querySelector('img')) w.classList.remove('img-ready');
+        });
         initImageFadeIn(target);
 
         if (isFirstVisit) {
@@ -2728,12 +2944,12 @@
         };
         img.addEventListener('load', markLoaded, { once: true });
         img.addEventListener('error', markLoaded, { once: true });
-        if (img.complete && img.naturalWidth > 0) {
+        if (img.complete) {
           markLoaded();
         } else {
           setTimeout(() => {
-            if (img.complete && !img.classList.contains('img-loaded')) markLoaded();
-          }, 50);
+            if (!img.classList.contains('img-loaded')) markLoaded();
+          }, 5000);
         }
       });
     }
@@ -2852,6 +3068,94 @@
       if (e.key === 'Escape' && trinketModal.classList.contains('open')) closeTrinketModal();
     });
 
+    // ── Game Modal ──
+    const gameData = [];
+    const gameModal = document.getElementById('gameModal');
+    const gmGenre = document.getElementById('gmGenre');
+    const gmName = document.getElementById('gmName');
+    const gmImageWrap = document.getElementById('gmImageWrap');
+    const gmScore = document.getElementById('gmScore');
+    const gmRing = document.getElementById('gmRing');
+    const gmLink = document.getElementById('gmLink');
+    const gmYear = document.getElementById('gmYear');
+    const gmDeveloper = document.getElementById('gmDeveloper');
+    const gmPlatform = document.getElementById('gmPlatform');
+    const gameModalClose = document.getElementById('gameModalClose');
+    var gmAnimId = null;
+    var RING_C = 2 * Math.PI * 15.5;
+
+    function animateScore(target, duration) {
+      if (gmAnimId) cancelAnimationFrame(gmAnimId);
+      var start = null;
+      gmScore.textContent = '0.0';
+      gmRing.style.strokeDashoffset = RING_C;
+      function step(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / duration, 1);
+        var ease = 1 - Math.pow(1 - p, 3);
+        var cur = target * ease;
+        gmScore.textContent = cur.toFixed(1);
+        gmRing.style.strokeDashoffset = RING_C * (1 - (cur / 10));
+        if (p < 1) { gmAnimId = requestAnimationFrame(step); }
+        else { gmAnimId = null; }
+      }
+      gmAnimId = requestAnimationFrame(step);
+    }
+
+    function openGameModal(idx) {
+      var g = gameData[idx];
+      if (!g) return;
+      gmGenre.textContent = g.genre;
+      gmName.textContent = g.name;
+      gmYear.textContent = g.year || '—';
+      gmDeveloper.textContent = g.developer || '—';
+      gmPlatform.textContent = g.platform || '—';
+
+      gmImageWrap.innerHTML = '';
+      var img = document.createElement('img');
+      img.alt = g.name;
+      img.src = g.image;
+      gmImageWrap.appendChild(img);
+
+      if (g.steam) {
+        gmLink.href = g.steam;
+        gmLink.style.display = '';
+      } else {
+        gmLink.style.display = 'none';
+      }
+
+      gmScore.textContent = '0.0';
+      gmRing.style.strokeDashoffset = RING_C;
+
+      gameModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      setTimeout(function() { animateScore(g.rating, 800); }, 300);
+    }
+
+    function closeGameModal() {
+      if (gmAnimId) { cancelAnimationFrame(gmAnimId); gmAnimId = null; }
+      gameModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('[data-game]').forEach(function(card) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', function(e) {
+        e.preventDefault();
+        var idx = parseInt(card.getAttribute('data-game'), 10);
+        openGameModal(idx);
+      });
+    });
+
+    gameModalClose.addEventListener('click', closeGameModal);
+    gameModal.addEventListener('click', function(e) {
+      if (e.target === gameModal) closeGameModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && gameModal.classList.contains('open')) closeGameModal();
+    });
+
     // ── Custom Cursor ──
     (function() {
       if (!matchMedia('(pointer: fine)').matches) return;
@@ -2862,7 +3166,7 @@
       let mx = -100, my = -100, rx = -100, ry = -100;
       let rafId = null;
 
-      const hoverSelectors = 'a, button, [data-nav], [data-detail], [data-navigate], .nav-link, .drawer-nav-link, .tab-item, .trinket-card, .article-card, .project-card, .status-card, .social-btn, .friend-card, .back-btn, .theme-toggle-btn, .lang-toggle-btn, .view-all, .btn-filled, .btn-outline, .trinket-modal-close, .wechat-modal-close, input, textarea, select';
+      const hoverSelectors = 'a, button, [data-nav], [data-detail], [data-navigate], .nav-link, .drawer-nav-link, .tab-item, .trinket-card, .article-card, .project-card, .status-card, .utility-btn, .game-card, .featured-game, .back-btn, .theme-toggle-btn, .lang-toggle-btn, .view-all, .btn-filled, .btn-outline, .trinket-modal-close, .game-modal-close, .wechat-modal-close, .game-modal-link, input, textarea, select';
       const textSelectors = 'p, h1, h2, h3, h4, h5, h6, span, li, .notion-block, .hero-desc, .writing-subtitle';
 
       function tick() {
@@ -2931,12 +3235,11 @@
     }
 
     function updateLangButton(lang) {
-      const langBtn = document.getElementById('langToggle');
-      if (langBtn) {
-        const nextIdx = (__AVAILABLE_LOCALES__.indexOf(lang) + 1) % __AVAILABLE_LOCALES__.length;
-        const nextLang = __AVAILABLE_LOCALES__[nextIdx];
-        langBtn.textContent = nextLang.toUpperCase();
-      }
+      const nextIdx = (__AVAILABLE_LOCALES__.indexOf(lang) + 1) % __AVAILABLE_LOCALES__.length;
+      const nextLang = __AVAILABLE_LOCALES__[nextIdx];
+      document.querySelectorAll('.lang-toggle-btn').forEach(btn => {
+        btn.textContent = nextLang.toUpperCase();
+      });
     }
 
     function applyLocale(lang, force) {
@@ -2955,13 +3258,12 @@
       updateLangButton(lang);
     }
 
-    const langToggle = document.getElementById('langToggle');
-    if (langToggle) {
-      langToggle.addEventListener('click', () => {
+    document.querySelectorAll('.lang-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
         const nextIdx = (__AVAILABLE_LOCALES__.indexOf(currentLocale) + 1) % __AVAILABLE_LOCALES__.length;
         applyLocale(__AVAILABLE_LOCALES__[nextIdx], true);
       });
-    }
+    });
     if (currentLocale !== __DEFAULT_LOCALE__) {
       applyLocale(currentLocale, true);
     } else {

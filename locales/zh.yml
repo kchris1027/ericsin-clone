@@ -3,7 +3,7 @@ nav:
   projects: "项目"
   resume: "简历"
   writing: "文章"
-  friends: "朋友"
+  games: "游戏"
   trinkets: "好物"
   group_work: "工作"
   group_personal: "个人"
@@ -33,8 +33,8 @@ pages:
   resume_desc: "我活跃在产品设计与品牌设计的交汇地带，曾作为设计师、管理者和顾问参与过各类企业和初创公司。"
   writing_title: "文章"
   writing_desc: "我有很多想法，最近才意识到自己一直没有一个合适的表达出口。这里是我所有思考、探索和回顾的空间，希望对你有所启发！"
-  friends_title: "朋友"
-  friends_desc: "与我有深厚关系的人，他们是我职业生涯中有幸合作过的伙伴。"
+  games_title: "游戏"
+  games_desc: "我玩过并喜欢的游戏合集。从史诗冒险到竞技射击——这些是给我留下深刻印象的作品。"
   trinkets_title: "好物"
   trinkets_desc: "这些是我在职业生涯中购买的、对我有特殊意义的物品。"
 
@@ -60,6 +60,15 @@ filter:
 
 clock:
   local_time: "当地时间"
+
+games:
+  rating: "个人评分"
+  rating_hint: "满分 10 分"
+  played: "游玩年份"
+  developer_label: "开发商"
+  platform_label: "平台"
+  favorite: "最爱游戏"
+  view_steam: "在 Steam 上查看"
 
 wechat:
   title: "扫码添加微信"

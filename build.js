@@ -57,11 +57,6 @@ function readingTime(text) {
 const ARROW_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>';
 const BACK_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7m7 7H5"/></svg>';
 
-const SOCIAL_ICONS = {
-  instagram: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.028 2c1.125.003 1.696.009 2.189.023l.194.007c.224.008.445.018.712.03c1.064.05 1.79.218 2.427.465c.66.254 1.216.598 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428c.012.266.022.487.03.712l.006.194c.015.492.021 1.063.023 2.188l.001.746v1.31a79 79 0 0 1-.023 2.188l-.006.194c-.008.225-.018.446-.03.712c-.05 1.065-.22 1.79-.466 2.428a4.9 4.9 0 0 1-1.153 1.772a4.9 4.9 0 0 1-1.772 1.153c-.637.247-1.363.415-2.427.465l-.712.03-.194.006c-.493.014-1.064.021-2.189.023l-.746.001h-1.309a78 78 0 0 1-2.189-.023l-.194-.006a63 63 0 0 1-.712-.031c-1.064-.05-1.79-.218-2.428-.465a4.9 4.9 0 0 1-1.771-1.153a4.9 4.9 0 0 1-1.154-1.772c-.247-.637-.415-1.363-.465-2.428l-.03-.712-.005-.194A79 79 0 0 1 2 13.028v-2.056a79 79 0 0 1 .022-2.188l.007-.194c.008-.225.018-.446.03-.712c.05-1.065.218-1.79.465-2.428A4.9 4.9 0 0 1 3.68 3.678a4.9 4.9 0 0 1 1.77-1.153c.638-.247 1.363-.415 2.428-.465c.266-.012.488-.022.712-.03l.194-.006a79 79 0 0 1 2.188-.023zM12 7a5 5 0 1 0 0 10a5 5 0 0 0 0-10m0 2a3 3 0 1 1 .001 6a3 3 0 0 1 0-6m5.25-3.5a1.25 1.25 0 0 0 0 2.5a1.25 1.25 0 0 0 0-2.5"/></svg>',
-  linkedin: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4-.002a2 2 0 0 1 4 .002M7 8.48H3V21h4zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91z"/></svg>',
-  threads: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.705 11.108c-.162-2.987-1.794-4.697-4.534-4.714c-1.652-.01-3.033.69-3.879 1.973L9.8 9.4c.634-.961 1.635-1.16 2.36-1.153c.903.006 1.583.268 2.024.78c.32.372.535.887.642 1.536q-1.202-.204-2.59-.125c-2.606.15-4.28 1.67-4.168 3.781c.057 1.071.59 1.993 1.502 2.595c.77.509 1.764.757 2.795.701c1.363-.075 2.432-.594 3.178-1.545c.566-.722.924-1.658 1.082-2.836c.65.392 1.13.907 1.397 1.527c.452 1.054.478 2.786-.935 4.198c-1.238 1.236-2.726 1.772-4.975 1.788c-2.495-.018-4.382-.819-5.608-2.378c-1.15-1.46-1.743-3.57-1.765-6.269c.022-2.7.616-4.809 1.765-6.27c1.226-1.559 3.113-2.359 5.608-2.377c2.513.019 4.432.822 5.706 2.39c.625.768 1.095 1.734 1.406 2.86l1.766-.47c-.377-1.387-.969-2.582-1.774-3.573c-1.633-2.01-4.033-3.039-7.11-3.06c-3.071.021-5.432 1.055-7.019 3.071c-1.411 1.795-2.14 4.306-2.164 7.436c.024 3.13.753 5.627 2.164 7.422c1.587 2.016 3.96 3.05 7.03 3.071c2.731-.019 4.655-.734 6.24-2.317c2.075-2.073 2.012-4.67 1.329-6.264c-.525-1.225-1.57-2.206-2.98-2.81m-4.438 4.557c-1.142.064-2.328-.448-2.387-1.546c-.043-.814.58-1.722 2.457-1.83a9.4 9.4 0 0 1 2.533.174c-.216 2.702-1.485 3.14-2.603 3.202"/></svg>'
-};
 
 // ── Locale loading ──
 
@@ -79,12 +74,12 @@ function loadLocales() {
 
 // ── HTML generators ──
 
-function genSocialLinksHtml(social) {
-  const items = social.map(s => {
-    const icon = SOCIAL_ICONS[s.platform] || '';
-    return `<li><a href="${s.url}" target="_blank" rel="noopener noreferrer" class="social-btn">${icon}</a></li>`;
-  }).join('\n              ');
-  return `<ul class="social-list">\n              ${items}\n            </ul>`;
+function genUtilityBarHtml() {
+  const RSS_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>';
+  return `<ul class="utility-bar">
+              <li><button class="lang-toggle-btn" id="langToggle" title="Switch language">EN</button></li>
+              <li><a href="./feed.xml" target="_blank" rel="noopener noreferrer" class="utility-btn" title="RSS Feed">${RSS_SVG}</a></li>
+            </ul>`;
 }
 
 function genProjectCard(p) {
@@ -252,12 +247,39 @@ function genClientItem(c) {
   return `<li class="client-item"><h2>${c.name}</h2><span class="services">${c.services}</span><span class="date">${c.date}</span></li>`;
 }
 
-function genFriendCard(f) {
-  return `<a href="${f.url}" target="_blank" rel="noopener noreferrer" class="friend-card" data-category="${f.category}"><div class="friend-avatar"></div><div class="friend-info"><h3>${f.name}</h3><p>${f.title}</p></div></a>`;
+function genGameCard(g, idx) {
+  return `<div class="game-card" data-game="${idx}" data-category="${g.year || ''}"><div class="game-cover"><img src="${g.image}" alt="${g.name}" loading="lazy"></div><div class="game-info"><div class="game-info-text"><h3>${g.name}</h3><div class="game-genre">${g.genre || ''}</div></div><span class="arrow-reveal">${ARROW_SVG}</span></div></div>`;
+}
+
+function genFeaturedGame(g, idx) {
+  return `<div class="featured-game" data-game="${idx}">
+              <div class="feat-thumb"><img src="${g.image}" alt="${g.name}" loading="lazy"></div>
+              <div class="feat-body">
+                <div class="feat-label"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg> <span data-i18n="games.favorite">All-Time Favorite</span></div>
+                <h3 class="feat-game-name">${g.name}</h3>
+                <p class="feat-game-comment">${g.comment || ''}</p>
+                <div class="feat-meta">
+                  <span class="feat-game-genre">${g.genre || ''}</span>
+                  <span>&bull;</span>
+                  <span class="feat-game-rating">${(g.rating || 0).toFixed(1)} / 10</span>
+                </div>
+              </div>
+            </div>`;
+}
+
+function genGameDataJS(games) {
+  const items = games.map(g => {
+    const name = (g.name || '').replace(/"/g, '\\"');
+    const genre = (g.genre || '').replace(/"/g, '\\"');
+    const dev = (g.developer || '').replace(/"/g, '\\"');
+    const plat = (g.platform || '').replace(/"/g, '\\"');
+    return `      { name: "${name}", image: "${g.image}", genre: "${genre}", developer: "${dev}", platform: "${plat}", rating: ${g.rating || 0}, year: "${g.year || ''}", steam: "${g.steam || ''}" }`;
+  });
+  return `[\n${items.join(',\n')}\n    ]`;
 }
 
 function genTrinketCard(t, idx) {
-  return `<div class="trinket-card" data-trinket="${idx}"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="${t.image}" alt="" onerror="this.outerHTML='<div style=font-size:3rem;line-height:1>${t.emoji}</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>${t.name}</h4><p>${t.brand}</p></div><span class="arrow-reveal">${ARROW_SVG}</span></div></div></div>`;
+  return `<div class="trinket-card" data-trinket="${idx}"><div class="trinket-product"><div class="trinket-images"><div class="trinket-img-wrap"><img src="${t.image}" alt="" onerror="this.parentElement.classList.add('img-ready');this.outerHTML='<div style=font-size:3rem;line-height:1>${t.emoji}</div>'"></div></div><div style="display:flex;align-items:flex-end;justify-content:space-between;"><div><h4>${t.name}</h4><p>${t.brand}</p></div><span class="arrow-reveal">${ARROW_SVG}</span></div></div></div>`;
 }
 
 function genTrinketDataJS(trinkets) {
@@ -281,7 +303,7 @@ function build() {
   const projects = readContentDir('projects');
   const writing = readContentDir('writing');
   const resume = readYaml('content/data/resume.yml');
-  const friends = readYaml('content/data/friends.yml');
+  const gamesData = readYaml('content/data/games.yml');
   const trinketsData = readYaml('content/data/trinkets.yml');
 
   // Sort writing by date descending
@@ -342,7 +364,7 @@ function build() {
     projects: { title: 'Projects', desc: "I've worked primarily in 0-1 digital product spaces to great success, helping to design thoughtful brand and product experiences. Below are a select collection of some of the businesses I've touched during that time." },
     resume: { title: 'Resume', desc: 'I operate in the space between product and brand design, while dabbling a little bit here and there with development. I gravitate toward complex niches and enjoy making them more accessible and simple.' },
     writing: { title: 'Writing', desc: "I have a lot of thoughts, and realized I didn't have a proper outlet for them until recently. This is now a place for all of my musings, explorations, and retrospectives that I feel may be of value for someone!" },
-    friends: { title: 'Friends', desc: 'People I have strong relationships with, have great respect for, or just identify to be good people with kind hearts. Definitely worth a follow and a look at if you\'re looking for talent or great collaborators.' },
+    games: { title: 'Games', desc: 'A collection of games I\'ve played and enjoyed. From epic adventures to competitive shooters — these are the titles that left an impression.' },
     trinkets: { title: 'Trinkets', desc: "These are a collection of things that I've bought that I enjoy, find useful, or straight up just look nice." }
   };
 
@@ -362,10 +384,9 @@ function build() {
     html = html.split(search).join(replace);
   }
 
-  // ── Social links replacement ──
-  const socialHtml = genSocialLinksHtml(config.social);
-  // Replace both sidebar and drawer social link blocks
-  html = html.replace(/<ul class="social-list">[\s\S]*?<\/ul>/g, socialHtml);
+  // ── Utility bar replacement (lang toggle + RSS) ──
+  const utilityHtml = genUtilityBarHtml();
+  html = html.replace(/<ul class="social-list">[\s\S]*?<\/ul>/g, utilityHtml);
 
   // ── Project grid ──
   const projectGridHtml = projects.map(p => genProjectCard(p)).join('\n              ');
@@ -421,8 +442,8 @@ function build() {
   // ── Writing articles grid ──
   const articlesGridHtml = writing.map((a, i) => genArticleCard(a, i)).join('\n              ');
   html = html.replace(
-    /(<div class="articles-grid" style="margin-top:1rem;">)[\s\S]*?(<\/div>\s*<\/section>\s*<\/div>\s*<!-- ===== FRIENDS)/,
-    `$1\n              ${articlesGridHtml}\n            </div>\n          </section>\n        </div>\n\n        <!-- ===== FRIENDS`
+    /(<div class="articles-grid" style="margin-top:1rem;">)[\s\S]*?(<\/div>\s*<\/section>\s*<\/div>\s*<!-- ===== GAMES)/,
+    `$1\n              ${articlesGridHtml}\n            </div>\n          </section>\n        </div>\n\n        <!-- ===== GAMES`
   );
 
   // ── Home page articles ──
@@ -439,26 +460,34 @@ function build() {
     writingDetailHtml + '\n\n        $2'
   );
 
-  // ── Friends grid ──
-  const friendsGridHtml = friends.friends.map(f => genFriendCard(f)).join('\n              ');
+  // ── Featured game ──
+  const featuredGameIdx = gamesData.games.findIndex(g => g.featured);
+  const featuredGame = featuredGameIdx >= 0 ? gamesData.games[featuredGameIdx] : null;
+  if (featuredGame) {
+    const featHtml = genFeaturedGame(featuredGame, featuredGameIdx);
+    html = html.replace(
+      /<div class="featured-game"[^>]*>[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<\/section>/,
+      featHtml + '\n          </section>'
+    );
+  }
+
+  // ── Games grid ──
+  const gamesGridHtml = gamesData.games.map((g, i) => genGameCard(g, i)).join('\n              ');
   html = html.replace(
-    /(<div class="friends-grid"[^>]*>)[\s\S]*?(<\/div>\s*<\/section>\s*<\/div>\s*<!-- ===== TRINKETS)/,
-    `$1\n              ${friendsGridHtml}\n            </div>\n          </section>\n        </div>\n\n        <!-- ===== TRINKETS`
+    /(<div class="games-grid"[^>]*>)[\s\S]*?(<\/div>\s*<\/section>\s*<\/div>\s*<!-- ===== TRINKETS)/,
+    `$1\n              ${gamesGridHtml}\n            </div>\n          </section>\n        </div>\n\n        <!-- ===== TRINKETS`
   );
 
-  // ── Friends tabs ──
-  const friendsCats = friends.categories || [
-    { key: 'all', label: 'All' },
-    { key: 'brand', label: 'Brand' },
-    { key: 'engineer', label: 'Engineer' },
-    { key: 'product', label: 'Product' }
+  // ── Games tabs ──
+  const gamesCats = gamesData.categories || [
+    { key: 'all', label: 'All' }
   ];
-  const friendsTabsHtml = friendsCats.map(c =>
-    `<li class="tab-item${c.key === 'all' ? ' active' : ''}" data-tab="${c.key}" data-i18n="filter.${c.key}">${c.label}</li>`
+  const gamesTabsHtml = gamesCats.map(c =>
+    `<li class="tab-item${c.key === 'all' ? ' active' : ''}" data-tab="${c.key}"${c.key === 'all' ? ' data-i18n="filter.all"' : ''}>${c.label}</li>`
   ).join('\n              ');
   html = html.replace(
-    /(<ul class="tab-bar" data-filter="friends">)[\s\S]*?(<\/ul>)/,
-    `$1\n              ${friendsTabsHtml}\n            $2`
+    /(<ul class="tab-bar" data-filter="games">)[\s\S]*?(<\/ul>)/,
+    `$1\n              ${gamesTabsHtml}\n            $2`
   );
 
   // ── Trinkets grid ──
@@ -489,6 +518,13 @@ function build() {
     `const trinketEmojis = ${trinketEmojisJS};`
   );
 
+  // ── Game JS data ──
+  const gameDataJS = genGameDataJS(gamesData.games);
+  html = html.replace(
+    /const gameData = \[[\s\S]*?\];/,
+    `const gameData = ${gameDataJS};`
+  );
+
   // ── Inject external font CDN links from config ──
   const fontLinks = (config.site.fonts && config.site.fonts.chinese) || [];
   if (fontLinks.length > 0) {
@@ -515,9 +551,39 @@ function build() {
     `const __AVAILABLE_LOCALES__ = ${JSON.stringify(availableLocales)};`
   );
 
+  // ── Generate RSS feed for Writing articles ──
+  const siteUrl = config.site.url || '';
+  const rssItems = writing.slice(0, 20).map(a => {
+    const pubDate = a.date ? new Date(a.date).toUTCString() : '';
+    const slug = a.slug || 'writing-' + slugify(a._filename);
+    const link = siteUrl ? `${siteUrl}/#${slug}` : `#${slug}`;
+    const desc = (a.excerpt || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const title = (a.title || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return `    <item>
+      <title>${title}</title>
+      <link>${link}</link>
+      <guid>${link}</guid>
+      <pubDate>${pubDate}</pubDate>
+      <description>${desc}</description>
+    </item>`;
+  }).join('\n');
+  const rssFeed = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>${(config.site.title || '').replace(/&/g, '&amp;')}</title>
+    <link>${siteUrl}</link>
+    <description>${(config.site.description || '').replace(/&/g, '&amp;')}</description>
+    <language>en</language>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml"/>
+${rssItems}
+  </channel>
+</rss>`;
+
   // ── Write output ──
   if (!fs.existsSync(DIST)) fs.mkdirSync(DIST, { recursive: true });
   fs.writeFileSync(path.join(DIST, 'index.html'), html, 'utf8');
+  fs.writeFileSync(path.join(DIST, 'feed.xml'), rssFeed, 'utf8');
 
   // Copy static assets
   copyDir(path.join(ROOT, 'static'), path.join(DIST, 'static'));

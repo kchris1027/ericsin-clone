@@ -3,7 +3,7 @@ nav:
   projects: "Projects"
   resume: "Resume"
   writing: "Writing"
-  friends: "Friends"
+  games: "Games"
   trinkets: "Trinkets"
   group_work: "Work"
   group_personal: "Personal"
@@ -33,8 +33,8 @@ pages:
   resume_desc: "I operate in the space between product and brand design, and have been a part of a wide variety of businesses and startups as a designer, leader, and advisor."
   writing_title: "Writing"
   writing_desc: "I have a lot of thoughts, and realized I didn't have a proper outlet for them until recently. This is now a place for all of my musings, explorations, and retrospectives that I feel may be of value for someone!"
-  friends_title: "Friends"
-  friends_desc: "People I have strong relationships with that I've had the privilege to collaborate with throughout my career."
+  games_title: "Games"
+  games_desc: "A collection of games I've played and enjoyed. From epic adventures to competitive shooters — these are the titles that left an impression."
   trinkets_title: "Trinkets"
   trinkets_desc: "These are a collection of things that I've bought throughout my career that holds some type of significance to me."
 
@@ -60,6 +60,15 @@ filter:
 
 clock:
   local_time: "Local Time"
+
+games:
+  rating: "Rating"
+  rating_hint: "Personal score out of 10"
+  played: "Played"
+  developer_label: "Developer"
+  platform_label: "Platform"
+  favorite: "All-Time Favorite"
+  view_steam: "View on Steam"
 
 wechat:
   title: "Scan to Add WeChat"

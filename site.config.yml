@@ -1,6 +1,7 @@
 site:
   title: "Eric Sin / Selected Works"
   description: "Selected works of Eric Sin, Product & Brand Designer."
+  url: "https://ericsin.github.io"
   footer_left: "Built with Vue.JS & Tailwind CSS"
   footer_right: "&copy; 2026 Eric Sin"
   defaultLocale: "en"
@@ -27,14 +28,6 @@ hero:
   cta_secondary:
     text: "和他聊聊"
     action: "wechat"
-
-social:
-  - platform: instagram
-    url: "https://instagram.com/ericysin"
-  - platform: linkedin
-    url: "https://www.linkedin.com/in/quickfox/"
-  - platform: threads
-    url: "https://www.threads.net/@imericsin"
 
 clock:
   label: "CST"
@@ -63,9 +56,9 @@ pages:
   writing:
     title: "Writing"
     description: "I have a lot of thoughts, and realized I didn't have a proper outlet for them until recently. This is now a place for all of my musings, explorations, and retrospectives that I feel may be of value for someone!"
-  friends:
-    title: "Friends"
-    description: "People I have strong relationships with that I've had the privilege to collaborate with throughout my career."
+  games:
+    title: "Games"
+    description: "A collection of games I've played and enjoyed. From epic adventures to competitive shooters — these are the titles that left an impression."
   trinkets:
     title: "Trinkets"
     description: "These are a collection of things that I've bought throughout my career that holds some type of significance to me."
