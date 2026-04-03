@@ -58,6 +58,99 @@
       --ForegroundTertiary: #8a8f98;
     }
 
+    /* ===== LOADING OVERLAY ===== */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--BackgroundPrimary);
+    }
+    .loading-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .loading-monogram {
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ForegroundPrimary);
+      clip-path: inset(0 100% 0 0);
+      animation: clipReveal 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+                 monogramBreathe 2.4s ease-in-out 0.8s infinite;
+    }
+    .loading-line {
+      width: 60px;
+      height: 1px;
+      background: var(--ForegroundTertiary);
+      transform: scaleX(0);
+      position: relative;
+      overflow: hidden;
+      animation: lineExpand 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+    }
+    .loading-line::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, var(--ForegroundPrimary) 50%, transparent 100%);
+      opacity: 0.4;
+      transform: translateX(-100%);
+      animation: lineShimmer 2s ease-in-out 0.7s infinite;
+    }
+    .loading-sub {
+      font-family: Martha, "LXGW WenKai", sans-serif;
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ForegroundTertiary);
+      opacity: 0;
+      animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+    }
+    .loading-dots {
+      display: flex;
+      gap: 6px;
+      margin-top: 0.25rem;
+      opacity: 0;
+      animation: fadeIn 0.3s ease 0.8s forwards;
+    }
+    .loading-dots span {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--ForegroundTertiary);
+      animation: dotPulse 1.2s ease-in-out infinite;
+    }
+    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+    .loading-overlay.exit {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes clipReveal {
+      to { clip-path: inset(0 0 0 0); }
+    }
+    @keyframes lineExpand {
+      to { transform: scaleX(1); }
+    }
+    @keyframes monogramBreathe {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    @keyframes lineShimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    @keyframes dotPulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
     /* ===== BASE ===== */
     body, html {
       font-family: PPNeueMontreal, "MiSans", sans-serif;
@@ -2006,6 +2099,44 @@
   </style>
 </head>
 <body class="bg-BackgroundPrimary text-ForegroundPrimary">
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="loading-monogram">CK</div>
+      <div class="loading-line"></div>
+      <div class="loading-sub">PORTFOLIO</div>
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var overlay = document.getElementById('loadingOverlay');
+      if (!overlay) return;
+      if (sessionStorage.getItem('ck_loaded')) {
+        overlay.style.display = 'none';
+        return;
+      }
+      var minDelay = new Promise(function(r) { setTimeout(r, 900); });
+      var windowLoad = new Promise(function(r) {
+        if (document.readyState === 'complete') r();
+        else window.addEventListener('load', r, { once: true });
+      });
+      var fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+      var safetyTimeout = new Promise(function(r) { setTimeout(r, 6000); });
+
+      Promise.all([minDelay, Promise.race([
+        Promise.all([windowLoad, fontsReady]),
+        safetyTimeout
+      ])]).then(function() {
+        overlay.classList.add('exit');
+        setTimeout(function() {
+          overlay.style.display = 'none';
+          sessionStorage.setItem('ck_loaded', '1');
+        }, 500);
+      });
+    })();
+  </script>
 
   <!-- Custom Cursor -->
   <div class="cursor-dot" id="cursorDot"></div>
