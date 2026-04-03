@@ -53,6 +53,7 @@ filter:
   all: "All"
   brand: "Brand"
   product: "Product"
+  research: "Research"
   engineer: "Engineer"
   career: "Career"
   life: "Life"
@@ -62,6 +63,7 @@ clock:
   local_time: "Local Time"
 
 games:
+  tab_playing: "Playing"
   rating: "Rating"
   rating_hint: "Personal score out of 10"
   played: "Played"
@@ -69,6 +71,10 @@ games:
   platform_label: "Platform"
   favorite: "All-Time Favorite"
   view_steam: "View on Steam"
+  view_nintendo: "View on Nintendo"
+  view_ps: "View on PlayStation"
+  view_xbox: "View on Xbox"
+  view_pc: "View on Official Site"
 
 wechat:
   title: "Scan to Add WeChat"
@@ -76,4 +82,4 @@ wechat:
 
 footer:
   left: "Built with Vue.JS & Tailwind CSS"
-  right: "&copy; 2026 Eric Sin"
+  right: "&copy; 2026 Cai Kong"

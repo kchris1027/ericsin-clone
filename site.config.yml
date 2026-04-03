@@ -1,9 +1,9 @@
 site:
-  title: "Eric Sin / Selected Works"
-  description: "Selected works of Eric Sin, Product & Brand Designer."
+  title: "Cai Kong / Selected Works"
+  description: "Selected works of Cai Kong, Product & Brand Designer."
   url: "https://ericsin.github.io"
-  footer_left: "Built with Vue.JS & Tailwind CSS"
-  footer_right: "&copy; 2026 Eric Sin"
+  footer_left: "Take others seriously, but always be sincere."
+  footer_right: "&copy; 2026 Cai Kong"
   defaultLocale: "en"
   locales: ["en", "zh"]
   fonts:
@@ -14,7 +14,7 @@ site:
       - "https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-bold.css"
 
 profile:
-  name: "Eric Sin"
+  name: "Cai Kong"
   title: "Designer"
   avatar: "./static/images/profile-photo.jpg"
 
@@ -24,7 +24,7 @@ hero:
   description: "I've worked in varied startups throughout the past 20 years. I excel in 0-1 situations and enjoy crafting the vision of what could be."
   cta_primary:
     text: "View Resume"
-    action: "resume"
+    href: "https://resume.kongcai.cc/"
   cta_secondary:
     text: "和他聊聊"
     action: "wechat"

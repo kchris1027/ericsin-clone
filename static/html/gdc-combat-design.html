@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GDC & GMTK 战斗设计核心理念汇编</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080818;--surface:#0d0d22;--card:#111130;--card-hover:#161645;
+  --red:#e94560;--cyan:#00e5ff;--gold:#f0a030;--green:#39ff8e;
+  --txt:#dde;--txt2:#99a;--txt3:#667;--border:#222250;
+  --ff:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --ff-en:"Rajdhani","Orbitron",sans-serif;
+  --ff-mono:"Consolas","Courier New",monospace;
+  --glow-r:0 0 30px rgba(233,69,96,.25);--glow-c:0 0 30px rgba(0,229,255,.2);
+}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--red) var(--bg)}
+body{font-family:var(--ff);background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden;cursor:none}
+body::before{content:"";position:fixed;inset:0;background:
+  repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,.015) 2px,rgba(255,255,255,.015) 4px),
+  radial-gradient(ellipse at 50% 0%,rgba(233,69,96,.06),transparent 70%);
+  pointer-events:none;z-index:0;animation:gridPulse 8s ease-in-out infinite}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 900px 550px at var(--mx,50%) var(--my,50%),rgba(233,69,96,.06),transparent 65%);
+  transition:background .15s ease}
+@keyframes gridPulse{0%,100%{opacity:.6}50%{opacity:1}}
+::selection{background:var(--red);color:#fff}
+a{color:var(--cyan);text-decoration:none;transition:.2s}
+a:hover{color:#fff;text-shadow:var(--glow-c)}
+
+/* ── FLOATING SHAPES ─────────────────── */
+.fshape{position:fixed;pointer-events:none;z-index:0;opacity:0;animation:fshapeIn 2s ease forwards}
+@keyframes fshapeIn{to{opacity:1}}
+.fshape svg{animation:fshapeDrift 20s ease-in-out infinite alternate}
+@keyframes fshapeDrift{0%{transform:translateY(0) rotate(0deg)}100%{transform:translateY(-40px) rotate(12deg)}}
+
+/* ── BOOT SCREEN ─────────────────────── */
+#boot{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity .6s ease}
+#boot.done{opacity:0;pointer-events:none}
+#boot::before{content:"";position:absolute;top:50%;left:50%;width:200px;height:200px;transform:translate(-50%,-50%);border:1px solid rgba(233,69,96,.06);border-radius:50%;animation:bootPulse 2s ease-in-out infinite}
+#boot::after{content:"";position:absolute;top:50%;left:50%;width:300px;height:300px;transform:translate(-50%,-50%);border:1px solid rgba(0,229,255,.04);border-radius:50%;animation:bootPulse 2s ease-in-out infinite .3s}
+@keyframes bootPulse{0%,100%{opacity:.3;transform:translate(-50%,-50%) scale(1)}50%{opacity:.6;transform:translate(-50%,-50%) scale(1.05)}}
+#boot-text{font-family:var(--ff-mono);font-size:.78rem;color:var(--cyan);max-width:520px;width:90%;line-height:2.1;position:relative;z-index:1}
+#boot-text .line{opacity:0;transform:translateX(-8px);animation:boot-line .3s ease forwards}
+#boot-text .line.accent{color:var(--red);font-weight:700;text-shadow:0 0 12px rgba(233,69,96,.3)}
+@keyframes boot-line{to{opacity:1;transform:translateX(0)}}
+#boot-skip{position:absolute;bottom:2.5rem;font-family:var(--ff-en);font-size:.62rem;color:var(--txt3);letter-spacing:4px;cursor:pointer;border:none;background:none;transition:.2s;z-index:1}
+#boot-skip:hover{color:var(--txt2);letter-spacing:5px}
+
+/* ── PARTICLES / TRAIL ───────────────── */
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+#trail{position:fixed;inset:0;z-index:1;pointer-events:none}
+
+/* ── PROGRESS BAR ────────────────────── */
+#progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--red),var(--gold),var(--red));background-size:200% 100%;z-index:999;width:0;transition:width .1s;box-shadow:0 0 10px rgba(233,69,96,.4),0 0 3px rgba(240,160,48,.3);animation:progShimmer 3s linear infinite}
+@keyframes progShimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+
+/* ── TOASTS ──────────────────────────── */
+#toasts{position:fixed;top:16px;right:16px;z-index:998;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:rgba(17,17,48,.92);border:1px solid var(--red);border-left:3px solid var(--red);padding:.6rem 1.1rem;font-size:.78rem;color:var(--txt);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:toast-in .4s ease,toast-out .4s ease 2.6s forwards;white-space:nowrap;border-radius:2px;box-shadow:0 4px 20px rgba(0,0,0,.4),0 0 15px rgba(233,69,96,.1)}
+.toast.achievement{border-color:var(--gold);border-left-color:var(--gold);box-shadow:0 4px 20px rgba(0,0,0,.4),0 0 15px rgba(240,160,48,.1)}
+.toast .t-label{font-family:var(--ff-en);font-size:.58rem;letter-spacing:2.5px;color:var(--red);display:block;margin-bottom:.15rem}
+.toast.achievement .t-label{color:var(--gold)}
+@keyframes toast-in{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes toast-out{from{opacity:1}to{opacity:0;transform:translateX(30px)}}
+
+/* ── FLASH ───────────────────────────── */
+.flash{position:fixed;inset:0;pointer-events:none;z-index:500;animation:flash-fade .35s ease-out forwards}
+.flash-red{background:rgba(233,69,96,.07)}
+.flash-gold{background:rgba(240,160,48,.1)}
+@keyframes flash-fade{from{opacity:1}to{opacity:0}}
+
+/* ── GLITCH ──────────────────────────── */
+@keyframes glitch{
+  0%,100%{transform:translate(0)}
+  15%{transform:translate(-2px,1px)}
+  30%{transform:translate(2px,-1px);filter:hue-rotate(15deg)}
+  45%{transform:translate(-1px,2px)}
+  60%{transform:translate(1px,-2px);filter:hue-rotate(-10deg)}
+  75%{transform:translate(0);filter:none}
+}
+body.glitch{animation:glitch .3s ease}
+
+/* ── NAV ─────────────────────────────── */
+nav{position:fixed;left:16px;top:16px;bottom:16px;width:240px;background:rgba(8,8,24,.82);border:1px solid rgba(233,69,96,.12);border-radius:12px;z-index:100;display:flex;flex-direction:column;overflow-y:auto;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 8px 40px rgba(0,0,0,.5),inset 0 0 30px rgba(233,69,96,.03);scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav .logo{padding:1.2rem 1rem .5rem;border-bottom:1px solid rgba(255,255,255,.06);border-radius:12px 12px 0 0}
+nav .logo h2{font-family:var(--ff-en);font-size:.7rem;letter-spacing:6px;color:var(--red);text-transform:uppercase}
+nav .logo p{font-size:.6rem;color:var(--txt3);margin-top:.2rem;font-family:var(--ff-mono)}
+
+nav .intel{padding:.8rem 1rem;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(233,69,96,.04)}
+nav .intel .rank-label{font-family:var(--ff-en);font-size:.55rem;letter-spacing:3px;color:var(--txt3);text-transform:uppercase}
+nav .intel .rank-name{font-family:"Orbitron",sans-serif;font-size:.85rem;color:var(--gold);font-weight:700;margin:.2rem 0}
+nav .intel .xp-row{display:flex;align-items:center;gap:.5rem}
+nav .intel .xp-bar{flex:1;height:4px;background:var(--border);overflow:hidden}
+nav .intel .xp-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--gold));width:0;transition:width .5s ease;box-shadow:0 0 8px rgba(233,69,96,.4);position:relative}
+nav .intel .xp-bar{border-radius:2px;overflow:hidden}
+nav .intel .xp-fill::after{content:"";position:absolute;right:0;top:0;bottom:0;width:4px;background:#fff;opacity:.6;border-radius:0 2px 2px 0}
+nav .intel .xp-count{font-family:var(--ff-mono);font-size:.65rem;color:var(--txt2);white-space:nowrap}
+
+nav .links{flex:1;padding:.4rem 0}
+nav .links a{display:flex;align-items:center;gap:.5rem;padding:.5rem 1rem;font-size:.78rem;color:var(--txt2);border-left:2px solid transparent;transition:.25s;position:relative}
+nav .links a:hover{background:rgba(233,69,96,.06);color:var(--txt);border-left-color:var(--red)}
+nav .links a.active{color:var(--red);border-left-color:transparent;background:rgba(233,69,96,.08)}
+nav .links a.active::after{content:"";position:absolute;left:0;top:15%;bottom:15%;width:2px;background:var(--red);box-shadow:0 0 8px var(--red);border-radius:1px}
+nav .links a .num{font-family:var(--ff-en);font-size:.6rem;color:var(--txt3);width:1.4rem;text-align:right;flex-shrink:0}
+nav .links a .dot{width:7px;height:7px;border-radius:50%;background:var(--txt3);margin-left:auto;flex-shrink:0;transition:.3s;opacity:.4}
+nav .links a .dot.partial{background:var(--gold);opacity:1;box-shadow:0 0 6px rgba(240,160,48,.4)}
+nav .links a .dot.complete{background:var(--green);opacity:1;box-shadow:0 0 6px rgba(57,255,142,.4)}
+
+nav .nav-actions{padding:.6rem 1rem;border-top:1px solid rgba(255,255,255,.06);display:flex;gap:.5rem;border-radius:0 0 12px 12px}
+nav .nav-actions button{flex:1;padding:.4rem .5rem;font-family:var(--ff-en);font-size:.58rem;letter-spacing:1.5px;border:1px solid var(--border);background:transparent;color:var(--txt2);cursor:pointer;transition:.25s;text-transform:uppercase;border-radius:3px;position:relative;overflow:hidden}
+nav .nav-actions button::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(233,69,96,.1),transparent);transform:translateX(-100%);transition:transform .3s ease}
+nav .nav-actions button:hover{border-color:var(--red);color:var(--red)}
+nav .nav-actions button:hover::before{transform:translateX(0)}
+
+#menu-btn{display:none;position:fixed;top:.8rem;right:.8rem;z-index:200;background:var(--card);border:1px solid var(--border);color:var(--red);padding:.4rem .6rem;font-size:1.2rem;cursor:pointer;border-radius:4px}
+
+/* ── MAIN ────────────────────────────── */
+main{margin-left:272px;position:relative;z-index:1}
+
+/* ── HERO ────────────────────────────── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:2rem;position:relative;overflow:hidden}
+.hero::before{content:"⚔";position:absolute;font-size:320px;color:rgba(233,69,96,.025);top:50%;left:50%;transform:translate(-50%,-55%);animation:heroPulse 6s ease-in-out infinite}
+.hero::after{content:"";position:absolute;width:700px;height:700px;border:1px solid rgba(233,69,96,.06);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);animation:heroPulse 5s ease-in-out infinite .5s;box-shadow:inset 0 0 120px rgba(233,69,96,.03)}
+@keyframes heroPulse{0%,100%{opacity:.3;transform:translate(-50%,-50%) scale(1)}50%{opacity:.7;transform:translate(-50%,-50%) scale(1.04)}}
+.hero .tag{font-family:var(--ff-en);font-size:.75rem;letter-spacing:12px;color:var(--red);text-transform:uppercase;margin-bottom:.8rem;animation:fadeDown .8s ease;position:relative}
+.hero .tag::before,.hero .tag::after{content:"";display:inline-block;width:30px;height:1px;background:linear-gradient(90deg,transparent,var(--red));vertical-align:middle;margin:0 .8rem}
+.hero .tag::after{background:linear-gradient(90deg,var(--red),transparent)}
+.hero h1{font-size:clamp(2.2rem,5.5vw,3.5rem);font-weight:900;background:linear-gradient(135deg,#fff 20%,var(--cyan) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.3;min-height:1.4em;filter:drop-shadow(0 0 30px rgba(0,229,255,.15))}
+.hero h1 .cursor{display:inline-block;width:2px;height:1em;background:var(--cyan);margin-left:2px;animation:blink .8s step-end infinite;vertical-align:text-bottom}
+@keyframes blink{50%{opacity:0}}
+.hero .sub{color:var(--txt2);font-size:1.05rem;margin-top:1.2rem;opacity:0;animation:fadeDown .8s ease .3s both;letter-spacing:.5px}
+.hero .meta{color:var(--txt3);font-size:.75rem;margin-top:2.5rem;line-height:1.8;opacity:0;animation:fadeDown .8s ease .45s both}
+.hero .scroll-hint{margin-top:3.5rem;animation:bob 2s ease-in-out infinite}
+.hero .scroll-hint span{display:block;font-size:.6rem;letter-spacing:5px;color:var(--txt3);text-transform:uppercase;font-family:var(--ff-en)}
+.hero .scroll-hint .arrow{color:var(--red);font-size:1.3rem;margin-top:.4rem;text-shadow:0 0 12px rgba(233,69,96,.5)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(9px)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SECTIONS ────────────────────────── */
+.chapter{padding:4.5rem 2.8rem 2rem;max-width:1000px;margin:0 auto}
+.chapter-head{display:flex;align-items:flex-end;gap:1.2rem;margin-bottom:2.5rem;padding-bottom:1rem;border-bottom:2px solid var(--border);position:relative}
+.chapter-head::after{content:"";position:absolute;bottom:-2px;left:0;width:60px;height:2px;background:linear-gradient(90deg,var(--red),transparent);transition:width .4s ease}
+.chapter:hover .chapter-head::after{width:120px}
+.chapter-head .num{font-family:"Orbitron",sans-serif;font-size:3.5rem;font-weight:900;color:var(--red);opacity:.3;line-height:1;flex-shrink:0;text-shadow:0 0 40px rgba(233,69,96,.15)}
+.chapter-head .info h2{font-size:1.6rem;font-weight:700;color:#fff;line-height:1.2}
+.chapter-head .info .en{font-family:var(--ff-en);font-size:.68rem;letter-spacing:3px;color:var(--txt3);text-transform:uppercase;margin-top:.2rem}
+
+/* ── TALK CARD — INTERACTIVE ─────────── */
+.talk{background:var(--card);border:1px solid var(--border);margin-bottom:1.6rem;position:relative;transition:.35s;border-radius:2px}
+.talk:hover{border-color:rgba(233,69,96,.35);box-shadow:0 0 25px rgba(233,69,96,.12),0 4px 20px rgba(0,0,0,.3)}
+.talk.open{border-color:rgba(233,69,96,.2);box-shadow:0 0 15px rgba(233,69,96,.08),0 2px 12px rgba(0,0,0,.2)}
+.talk::before,.talk::after{content:"";position:absolute;width:14px;height:14px;border-color:var(--red);border-style:solid;opacity:.2;transition:.35s}
+.talk::before{top:-1px;left:-1px;border-width:2px 0 0 2px}
+.talk::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
+.talk:hover::before,.talk:hover::after{opacity:.85}
+
+.talk-header{padding:1.1rem 1.3rem;display:flex;align-items:center;gap:.8rem;user-select:none;flex-wrap:wrap;transition:background .25s}
+.talk-header:hover{background:rgba(233,69,96,.05)}
+.talk-header .talk-toggle{font-family:var(--ff-en);font-size:.72rem;color:var(--red);transition:transform .3s,color .3s;flex-shrink:0;width:1rem;text-align:center}
+.talk.open .talk-header .talk-toggle{transform:rotate(90deg);color:var(--green)}
+.talk-header h3{font-size:.98rem;color:#fff;flex:1;min-width:180px;transition:color .2s}
+.talk:hover .talk-header h3{color:#fff;text-shadow:0 0 20px rgba(255,255,255,.08)}
+.talk-header .badge{font-family:var(--ff-en);font-size:.56rem;letter-spacing:2px;padding:.18rem .55rem;border:1px solid var(--red);color:var(--red);white-space:nowrap;flex-shrink:0;transition:.2s}
+.talk:hover .talk-header .badge{background:rgba(233,69,96,.1);box-shadow:0 0 10px rgba(233,69,96,.15)}
+.talk-header .decode-label{font-family:var(--ff-en);font-size:.54rem;letter-spacing:1.5px;color:var(--txt3);text-transform:uppercase;flex-shrink:0;transition:.2s}
+.talk.open .talk-header .decode-label{color:var(--green);text-shadow:0 0 8px rgba(57,255,142,.3)}
+
+.talk-meta{padding:.4rem 1.3rem .4rem 3rem;font-size:.72rem;color:var(--txt2);background:rgba(0,0,0,.15);border-top:1px solid rgba(255,255,255,.03);letter-spacing:.3px}
+
+.talk-body{display:none;padding:1.1rem 1.3rem;border-top:1px solid var(--border);background:linear-gradient(180deg,rgba(0,0,0,.08),transparent 60%)}
+.talk.open .talk-body{display:block;animation:bodyIn .35s ease}
+.talk.open.no-anim .talk-body{animation:none}
+@keyframes bodyIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+
+.talk-img{width:calc(100% + 2.6rem);aspect-ratio:16/9;object-fit:cover;display:block;border-bottom:1px solid var(--border);filter:brightness(.6) saturate(.75);transition:filter .5s,transform .5s;margin:-1.1rem -1.3rem 1rem;transform:scale(1)}
+.talk:hover .talk-img{filter:brightness(.82) saturate(1);transform:scale(1.02)}
+.talk-img-wrap{position:relative;overflow:hidden}
+.talk-img-wrap::after{content:"";position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,var(--card));pointer-events:none}
+
+.talk-bg{font-size:.82rem;color:var(--txt2);margin-bottom:1rem;line-height:1.75;padding:.8rem 1.1rem;border-left:3px solid var(--gold);background:linear-gradient(135deg,rgba(240,160,48,.04),rgba(240,160,48,.01));border-radius:0 2px 2px 0}
+
+/* ── INSIGHT CARDS — INTERACTIVE ─────── */
+.insights{display:grid;gap:.7rem}
+.insight{background:rgba(0,0,0,.2);border-left:3px solid var(--red);padding:.7rem 1rem;transition:.3s;user-select:none;position:relative;border-radius:0 2px 2px 0}
+.insight:hover{background:rgba(233,69,96,.06);border-left-color:var(--cyan);transform:translateX(3px)}
+.insight h4{font-size:.83rem;color:var(--gold);font-weight:700;display:flex;align-items:center;gap:.55rem}
+.insight h4 .i-toggle{font-family:var(--ff-mono);font-size:.75rem;color:var(--txt3);transition:.25s;flex-shrink:0;width:1.1rem;height:1.1rem;display:flex;align-items:center;justify-content:center;border:1px solid var(--txt3);border-radius:2px;font-size:.65rem}
+.insight.open h4 .i-toggle{color:var(--cyan);border-color:var(--cyan);background:rgba(0,229,255,.08)}
+.insight-body{display:none}
+.insight.open .insight-body{display:block;animation:insightIn .25s ease}
+.no-anim .insight.open .insight-body{animation:none}
+@keyframes insightIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.insight-body p{font-size:.8rem;color:var(--txt2);line-height:1.75;margin-top:.35rem}
+
+/* ── TAKEAWAYS ───────────────────────── */
+.takeaways{margin-top:1rem;padding:.8rem 1.1rem;background:rgba(0,229,255,.03);border:1px solid rgba(0,229,255,.1);border-radius:2px;position:relative;overflow:hidden}
+.takeaways::before{content:"";position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--cyan),transparent)}
+.takeaways h4{font-size:.68rem;font-family:var(--ff-en);letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+.takeaways h4::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(0,229,255,.2),transparent)}
+.takeaways ul{list-style:none;padding:0}
+.takeaways li{font-size:.78rem;color:var(--txt2);padding:.2rem 0 .2rem 1.1rem;position:relative;line-height:1.7}
+.takeaways li::before{content:"›";position:absolute;left:.2rem;color:var(--cyan);font-weight:700}
+
+/* ── SOURCE ──────────────────────────── */
+.source{display:flex;align-items:center;gap:.5rem;margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--border)}
+.source a{font-size:.76rem;padding:.3rem .9rem;border:1px solid var(--cyan);color:var(--cyan);transition:.25s;font-family:var(--ff-en);letter-spacing:1.5px;border-radius:2px;position:relative;overflow:hidden}
+.source a::before{content:"";position:absolute;inset:0;background:var(--cyan);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.source a:hover{color:var(--bg);text-shadow:none}
+.source a:hover::before{transform:scaleX(1)}
+.source a span,.source a{position:relative;z-index:1}
+
+/* ── CALLOUT ─────────────────────────── */
+.callout{margin:.8rem 0;padding:.9rem 1.1rem;background:rgba(233,69,96,.05);border:1px solid rgba(233,69,96,.18);position:relative;border-radius:2px}
+.callout::before{content:"★ ESSENTIAL";font-family:var(--ff-en);font-size:.52rem;letter-spacing:2px;color:var(--red);position:absolute;top:-.42rem;left:.8rem;background:var(--card);padding:0 .4rem}
+.callout p{font-size:.8rem;color:var(--txt);line-height:1.7}
+
+/* ── PRINCIPLES ──────────────────────── */
+.principle{display:grid;grid-template-columns:2.5rem 1fr auto;align-items:center;gap:.8rem;padding:.7rem 1.1rem;border-bottom:1px solid rgba(255,255,255,.04);transition:.25s;border-radius:2px}
+.principle:nth-child(odd){background:rgba(255,255,255,.015)}
+.principle:hover{background:rgba(233,69,96,.05);transform:translateX(3px)}
+.principle .p-num{font-family:"Orbitron",sans-serif;font-size:.8rem;color:var(--red);font-weight:700;text-align:right;text-shadow:0 0 15px rgba(233,69,96,.2)}
+.principle .p-text{font-size:.8rem;line-height:1.6}
+.principle .p-text strong{color:#fff}
+.principle .p-src{font-size:.64rem;color:var(--txt3);text-align:right;white-space:nowrap}
+
+/* ── SECTION NOTE ────────────────────── */
+.section-note{font-size:.8rem;color:var(--txt2);padding:.9rem 1.2rem;background:rgba(0,229,255,.03);border-left:3px solid var(--cyan);margin-bottom:1.5rem;line-height:1.75;border-radius:0 2px 2px 0;position:relative}
+.section-note::before{content:"";position:absolute;left:0;top:0;width:3px;height:100%;background:linear-gradient(180deg,var(--cyan),rgba(0,229,255,.2))}
+
+/* ── FOOTER ──────────────────────────── */
+footer{text-align:center;padding:4rem 2rem 3rem;border-top:1px solid var(--border);max-width:1000px;margin:3rem auto 0;position:relative}
+footer::before{content:"";position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--red),transparent)}
+footer .quote{font-size:1.1rem;color:var(--txt2);font-style:italic;margin-bottom:.5rem;line-height:1.6}
+footer .quote strong{color:var(--gold);font-style:normal;text-shadow:0 0 15px rgba(240,160,48,.2)}
+footer .attr{font-size:.7rem;color:var(--txt3);letter-spacing:1px}
+footer .flourish{margin-bottom:1.5rem;font-size:.85rem;color:rgba(233,69,96,.3);letter-spacing:8px;font-family:var(--ff-en)}
+
+/* ── REVEAL ──────────────────────────── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── CURSOR: NONE EVERYWHERE ─────────── */
+*{cursor:none !important}
+
+/* ── CROSSHAIR ───────────────────────── */
+#crosshair{position:fixed;pointer-events:none;z-index:10000;width:34px;height:34px;transform:translate(-50%,-50%);transition:opacity .15s,filter .2s}
+#crosshair svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 4px rgba(233,69,96,.4))}
+#crosshair.recoil{animation:recoil .18s ease-out}
+@keyframes recoil{0%{transform:translate(-50%,-50%) scale(1)}40%{transform:translate(-50%,-50%) scale(.55)}100%{transform:translate(-50%,-50%) scale(1)}}
+#crosshair.hover svg .ch-outer{stroke:var(--cyan);transition:stroke .15s}
+#crosshair.hover svg .ch-dot{fill:var(--cyan);transition:fill .15s}
+#crosshair.hover svg{filter:drop-shadow(0 0 6px rgba(0,229,255,.5))}
+
+/* ── HIT EFFECTS ─────────────────────── */
+.hit-ring{position:fixed;pointer-events:none;z-index:9998;border-radius:50%;border:2px solid var(--red);transform:translate(-50%,-50%) scale(0);animation:hitRing .45s ease-out forwards}
+@keyframes hitRing{0%{transform:translate(-50%,-50%) scale(0);opacity:1;border-width:3px}60%{border-width:1px}100%{transform:translate(-50%,-50%) scale(1);opacity:0;border-width:0}}
+.hit-spark{position:fixed;pointer-events:none;z-index:9998;width:3px;height:3px;background:var(--gold);border-radius:50%;transform:translate(-50%,-50%);animation:hitSpark .4s ease-out forwards;box-shadow:0 0 4px var(--gold)}
+@keyframes hitSpark{0%{opacity:1;transform:translate(-50%,-50%) translate(var(--sx),var(--sy)) scale(1.2)}100%{opacity:0;transform:translate(-50%,-50%) translate(calc(var(--sx)*5),calc(var(--sy)*5)) scale(0)}}
+.hit-flash{position:fixed;pointer-events:none;z-index:9997;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(233,69,96,.3),rgba(233,69,96,.08) 40%,transparent 70%);animation:hitFlash .3s ease-out forwards}
+@keyframes hitFlash{0%{opacity:1;transform:translate(-50%,-50%) scale(.4)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.1)}}
+
+/* ── SCREEN SHAKE ────────────────────── */
+main.shake{animation:screenShake .15s ease-out}
+@keyframes screenShake{0%{transform:translate(0)}20%{transform:translate(-3px,2px)}40%{transform:translate(3px,-2px)}60%{transform:translate(-2px,1px)}80%{transform:translate(1px,-1px)}100%{transform:translate(0)}}
+
+/* ── SMOOTH SCROLLBAR TRACK ─────────── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--red),var(--gold));border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--red)}
+
+/* ── RESPONSIVE ──────────────────────── */
+@media(max-width:800px){
+  nav{transform:translateX(calc(-100% - 20px));transition:.3s;width:240px;left:10px;top:10px;bottom:10px}
+  nav.open{transform:translateX(0)}
+  #menu-btn{display:block}
+  main{margin-left:0}
+  .chapter{padding:3rem 1.2rem 2rem}
+  .hero h1{font-size:1.8rem}
+  .talk-header{flex-direction:row}
+  .talk-header h3{font-size:.85rem}
+  .principle{grid-template-columns:2rem 1fr;gap:.4rem}
+  .principle .p-src{display:none}
+  #toasts{right:8px;left:8px}
+  .toast{font-size:.72rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ BOOT SCREEN ═══════════════════ -->
+<div id="boot">
+  <div id="boot-text"></div>
+  <button id="boot-skip" onclick="skipBoot()">PRESS ANY KEY TO SKIP</button>
+</div>
+
+<!-- ═══ PARTICLES / TRAIL ═════════════ -->
+<canvas id="particles"></canvas>
+<canvas id="trail"></canvas>
+
+<!-- ═══ CROSSHAIR ═════════════════════ -->
+<div id="crosshair">
+  <svg viewBox="0 0 32 32">
+    <circle class="ch-outer" cx="16" cy="16" r="10" fill="none" stroke="#e94560" stroke-width="1.2" opacity=".85"/>
+    <circle class="ch-outer" cx="16" cy="16" r="4" fill="none" stroke="#e94560" stroke-width=".8" opacity=".6"/>
+    <line x1="16" y1="2" x2="16" y2="10" stroke="#e94560" stroke-width="1" opacity=".9"/>
+    <line x1="16" y1="22" x2="16" y2="30" stroke="#e94560" stroke-width="1" opacity=".9"/>
+    <line x1="2" y1="16" x2="10" y2="16" stroke="#e94560" stroke-width="1" opacity=".9"/>
+    <line x1="22" y1="16" x2="30" y2="16" stroke="#e94560" stroke-width="1" opacity=".9"/>
+    <circle class="ch-dot" cx="16" cy="16" r="1.5" fill="#e94560"/>
+  </svg>
+</div>
+
+<!-- ═══ PROGRESS ══════════════════════ -->
+<div id="progress"></div>
+
+<!-- ═══ TOASTS ════════════════════════ -->
+<div id="toasts"></div>
+
+<!-- ═══ NAV ═══════════════════════════ -->
+<button id="menu-btn" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
+<nav>
+  <div class="logo">
+    <h2>Combat Design DB</h2>
+    <p>v2.0 // interactive edition</p>
+  </div>
+  <div class="intel">
+    <div class="rank-label">Current Rank</div>
+    <div class="rank-name" id="rank">RECRUIT</div>
+    <div class="xp-row">
+      <div class="xp-bar"><div class="xp-fill" id="xp-fill"></div></div>
+      <span class="xp-count" id="xp-count">0 / 24</span>
+    </div>
+  </div>
+  <div class="links">
+    <a href="#hero"><span class="num">—</span>首页</a>
+    <a href="#sec1"><span class="num">01</span>近战系统设计<span class="dot" data-sec="sec1"></span></a>
+    <a href="#sec2"><span class="num">02</span>Boss 与敌人设计<span class="dot" data-sec="sec2"></span></a>
+    <a href="#sec3"><span class="num">03</span>打击感 / Game Feel<span class="dot" data-sec="sec3"></span></a>
+    <a href="#sec4"><span class="num">04</span>风格化动作设计<span class="dot" data-sec="sec4"></span></a>
+    <a href="#sec5"><span class="num">05</span>战斗哲学 / 系统设计<span class="dot" data-sec="sec5"></span></a>
+    <a href="#sec6"><span class="num">06</span>难度与可达性<span class="dot" data-sec="sec6"></span></a>
+    <a href="#sec7"><span class="num">07</span>Roguelike / 新兴战斗<span class="dot" data-sec="sec7"></span></a>
+    <a href="#sec8"><span class="num">08</span>混合系统与创新<span class="dot" data-sec="sec8"></span></a>
+    <a href="#sec9"><span class="num">09</span>GMTK 视频 Essays<span class="dot" data-sec="sec9"></span></a>
+    <a href="#sec10"><span class="num">10</span>关键设计原则<span class="dot" data-sec="sec10"></span></a>
+  </div>
+  <div class="nav-actions">
+    <button onclick="decodeAll()">Decode All</button>
+    <button onclick="resetAll()">Reset</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══ HERO ═══════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="tag">GDC &amp; GMTK</div>
+  <h1 id="hero-title"></h1>
+  <p class="sub">27 场演讲与视频 Essays · 核心设计思想提炼</p>
+  <p class="meta">数据来源：GDC Vault · GDC YouTube · Game Maker's Toolkit<br>覆盖范围：近战系统 · Boss 设计 · 武器设计 · 敌人 AI · 打击感 · 难度设计<br><br>点击每篇演讲标题以解码情报 — 探索所有板块以提升你的战斗设计段位</p>
+  <div class="scroll-hint"><span>SCROLL TO ENGAGE</span><div class="arrow">▼</div></div>
+</section>
+
+<!-- ═══ SEC 1 ══════════════════════════ -->
+<section class="chapter" id="sec1">
+<div class="chapter-head reveal"><div class="num">01</div><div class="info"><h2>近战系统设计</h2><div class="en">Melee System Design</div></div></div>
+
+<div class="talk reveal" data-sec="sec1">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Taking an Axe to God of War Gameplay</h3>
+    <div class="badge">GDC 2019</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Jason McDonald · Santa Monica Studio</div>
+  <div class="talk-body">
+    <div class="talk-bg">2018 年的《战神》对系列进行了彻底重启——从固定俯视镜头改为越肩第三人称，从双链刃改为利维坦之斧，从连招计数器改为更扎实的打击手感。</div>
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>镜头即设计</h4><div class="insight-body"><p>越肩镜头不只是视觉变化——它要求整个战斗系统重新设计。固定镜头时敌人可从画面外攻击，越肩镜头下必须解决"看不到背后"的问题 → 引入威胁指示器（屏幕边缘红色箭头）</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>一把武器的深度 &gt; 多把武器的广度</h4><div class="insight-body"><p>砍掉了系列传统的多武器系统，只保留一把斧头 → 把所有设计资源投入到让"扔斧-召回"这一个核心动作无比满足。斧头召回时的物理反馈（震动 + 音效 + 顿帧）是全游戏打击感的巅峰时刻</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>删除不等于退步</h4><div class="insight-body"><p>移除了系列标志性的连击计数器和抓取 QTE。越肩视角下连击计数器在 HUD 上位置尴尬，QTE 中断沉浸感。替代方案：用环境互动和处决动画提供同等的爽感</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>同伴是战斗设计的乘法器</h4><div class="insight-body"><p>阿特柔斯的弓箭不只是额外伤害，而是一个"玩家可调用的控制工具"——射箭打断远程敌人、牵制近战敌人、触发元素反应。将"被攻击的压力"分散到同伴身上</p></div></div>
+    </div>
+    <div class="takeaways"><h4>Transferable XP</h4><ul>
+      <li>当你改变镜头/视角时，战斗系统必须从零重新评估</li>
+      <li>"做减法"比"做加法"更需要勇气，也往往更有效</li>
+      <li>同伴 AI 的设计应以"为玩家创造战术选择"为目标，而不是替玩家打</li>
+    </ul></div>
+    <div class="source"><a href="https://www.youtube.com/watch?v=kX8Jn3XPoWQ" target="_blank">▶ YouTube</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec1">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Master of the Katana: Ghost of Tsushima</h3>
+    <div class="badge">GDC 2021</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Chris Zimmerman · Sucker Punch</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>五个基本问题框架</h4><div class="insight-body"><p>团队将近战系统的设计归纳为五个必须解决的基本问题，每个问题都有对应的设计规则。这个框架化的方法让大团队协作时有统一的判断标准</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>沉浸大于真实</h4><div class="insight-body"><p>"接地气"不等于"完全写实"。真正的武士刀对决只需一刀，但这不好玩。设计选择是"让玩家感觉像武士"而非"模拟真实剑术"</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>泥土、鲜血和钢铁</h4><div class="insight-body"><p>打击感来自物质感——刀切入肉的音效、血溅的方向性、泥泞中翻滚的颗粒。不使用任何魔法/超自然元素，所有反馈都来自物理可信的来源</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>架势系统作为深度来源</h4><div class="insight-body"><p>四种架势（石/水/风/月）对应四种敌人类型（剑/盾/矛/大型）。让"切换架势"成为核心决策</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>可达性优先</h4><div class="insight-body"><p>大量辅助功能：可调整窗口容差、可选辅助瞄准、可关闭连击中断。设计原则："不因操作门槛阻止任何人体验武士幻想"</p></div></div>
+    </div>
+    <div class="takeaways"><h4>Transferable XP</h4><ul>
+      <li>"克制关系"是创造战斗决策深度的低成本高回报工具</li>
+      <li>打击感的物质感（材质音效 + 方向性反馈）比华丽特效更能传达"真的砍到了"</li>
+      <li>辅助功能不是降低难度，而是让更多人能到达你设计的体验</li>
+    </ul></div>
+    <div class="source"><a href="https://www.youtube.com/watch?v=1ih5BxnJu2I" target="_blank">▶ YouTube</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec1">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Unsynced: The Last of Us Melee System</h3>
+    <div class="badge">GDC 2014</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Anthony Newman · Naughty Dog</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>"不同步"的近战哲学</h4><div class="insight-body"><p>传统格斗游戏的近战是"同步"的——攻击动画精确对齐受击方。TLOU 刻意采用"不同步"方案——攻击者播放攻击动画，受击者独立播放受击动画，用位移插值弥补距离差。这让近战更混乱、更真实</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>用极小团队做极多内容</h4><div class="insight-body"><p>1 个设计师 + 2 个动画师 + 1 个程序 = 近 1000 个独立近战动作。方法：高度模块化——每个角色类型有基础动作集 + 武器叠加层 + 情境修饰层，组合出大量变体</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>环境互动是近战的灵魂</h4><div class="insight-body"><p>最有冲击力的近战不是凭空挥拳，而是把敌人的脸按在墙上、用砖头砸头、把人推下楼梯。环境互动让每次近战都独一无二</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.youtube.com/watch?v=Ox2H3kUQByo" target="_blank">▶ YouTube</a></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ SEC 2 ══════════════════════════ -->
+<section class="chapter" id="sec2">
+<div class="chapter-head reveal"><div class="num">02</div><div class="info"><h2>Boss 与敌人设计</h2><div class="en">Boss &amp; Enemy Design</div></div></div>
+
+<div class="talk reveal" data-sec="sec2">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Boss Up: Boss Battle Design Fundamentals</h3>
+    <div class="badge">GDC 2018</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>Boss 是考试，不是新课</h4><div class="insight-body"><p>Boss 战应该考验玩家在整个关卡中学到的能力，而不是引入全新的、没教过的机制</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>三幕剧结构</h4><div class="insight-body"><p>优秀的 Boss 战遵循"建立-升级-高潮"的叙事弧线。通常通过多阶段实现：P1 展示招式 → P2 增加压力 → P3 推向极限</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>攻击可读性是最高优先级</h4><div class="insight-body"><p>玩家必须能在受到伤害前"读懂"即将发生什么。前摇动画、音效预警、地面指示器都是可读性工具。死亡时玩家应该怪自己而不是怪游戏</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>Boss 是角色，不是血条</h4><div class="insight-body"><p>最令人难忘的 Boss 不是因为数值难，而是因为有个性。设计动作、台词、阶段转换演出时，应该在塑造一个有动机的对手</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.gdcvault.com/play/1025398/" target="_blank">▶ GDC Vault</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec2">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Authored vs. Systemic: Combat AI in Uncharted 4</h3>
+    <div class="badge">GDC 2017</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Matthew Gallant · Naughty Dog</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>Authored vs Systemic 的光谱</h4><div class="insight-body"><p>战斗 AI 设计不是"脚本"或"系统"的二选一，而是一个光谱。纯脚本 = 精确但缺乏变化；纯系统 = 灵活但难以控制体验。最佳方案是在两者之间找到平衡点</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>控制权的划分</h4><div class="insight-body"><p>设计师控制"战术层"（哪些敌人什么时候进场、大致站位意图），AI 系统控制"执行层"（具体怎么走位、什么时机开火）。策划编排戏剧性，AI 保证自然感</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>开放关卡需要更多系统</h4><div class="insight-body"><p>Uncharted 4 比前作更开放，意味着玩家可能从任何方向进入战场 → AI 不能再依赖"预设进场脚本"，必须有真正的空间感知和动态决策能力</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.youtube.com/watch?v=G8W7EQKBgcg" target="_blank">▶ YouTube</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec2">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>The Last of Us: Human Enemy AI</h3>
+    <div class="badge">GDC 2014</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Naughty Dog</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>AI 的目标不是"聪明"，是"好玩"</h4><div class="insight-body"><p>最聪明的 AI（完美预判、瞬间反应）恰恰最不好玩。好的战斗 AI 应该"看起来聪明但偶尔犯错"——给玩家可利用的破绽，同时维持威胁感</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>搜索行为是潜行系统的核心</h4><div class="insight-body"><p>敌人在丢失玩家后的搜索行为（检查上次看到的位置 → 扩大搜索范围 → 放弃回归巡逻）是潜行系统成败的关键。过快放弃 = AI 傻；永不放弃 = 玩家无法潜行</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>实时空间分析</h4><div class="insight-body"><p>AI 持续分析环境中的掩体质量、射线可达性、侧翼路径，而非依赖预设路径点。这让同一场遭遇每次都略有不同</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.gdcvault.com/play/1021157/" target="_blank">▶ GDC Vault</a></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ SEC 3 ══════════════════════════ -->
+<section class="chapter" id="sec3">
+<div class="chapter-head reveal"><div class="num">03</div><div class="info"><h2>打击感与 Game Feel</h2><div class="en">Hit Feel &amp; Juice</div></div></div>
+
+<div class="talk reveal" data-sec="sec3">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>The Art of Screenshake</h3>
+    <div class="badge">2013</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Jan Willem Nijman · Vlambeer</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>30 个微小调整 = 质变</h4><div class="insight-body"><p>演讲通过一个极简射击游戏，逐步叠加 30 个微调（震屏、击退、粒子、音效变调、顿帧……），展示了打击感如何从"无感"进化到"极爽"。没有任何单一技术是革命性的，但叠加效果是质变</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>反馈的方向性</h4><div class="insight-body"><p>震屏应该沿攻击方向反向震动，击退应该沿命中方向，弹壳应该向攻击反方向飞溅。每个反馈都有方向 → 玩家潜意识中感受到"力的传递"</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>永远过度然后往回收</h4><div class="insight-body"><p>先把每个反馈参数调到夸张的程度，然后逐渐减小到"刚好不觉得夸张"的点。人对"多了一点"不敏感但对"少了一点"很敏感</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>随机化 = 生命感</h4><div class="insight-body"><p>音效的 pitch 加 ±5% 随机偏移、粒子角度加 ±10° 随机、击退力度加 ±15% 随机。微小的随机让每次攻击都感觉"活的"而非"录制好的"</p></div></div>
+    </div>
+    <div class="callout"><p>这是所有战斗策划必看的演讲——不到 45 分钟，涵盖了打击感设计 80% 的核心知识。如果只能看一个 GDC 演讲，看这个。</p></div>
+    <div class="source"><a href="https://www.youtube.com/watch?v=AJdEqssNZ-U" target="_blank">▶ YouTube</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec3">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Secrets of Game Feel and Juice</h3>
+    <div class="badge">GDC</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>"Juice"的定义</h4><div class="insight-body"><p>Juice = 最大的输出响应对应最小的输入操作。按一个键 → 屏幕震动 + 声音 + 粒子 + 慢动作 + 数字弹出 = 高 Juice</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>剥离测试法</h4><div class="insight-body"><p>把游戏中的分数、故事、音乐、美术全部去掉。如果只剩下纯操作交互，游戏还好玩吗？如果答案是"是"，说明你的 Game Feel 到位了</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>反馈的层次</h4><div class="insight-body"><p>好的 Game Feel 不是一种反馈做到极致，而是多种反馈的协同层叠：视觉（动画+特效+震屏）+ 听觉（音效+音乐节拍）+ 触觉（手柄震动）+ 时间操控（顿帧+慢动作）</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.youtube.com/watch?v=216_5nu4aVQ" target="_blank">▶ YouTube</a></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ SEC 4 ══════════════════════════ -->
+<section class="chapter" id="sec4">
+<div class="chapter-head reveal"><div class="num">04</div><div class="info"><h2>风格化动作设计</h2><div class="en">Stylized Action Design</div></div></div>
+
+<div class="talk reveal" data-sec="sec4">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Devil May Cry 5: Creating a Standout Action Game</h3>
+    <div class="badge">GDC 2019</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Hideaki Itsuno · Capcom</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>从体验倒推设计</h4><div class="insight-body"><p>团队不是从"技术能做什么"出发，而是从"玩家应该感受到什么"出发。先用文字和概念图描述理想体验，然后倒推需要什么机制和技术</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>"酷"是可量化的</h4><div class="insight-body"><p>DMC5 团队定义了"酷"的具体标准：动作多样性 × 节奏变化 × 视觉华丽度 × 难度适配。风格评级系统（D→SSS）就是这个量化模型的外化</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>三个可玩角色 = 三种游戏</h4><div class="insight-body"><p>尼禄（直觉爽快）、但丁（深度系统）、V（间接操控）。同一个游戏提供三种完全不同的操控体验</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>动作的"节奏签名"</h4><div class="insight-body"><p>每个角色的攻击节奏有独特的"音乐签名"——尼禄是"嗒嗒嗒-嗒！"（快打+重收尾），但丁是"嗒-嗒-嗒-嗒"（均匀但可变速），V 是"……嗒！"（蓄力-爆发）</p></div></div>
+    </div>
+    <div class="source"><a href="https://gdcvault.com/play/1025764/" target="_blank">▶ GDC Vault</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec4">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>10 Examples of Successful Character Action Design</h3>
+    <div class="badge">GDC 2015</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>"一个招式的价值"公式</h4><div class="insight-body"><p>招式价值 = 输出贡献 × 操作门槛 × 视觉满足感 × 适用场景宽度。四项缺一，招式就会被玩家忽略</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>取消窗口是连招系统的灵魂</h4><div class="insight-body"><p>取消窗口不是"让玩家能打断后摇"那么简单——它定义了战斗的节奏和深度。窗口过早 = 动作没有完成感，窗口过晚 = 操作发粘</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>低门槛入门 + 高上限精通</h4><div class="insight-body"><p>所有优秀的角色动作设计都遵循一个规律：按一个键就能打出看起来不错的招式，但要打出最优连招需要精确操作</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.gdcvault.com/play/1022532/" target="_blank">▶ GDC Vault</a></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ SEC 5 ══════════════════════════ -->
+<section class="chapter" id="sec5">
+<div class="chapter-head reveal"><div class="num">05</div><div class="info"><h2>战斗哲学与系统设计</h2><div class="en">Combat Philosophy &amp; System Design</div></div></div>
+
+<div class="talk reveal" data-sec="sec5">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Strategic Design: Why Dark Souls is the Ikea of Games</h3>
+    <div class="badge">GDC 2017</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Justin Fischer</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>Dark Souls 的竞争优势不是"难"</h4><div class="insight-body"><p>将 Dark Souls 的成功归因于"难"是肤浅的。它的真正竞争优势在于选择性设计——故意放弃某些功能（地图标记、任务日志、详细教程），用"缺失"塑造独特体验</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>"宜家效应"</h4><div class="insight-body"><p>当玩家自己拼装出通关路径时，成就感被放大。Dark Souls 把"弄清楚该怎么做"本身变成了玩法。正如宜家家具——自己组装的东西更珍惜</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>难以模仿 &gt; 做得最好</h4><div class="insight-body"><p>Dark Souls 不是"最好的 RPG"或"最好的动作游戏"，但它的设计选择组合极难模仿。模仿者如果加上地图标记和详细教程，就不再是 Souls-like</p></div></div>
+    </div>
+    <div class="source"><a href="http://www.gdcvault.com/play/1024461/" target="_blank">▶ GDC Vault</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec5">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>This is Why We Fight: Designing Meaningful Combat</h3>
+    <div class="badge">GDC 2023</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>战斗应该有意义，不只是填充</h4><div class="insight-body"><p>太多游戏把战斗当作"关卡之间的阻碍"。好的战斗应该在叙事、情感、角色成长等维度有贡献</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>每场战斗回答一个问题</h4><div class="insight-body"><p>设计每场遭遇时问自己："这场战斗教了玩家什么？改变了什么？推进了什么？"如果答案是"没有"，考虑删掉它</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>战斗是角色表达</h4><div class="insight-body"><p>战斗方式 = 角色性格。暴力角色打得重，灵巧角色打得快，智慧角色利用环境。战斗系统应该是角色塑造的延伸</p></div></div>
+    </div>
+    <div class="source"><a href="http://www.gdcvault.com/play/1029195/" target="_blank">▶ GDC Vault</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec5">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Creating Conflict: Combat Design for AAA Action Games</h3>
+    <div class="badge">GDC 2016</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">多家工作室联合面板</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>从叙事目标开始</h4><div class="insight-body"><p>AAA 级遭遇设计的第一步不是"放什么怪"，而是"这场遭遇要传达什么故事"。叙事意图决定遭遇规模、敌人配置、场地设计</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>掩体几何学</h4><div class="insight-body"><p>第三人称射击/动作游戏的遭遇质量 80% 取决于掩体布局。掩体之间的距离、角度、高度差决定了战斗节奏</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>线性 vs 开放的遭遇设计差异</h4><div class="insight-body"><p>线性关卡可以精确控制节奏（因为知道玩家从哪来），开放世界必须设计"各方向都能应对"的遭遇</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.gdcvault.com/play/1023860/" target="_blank">▶ GDC Vault</a></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ SEC 6 ══════════════════════════ -->
+<section class="chapter" id="sec6">
+<div class="chapter-head reveal"><div class="num">06</div><div class="info"><h2>难度与可达性设计</h2><div class="en">Difficulty &amp; Accessibility</div></div></div>
+
+<div class="talk reveal" data-sec="sec6">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Challenging or Approachable? Pick Two</h3>
+    <div class="badge">GDC 2024</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">John Austin</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>挑战和可达不矛盾</h4><div class="insight-body"><p>标题是反讽——你可以两者兼得。关键是将"挑战"和"惩罚"分开。保持挑战性（窗口紧、要求精确操作），降低惩罚（快速复活、保留进度、提供辅助选项）</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>辅助功能不是"简单模式"</h4><div class="insight-body"><p>辅助功能（可调窗口容差、色盲模式、按键重映射、单手操作支持）和难度选择是两回事。辅助是消除障碍，难度是调整挑战</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>具体策略清单</h4><div class="insight-body"><p>Celeste 的辅助模式（无敌/慢动作/跳过关卡）、Hades 的上帝模式（渐进减伤）、Dead Cells 的自定义难度滑块</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.gdcvault.com/play/1034563/" target="_blank">▶ GDC Vault</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec6">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Difficult Games by Data and Design</h3>
+    <div class="badge">GDC 2024</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">UX Summit</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>"金发姑娘挫败感"</h4><div class="insight-body"><p>难度应该在"太简单（无聊）"和"太难（沮丧）"之间找到"刚好（心流）"的甜点。这个甜点因人而异 → 需要数据来找到大多数人的甜点</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>多源反馈</h4><div class="insight-body"><p>不要只依赖一种数据源来调难度。应组合使用：内部 playtest + 遥测数据 + 用户研究 + QA 反馈</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>控制变量</h4><div class="insight-body"><p>调整难度时只改一个变量，观察影响。如果同时改 Boss 血量 + 伤害 + 攻击频率，你无法知道是哪个改变解决了问题</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.gdcvault.com/play/1034838/" target="_blank">▶ GDC Vault</a></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ SEC 7 ══════════════════════════ -->
+<section class="chapter" id="sec7">
+<div class="chapter-head reveal"><div class="num">07</div><div class="info"><h2>Roguelike 与新兴战斗设计</h2><div class="en">Roguelike &amp; Emerging Combat</div></div></div>
+
+<div class="talk reveal" data-sec="sec7">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Dead Cells: What the F*n!?</h3>
+    <div class="badge">GDC 2019</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Sebastien Benard · Motion Twin</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>死亡即进步</h4><div class="insight-body"><p>Dead Cells 把"死亡"从惩罚变为奖励机制——死亡后解锁新区域、新武器、新路线。这让失败变成了一种"好的结局"</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>战斗优先于跳台</h4><div class="insight-body"><p>平台跳跃只是服务于战斗中的走位，不应独立成为难度来源。每个平台挑战都要问"这是不是在考验战斗相关的技能？"</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>"为了好玩而作弊"</h4><div class="insight-body"><p>土狼时间、命中判定略大于视觉表现、敌人攻击在极近距离时有微秒延迟——这些"偏心玩家"的隐性设计让游戏感觉公平</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>最小化"死亡→重开"的痛苦</h4><div class="insight-body"><p>从死亡到重新开始战斗的时间 &lt; 5 秒。loading 期间玩家已经在操作角色。每一秒的等待都在流失玩家的重试意愿</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.youtube.com/watch?v=OfSpBoA6TWw" target="_blank">▶ YouTube</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec7">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Dreamscaper: Killer Combat on an Indie Budget</h3>
+    <div class="badge">GDC 2021</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>三人团队做出 90%+ 好评的战斗</h4><div class="insight-body"><p>关键在于聚焦：只做 3 种核心动作（轻攻/重攻/闪避），把有限资源全部投入到让这 3 个动作的手感完美</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>Game Feel 工作流</h4><div class="insight-body"><p>先做一个"感觉对"的灰盒原型（无美术），反复调参直到手感满意，最后才加美术。如果美术先行，你会"因为看起来已经不错了"而忽略手感问题</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>设计 &gt; 内容量</h4><div class="insight-body"><p>与其做 30 把感觉差不多的武器，不如做 8 把感觉完全不同的武器。独立团队的竞争力在于"每个元素都经过打磨"</p></div></div>
+    </div>
+    <div class="source"><a href="http://www.gdcvault.com/play/1027785/" target="_blank">▶ GDC Vault</a></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ SEC 8 ══════════════════════════ -->
+<section class="chapter" id="sec8">
+<div class="chapter-head reveal"><div class="num">08</div><div class="info"><h2>混合系统与创新</h2><div class="en">Hybrid Systems &amp; Innovation</div></div></div>
+
+<div class="talk reveal" data-sec="sec8">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>FF7 Rebirth: Combat Evolution</h3>
+    <div class="badge">GDC 2025</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Teruki Endo · Square Enix</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>ATB 即节奏控制</h4><div class="insight-body"><p>ATB 条不只是"等CD"，而是战斗的核心节奏调节器——积攒 ATB 的过程是"实时动作"，消耗 ATB 的瞬间是"策略决策"。两种游戏体验在同一个系统中交替</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>Stagger 系统 = 可读的 DPS 窗口</h4><div class="insight-body"><p>削韧→硬直→爆发输出的循环给了"打桩"一个清晰的目标和奖励。比"一直打直到它死"有意义得多</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>保持"FF 的感觉"</h4><div class="insight-body"><p>即使战斗从回合制变成了动作系统，团队仍然确保核心"FF 感"：魔法的华丽演出、队友的战术配合、ATB 条的策略抉择。"革新机制但保留灵魂"</p></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec8">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Monster Hunter: World — Prototyping and Iteration</h3>
+    <div class="badge">GDC 2018</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Capcom</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>原型→测试→迭代的循环</h4><div class="insight-body"><p>怪猎团队的设计方法论核心就是"尽快做出可玩原型"。一个武器从概念到可用灰盒原型的周期 &lt; 2 周 → 大量尝试 → 快速淘汰不好的方向</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>14 种武器 = 14 种游戏</h4><div class="insight-body"><p>每种武器的操作体验差异之大，相当于在做 14 个不同的战斗系统。设计原则："同一只怪，用不同武器打的体验应该完全不同"</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>怪物是舞台，猎人是演员</h4><div class="insight-body"><p>怪物设计的核心不是"怎么让怪更厉害"，而是"怎么让猎人的操作更有意义"。每个怪物的招式设计都是在为猎人创造"做出好操作的机会"</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.gdcvault.com/play/1024981/" target="_blank">▶ GDC Vault</a></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ SEC 9 ══════════════════════════ -->
+<section class="chapter" id="sec9">
+<div class="chapter-head reveal"><div class="num">09</div><div class="info"><h2>GMTK 战斗设计视频 Essays</h2><div class="en">Game Maker's Toolkit</div></div></div>
+<div class="section-note reveal">以下内容来自 Mark Brown 的 Game Maker's Toolkit 频道。GMTK 不是开发者演讲，而是<strong>第三方设计分析</strong>——它的价值在于跨作品的横向对比和设计原理的提炼，与 GDC 的一手开发经验互补。</div>
+
+<div class="talk reveal" data-sec="sec9">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>What Makes a Good Combat System?</h3>
+    <div class="badge">GMTK 2019</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Mark Brown</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>战斗系统 = 工具箱 × 问题集</h4><div class="insight-body"><p>一个好的战斗系统给玩家一套工具（招式/武器/技能），然后用敌人设计作为"问题"来考验工具的使用。工具多但问题单一 = 无聊；问题多但工具少 = 挫败</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>敌人是战斗系统的镜子</h4><div class="insight-body"><p>敌人设计的质量决定战斗系统的上限——再精妙的连招系统，如果敌人全是站桩沙袋也没意义。每种敌人应该逼迫玩家使用不同的工具</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>深度来自组合，不是来自数量</h4><div class="insight-body"><p>蝙蝠侠的战斗只有"打/反击/翻越/披风/道具"几个基础动作，但对不同敌人类型的组合使用创造了深度</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>节奏变化是持久战斗的关键</h4><div class="insight-body"><p>好的战斗系统在一场战斗中有节奏起伏——进攻期→防守期→爆发期→喘息期。如果从头到尾是同一个节奏，再好的手感也会疲劳</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.youtube.com/watch?v=8X4fx-YncqA" target="_blank">▶ YouTube</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec9">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>How Cuphead's Bosses (Try to) Kill You</h3>
+    <div class="badge">GMTK 2017</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Mark Brown</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>攻击模式分类学</h4><div class="insight-body"><p>Boss 攻击可按弹道类型分类——直线/弧线/回旋/正弦波/追踪/随机散布。每种弹道考验不同的躲避能力，好的 Boss 混合使用多种类型</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>层叠式难度</h4><div class="insight-body"><p>Cuphead 的 Boss 难度不来自单个攻击有多猛，而来自多个攻击同时存在——一边躲直线弹幕一边跳弧线攻击一边注意地面陷阱</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>阶段作为难度阶梯</h4><div class="insight-body"><p>每个阶段引入 1~2 个新攻击模式，前面阶段学会的躲避方式在后面阶段仍然适用。Boss 是一个"渐进式教学"</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>安全区是设计出来的</h4><div class="insight-body"><p>好的 Boss 攻击模式中存在可预判的"安全区"——站在这个位置可以同时躲避多种攻击。发现安全区 = 玩家的"啊哈时刻"</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.youtube.com/watch?v=F8T6Ul4aHTI" target="_blank">▶ YouTube</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec9">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>Forging God of War's Leviathan Axe</h3>
+    <div class="badge">GMTK 2018</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Mark Brown</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>一把武器的多面性</h4><div class="insight-body"><p>利维坦之斧不是"近战武器"——它是轻攻/重攻/蓄力/投掷/召回/冰冻触发/解谜工具的复合体。一把武器覆盖了传统游戏中 3~4 把武器的设计空间</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>投出-召回的仪式感</h4><div class="insight-body"><p>斧头投出后角色变为徒手搏击模式，等待召回时的"空缺感"让召回瞬间的反馈成为全游戏最满足的操作</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>武器成长 = 玩法解锁</h4><div class="insight-body"><p>斧头升级不只是数值变强——每次升级解锁新的符文攻击，改变了武器的操作方式。玩家在数值成长的同时获得了玩法成长</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>武器个性 = 角色个性</h4><div class="insight-body"><p>利维坦之斧沉稳、精准、有重量感——这和新版克雷托斯"克制的父亲"人设完美匹配。武器设计是角色塑造的延伸</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.youtube.com/watch?v=vwbz9gxoQFg" target="_blank">▶ YouTube</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec9">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>What's The Point Of Hard Games, Anyway?</h3>
+    <div class="badge">GMTK 2019</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Mark Brown</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>难度的三重价值</h4><div class="insight-body"><p>高难度游戏有三重存在理由：①挑战感本身带来成就感 ②反复失败让成功的瞬间情感放大 ③宫崎英高哲学——"让尽可能多的玩家体验克服困难的喜悦"</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>公平的难 vs 不公平的难</h4><div class="insight-body"><p>难度来自"要求玩家做出正确决策"是公平的；难度来自"信息不透明/判定不一致/随机即死"是不公平的</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>难度不是二选一</h4><div class="insight-body"><p>存在第三条路：通过游戏内系统提供灵活性（魂系的召唤/练级/装备、Hades 的上帝模式渐进减伤）</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>横向替代路径</h4><div class="insight-body"><p>"打不过这个 Boss？去别的地方练级/找更好的装备再回来"——Dark Souls 的开放结构本身就是一种隐性的难度调节机制</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.youtube.com/watch?v=Ip5pYl-MuYs" target="_blank">▶ YouTube</a></div>
+  </div>
+</div>
+
+<div class="talk reveal" data-sec="sec9">
+  <div class="talk-header" onclick="toggleTalk(this.closest('.talk'))">
+    <span class="talk-toggle">▶</span>
+    <h3>10 Game Design Lessons from 10 Years of GMTK</h3>
+    <div class="badge">GMTK 2024</div>
+    <span class="decode-label">DECODE</span>
+  </div>
+  <div class="talk-meta">Mark Brown</div>
+  <div class="talk-body">
+    <div class="insights">
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>约束激发创造力</h4><div class="insight-body"><p>限制（预算/平台/技术）不是障碍而是设计工具。Dead Cells 团队因为人少做不了大地图才选了 Roguelike，反而创造了经典</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>可读性优先于复杂性</h4><div class="insight-body"><p>玩家无法利用他们看不懂的系统。战斗系统的每个层次都应在玩家理解上一层之后再引入下一层</p></div></div>
+      <div class="insight" onclick="toggleInsight(this)"><h4><span class="i-toggle">+</span>测试是设计的一部分</h4><div class="insight-body"><p>最好的战斗手感不是设计出来的，是在反复测试中"找到"的</p></div></div>
+    </div>
+    <div class="source"><a href="https://www.youtube.com/watch?v=Cm2_drGLGbc" target="_blank">▶ YouTube</a></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══ SEC 10 ═════════════════════════ -->
+<section class="chapter" id="sec10">
+<div class="chapter-head reveal"><div class="num">10</div><div class="info"><h2>关键设计原则速查</h2><div class="en">19 Core Principles — Cross-Title Consensus</div></div></div>
+
+<div class="reveal" style="background:var(--card);border:1px solid var(--border);overflow:hidden">
+  <div class="principle"><div class="p-num">01</div><div class="p-text"><strong>从体验倒推设计</strong>，而不是从技术能力出发</div><div class="p-src">DMC5 · GoW · FF7R</div></div>
+  <div class="principle"><div class="p-num">02</div><div class="p-text"><strong>打击感 = 多层反馈的协同叠加</strong>，不是单一技术的突破</div><div class="p-src">Screenshake · Game Feel</div></div>
+  <div class="principle"><div class="p-num">03</div><div class="p-text"><strong>攻击可读性是最高优先级</strong>，死亡必须可归因</div><div class="p-src">Boss Up · GoT · GMTK</div></div>
+  <div class="principle"><div class="p-num">04</div><div class="p-text"><strong>取消窗口定义战斗节奏</strong>，是连招深度的核心</div><div class="p-src">10 Examples · Dead Cells</div></div>
+  <div class="principle"><div class="p-num">05</div><div class="p-text"><strong>难度 ≠ 惩罚</strong>，保持挑战但降低失败代价</div><div class="p-src">Celeste/Hades · GMTK</div></div>
+  <div class="principle"><div class="p-num">06</div><div class="p-text"><strong>AI 的目标是"好玩"不是"聪明"</strong></div><div class="p-src">TLOU · Uncharted 4</div></div>
+  <div class="principle"><div class="p-num">07</div><div class="p-text"><strong>Boss 是考试，不是新课</strong>，考验已学技能</div><div class="p-src">Boss Up · GMTK</div></div>
+  <div class="principle"><div class="p-num">08</div><div class="p-text"><strong>克制关系是低成本的深度来源</strong></div><div class="p-src">Ghost of Tsushima</div></div>
+  <div class="principle"><div class="p-num">09</div><div class="p-text"><strong>先灰盒后美术</strong>，手感对了再加表现</div><div class="p-src">Dreamscaper</div></div>
+  <div class="principle"><div class="p-num">10</div><div class="p-text"><strong>为了好玩而"作弊"</strong>，判定偏向玩家</div><div class="p-src">Dead Cells</div></div>
+  <div class="principle"><div class="p-num">11</div><div class="p-text"><strong>每场战斗都应有意义</strong>，不是填充内容</div><div class="p-src">Why We Fight</div></div>
+  <div class="principle"><div class="p-num">12</div><div class="p-text"><strong>做减法比做加法更需要勇气</strong></div><div class="p-src">GoW · Dark Souls</div></div>
+  <div class="principle"><div class="p-num">13</div><div class="p-text"><strong>微小随机化 = 生命感</strong>，音效/位移/角度加随机偏移</div><div class="p-src">Screenshake</div></div>
+  <div class="principle"><div class="p-num">14</div><div class="p-text"><strong>死亡→重试的间隔 &lt; 5 秒</strong></div><div class="p-src">Dead Cells</div></div>
+  <div class="principle"><div class="p-num">15</div><div class="p-text"><strong>低门槛入门 + 高上限精通</strong>是所有优秀动作设计的共性</div><div class="p-src">10 Examples · DMC5</div></div>
+  <div class="principle"><div class="p-num">16</div><div class="p-text"><strong>敌人是战斗系统的镜子</strong>，敌人质量决定系统上限</div><div class="p-src">GMTK</div></div>
+  <div class="principle"><div class="p-num">17</div><div class="p-text"><strong>深度来自工具组合，不是工具数量</strong></div><div class="p-src">GMTK</div></div>
+  <div class="principle"><div class="p-num">18</div><div class="p-text"><strong>武器个性 = 角色个性</strong>，武器设计是角色塑造的延伸</div><div class="p-src">GMTK · GoW</div></div>
+  <div class="principle"><div class="p-num">19</div><div class="p-text"><strong>公平的难 vs 不公平的难</strong>，信息透明+判定一致=公平</div><div class="p-src">GMTK</div></div>
+</div>
+</section>
+
+<footer class="reveal">
+  <div class="flourish">— ◆ —</div>
+  <p class="quote"><strong>测试是设计的一部分，不是设计之后的事</strong></p>
+  <p class="quote">最好的战斗手感不是设计出来的，是在反复测试中"找到"的</p>
+  <p class="attr">— GMTK: 10 Game Design Lessons from 10 Years</p>
+</footer>
+
+</main>
+
+<script>
+/* ── STATE ────────────────────────────── */
+const decoded = new Set();
+const TOTAL = document.querySelectorAll('.talk[data-sec]').length;
+const RANKS = [[0,'RECRUIT'],[4,'SOLDIER'],[8,'WARRIOR'],[12,'COMMANDER'],[16,'VETERAN'],[20,'ELITE'],[TOTAL,'MASTER STRATEGIST']];
+const sectionTalks = {};
+const completedSections = new Set();
+
+document.querySelectorAll('.talk[data-sec]').forEach((t, i) => {
+  t.dataset.id = i;
+  const sec = t.dataset.sec;
+  if (!sectionTalks[sec]) sectionTalks[sec] = [];
+  sectionTalks[sec].push(i);
+});
+
+const SEC_NAMES = {
+  sec1:'近战系统设计',sec2:'Boss 与敌人设计',sec3:'打击感 / Game Feel',
+  sec4:'风格化动作设计',sec5:'战斗哲学 / 系统设计',sec6:'难度与可达性',
+  sec7:'Roguelike / 新兴战斗',sec8:'混合系统与创新',sec9:'GMTK 视频 Essays'
+};
+
+/* ── BOOT SEQUENCE ────────────────────── */
+const bootLines = [
+  ['> COMBAT DESIGN DATABASE v2.0', false],
+  ['> Initializing neural interface...', false],
+  ['> Loading ' + TOTAL + ' intelligence files...', false],
+  ['> Decrypting GDC Vault archives...', false],
+  ['> Parsing GMTK analysis data...', false],
+  ['> [████████████████████] 100%', false],
+  ['', false],
+  ['> ACCESS GRANTED — BEGIN DECODING', true]
+];
+let bootDone = false;
+
+function runBoot() {
+  if (sessionStorage.getItem('combat-db-booted')) { finishBoot(); return; }
+  const container = document.getElementById('boot-text');
+  bootLines.forEach((line, i) => {
+    setTimeout(() => {
+      if (bootDone) return;
+      const div = document.createElement('div');
+      div.className = 'line' + (line[1] ? ' accent' : '');
+      div.style.animationDelay = '0s';
+      div.textContent = line[0];
+      container.appendChild(div);
+      if (i === bootLines.length - 1) setTimeout(() => finishBoot(), 600);
+    }, i * 280);
+  });
+}
+
+function finishBoot() {
+  bootDone = true;
+  sessionStorage.setItem('combat-db-booted', '1');
+  const boot = document.getElementById('boot');
+  boot.classList.add('done');
+  setTimeout(() => { boot.style.display = 'none'; typeHeroTitle(); }, 500);
+}
+
+function skipBoot() { finishBoot(); }
+document.addEventListener('keydown', () => { if (!bootDone) finishBoot(); }, { once: true });
+
+/* ── HERO TYPING ──────────────────────── */
+function typeHeroTitle() {
+  const el = document.getElementById('hero-title');
+  const text = '战斗设计核心理念汇编';
+  let i = 0;
+  el.innerHTML = '<span class="cursor"></span>';
+  function type() {
+    if (i < text.length) {
+      el.innerHTML = text.substring(0, i + 1) + '<span class="cursor"></span>';
+      i++;
+      setTimeout(type, 80 + Math.random() * 40);
+    } else {
+      setTimeout(() => { const c = el.querySelector('.cursor'); if (c) c.remove(); }, 2000);
+    }
+  }
+  setTimeout(type, 400);
+}
+
+/* ── TALK TOGGLE ──────────────────────── */
+function toggleTalk(talk) {
+  const id = parseInt(talk.dataset.id);
+  const isOpening = !talk.classList.contains('open');
+
+  if (isOpening) {
+    talk.classList.add('open');
+    talk.querySelector('.decode-label').textContent = 'DECODED';
+    decoded.add(id);
+
+    const insights = talk.querySelectorAll('.insight');
+    insights.forEach((ins, i) => {
+      setTimeout(() => {
+        ins.classList.add('open');
+        const tog = ins.querySelector('.i-toggle');
+        if (tog) tog.textContent = '−';
+      }, 150 + i * 80);
+    });
+
+    updateXP();
+    checkSectionComplete(talk.dataset.sec);
+  } else {
+    talk.classList.remove('open');
+    talk.querySelector('.decode-label').textContent = 'DECODE';
+    decoded.delete(id);
+
+    talk.querySelectorAll('.insight').forEach(ins => {
+      ins.classList.remove('open');
+      const tog = ins.querySelector('.i-toggle');
+      if (tog) tog.textContent = '+';
+    });
+
+    updateXP();
+    updateDots();
+  }
+}
+
+/* ── INSIGHT TOGGLE ───────────────────── */
+function toggleInsight(el) {
+  el.classList.toggle('open');
+  const tog = el.querySelector('.i-toggle');
+  if (tog) tog.textContent = el.classList.contains('open') ? '−' : '+';
+}
+
+/* ── XP / RANK ────────────────────────── */
+function updateXP() {
+  const count = decoded.size;
+  document.getElementById('xp-count').textContent = count + ' / ' + TOTAL;
+  document.getElementById('xp-fill').style.width = (count / TOTAL * 100) + '%';
+
+  let rank = 'RECRUIT';
+  for (const [threshold, name] of RANKS) {
+    if (count >= threshold) rank = name;
+  }
+  const rankEl = document.getElementById('rank');
+  if (rankEl.textContent !== rank) {
+    rankEl.textContent = rank;
+    rankEl.style.animation = 'none';
+    rankEl.offsetHeight;
+    rankEl.style.animation = 'fadeDown .4s ease';
+    if (count > 0) showToast('RANK UP', rank, true);
+  }
+  updateDots();
+
+  if (count === TOTAL && !completedSections.has('ALL')) {
+    completedSections.add('ALL');
+    setTimeout(() => {
+      showToast('ALL INTEL DECODED', 'MASTER STRATEGIST — 全部情报已解密', true);
+      screenFlash('flash-gold');
+      document.body.classList.add('glitch');
+      setTimeout(() => document.body.classList.remove('glitch'), 300);
+    }, 400);
+  }
+}
+
+function updateDots() {
+  for (const sec in sectionTalks) {
+    const ids = sectionTalks[sec];
+    const openCount = ids.filter(id => decoded.has(id)).length;
+    const dot = document.querySelector(`.dot[data-sec="${sec}"]`);
+    if (!dot) continue;
+    dot.className = 'dot';
+    if (openCount === ids.length) dot.classList.add('complete');
+    else if (openCount > 0) dot.classList.add('partial');
+  }
+}
+
+function checkSectionComplete(sec) {
+  if (!sec || completedSections.has(sec)) return;
+  const ids = sectionTalks[sec];
+  if (!ids) return;
+  if (ids.every(id => decoded.has(id))) {
+    completedSections.add(sec);
+    const name = SEC_NAMES[sec] || sec;
+    showToast('SECTION COMPLETE', name + ' — 全部解码', true);
+    screenFlash('flash-gold');
+    document.body.classList.add('glitch');
+    setTimeout(() => document.body.classList.remove('glitch'), 300);
+  }
+}
+
+/* ── TOASTS ───────────────────────────── */
+function showToast(label, text, isAchievement) {
+  const container = document.getElementById('toasts');
+  const toast = document.createElement('div');
+  toast.className = 'toast' + (isAchievement ? ' achievement' : '');
+  toast.innerHTML = '<span class="t-label">' + label + '</span>' + text;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 3200);
+}
+
+/* ── FLASH ────────────────────────────── */
+function screenFlash(cls) {
+  const el = document.createElement('div');
+  el.className = 'flash ' + cls;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 400);
+}
+
+/* ── DECODE ALL / RESET ───────────────── */
+let bulkBusy=false;
+function decodeAll(){
+  if(bulkBusy)return;bulkBusy=true;
+  const talks=[...document.querySelectorAll('.talk[data-sec]:not(.open)')];
+  if(!talks.length){bulkBusy=false;return}
+  const BATCH=3;let i=0;
+  function openBatch(){
+    const end=Math.min(i+BATCH,talks.length);
+    for(;i<end;i++){
+      const t=talks[i];t.classList.add('open','no-anim');
+      t.querySelector('.decode-label').textContent='DECODED';
+      decoded.add(parseInt(t.dataset.id));
+      t.querySelectorAll('.insight').forEach(ins=>{ins.classList.add('open');const g=ins.querySelector('.i-toggle');if(g)g.textContent='−'});
+    }
+    if(i<talks.length){requestAnimationFrame(openBatch)}
+    else{updateXP();for(const s in sectionTalks)checkSectionComplete(s);bulkBusy=false}
+  }
+  requestAnimationFrame(openBatch);
+}
+function resetAll(){
+  if(bulkBusy)return;bulkBusy=true;
+  const talks=[...document.querySelectorAll('.talk.open')];
+  if(!talks.length){decoded.clear();completedSections.clear();updateXP();bulkBusy=false;return}
+  const BATCH=4;let i=0;
+  function closeBatch(){
+    const end=Math.min(i+BATCH,talks.length);
+    for(;i<end;i++){
+      const t=talks[i];t.classList.remove('open','no-anim');
+      t.querySelector('.decode-label').textContent='DECODE';
+      t.querySelectorAll('.insight.open').forEach(ins=>{ins.classList.remove('open');const g=ins.querySelector('.i-toggle');if(g)g.textContent='+'});
+    }
+    if(i<talks.length){requestAnimationFrame(closeBatch)}
+    else{decoded.clear();completedSections.clear();updateXP();bulkBusy=false}
+  }
+  requestAnimationFrame(closeBatch);
+}
+
+/* ── PARTICLES + CONSTELLATION ────────── */
+const mouse={x:-999,y:-999};
+document.addEventListener('mousemove',e=>{
+  mouse.x=e.clientX;mouse.y=e.clientY;
+  document.body.style.setProperty('--mx',e.clientX+'px');
+  document.body.style.setProperty('--my',e.clientY+'px');
+});
+
+function initParticles(){
+  const cv=document.getElementById('particles'),cx=cv.getContext('2d');let W,H;const ps=[];
+  function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();addEventListener('resize',rs);
+  const COUNT=85;
+  for(let i=0;i<COUNT;i++){
+    const isRed=Math.random()>.45;const shape=Math.random();
+    ps.push({
+      x:Math.random()*2e3,y:Math.random()*2e3,
+      r:Math.random()*1.8+.3,
+      dx:(Math.random()-.5)*.18,dy:-Math.random()*.3-.03,
+      color:isRed?[233,69,96]:[0,229,255],
+      a:Math.random()*.35+.08,
+      shape:shape<.6?0:shape<.82?1:2,
+      pulse:Math.random()*Math.PI*2,
+      pulseSpeed:.005+Math.random()*.015
+    });
+  }
+  const CONN_DIST=130;
+  function dr(){
+    cx.clearRect(0,0,W,H);
+    for(const p of ps){
+      p.pulse+=p.pulseSpeed;
+      const anim=Math.sin(p.pulse)*.3+.7;
+      const mdx=p.x-mouse.x,mdy=p.y-mouse.y,md=Math.sqrt(mdx*mdx+mdy*mdy);
+      if(md<180){const force=(1-md/180)*.6;p.x+=mdx/md*force;p.y+=mdy/md*force}
+      p.x+=p.dx;p.y+=p.dy;
+      if(p.y<-20){p.y=H+20;p.x=Math.random()*W}
+      if(p.x<-20)p.x=W+20;if(p.x>W+20)p.x=-20;
+      const[r,g,b]=p.color;const alpha=p.a*anim;
+      cx.fillStyle=`rgba(${r},${g},${b},${alpha})`;
+      cx.beginPath();
+      if(p.shape===0){cx.arc(p.x,p.y,p.r,0,Math.PI*2)}
+      else if(p.shape===1){const s=p.r*1.6;cx.moveTo(p.x,p.y-s);cx.lineTo(p.x+s*.87,p.y+s*.5);cx.lineTo(p.x-s*.87,p.y+s*.5);cx.closePath()}
+      else{const s=p.r*1.4;cx.moveTo(p.x,p.y-s);cx.lineTo(p.x+s,p.y);cx.lineTo(p.x,p.y+s);cx.lineTo(p.x-s,p.y);cx.closePath()}
+      cx.fill();
+    }
+    cx.lineWidth=.6;
+    for(let i=0;i<COUNT;i++){for(let j=i+1;j<COUNT;j++){
+      const dx=ps[i].x-ps[j].x,dy=ps[i].y-ps[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<CONN_DIST){const a=.12*(1-d/CONN_DIST);cx.strokeStyle=`rgba(233,69,96,${a})`;cx.beginPath();cx.moveTo(ps[i].x,ps[i].y);cx.lineTo(ps[j].x,ps[j].y);cx.stroke()}
+    }}
+    requestAnimationFrame(dr);
+  }dr();
+}
+
+/* ── SWORD SLASH TRAIL ───────────────── */
+function initTrail(){
+  const cv=document.getElementById('trail'),cx=cv.getContext('2d');let W,H;
+  function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();addEventListener('resize',rs);
+  const pts=[];const MAX=30;
+  document.addEventListener('mousemove',e=>{pts.push({x:e.clientX,y:e.clientY,t:Date.now()})});
+  function dr(){
+    cx.clearRect(0,0,W,H);
+    const now=Date.now();
+    while(pts.length&&now-pts[0].t>350)pts.shift();
+    if(pts.length>2){
+      cx.lineCap='round';cx.lineJoin='round';
+      for(let i=1;i<pts.length;i++){
+        const age=(now-pts[i].t)/350;
+        const alpha=Math.max(0,(1-age)*.4);
+        const width=Math.max(.3,(1-age)*3.5);
+        const grad=cx.createLinearGradient(pts[i-1].x,pts[i-1].y,pts[i].x,pts[i].y);
+        grad.addColorStop(0,`rgba(233,69,96,${alpha*.3})`);
+        grad.addColorStop(.5,`rgba(255,220,200,${alpha})`);
+        grad.addColorStop(1,`rgba(0,229,255,${alpha*.3})`);
+        cx.strokeStyle=grad;
+        cx.lineWidth=width;
+        cx.beginPath();cx.moveTo(pts[i-1].x,pts[i-1].y);cx.lineTo(pts[i].x,pts[i].y);cx.stroke();
+      }
+      if(pts.length>3){
+        const last=pts[pts.length-1],prev=pts[pts.length-3];
+        const dx=last.x-prev.x,dy=last.y-prev.y,speed=Math.sqrt(dx*dx+dy*dy);
+        if(speed>12){
+          const ang=Math.atan2(dy,dx);const len=Math.min(speed*.6,25);
+          cx.save();cx.globalAlpha=Math.min(speed/80,.35);
+          cx.strokeStyle='rgba(255,240,230,.5)';cx.lineWidth=1;
+          cx.beginPath();
+          cx.moveTo(last.x-Math.cos(ang+.5)*len,last.y-Math.sin(ang+.5)*len);
+          cx.lineTo(last.x,last.y);
+          cx.lineTo(last.x-Math.cos(ang-.5)*len,last.y-Math.sin(ang-.5)*len);
+          cx.stroke();cx.restore();
+        }
+      }
+    }
+    if(pts.length>MAX)pts.splice(0,pts.length-MAX);
+    requestAnimationFrame(dr);
+  }dr();
+}
+
+/* ── FLOATING SHAPES ─────────────────── */
+function initFloatingShapes(){
+  const shapes=[
+    {x:'6%',y:'18%',size:140,color:'rgba(233,69,96,.08)',fill:'rgba(233,69,96,.01)',type:'cross',dur:'25s',delay:'0s'},
+    {x:'85%',y:'28%',size:100,color:'rgba(0,229,255,.1)',fill:'rgba(0,229,255,.012)',type:'diamond',dur:'30s',delay:'1s'},
+    {x:'12%',y:'58%',size:80,color:'rgba(240,160,48,.08)',fill:'rgba(240,160,48,.01)',type:'tri',dur:'22s',delay:'3s'},
+    {x:'75%',y:'72%',size:120,color:'rgba(233,69,96,.07)',fill:'rgba(233,69,96,.008)',type:'diamond',dur:'28s',delay:'0.5s'},
+    {x:'48%',y:'10%',size:180,color:'rgba(0,229,255,.06)',fill:'rgba(0,229,255,.008)',type:'cross',dur:'35s',delay:'2s'},
+    {x:'90%',y:'52%',size:70,color:'rgba(240,160,48,.09)',fill:'rgba(240,160,48,.012)',type:'tri',dur:'20s',delay:'4s'},
+    {x:'28%',y:'80%',size:100,color:'rgba(233,69,96,.07)',fill:'none',type:'circle',dur:'26s',delay:'1.5s'}
+  ];
+  shapes.forEach(s=>{
+    const el=document.createElement('div');el.className='fshape';
+    el.style.cssText=`left:${s.x};top:${s.y};width:${s.size}px;height:${s.size}px;animation-delay:${s.delay}`;
+    let svg='';const sw=s.size>130?'1.5':'1';
+    if(s.type==='diamond')svg=`<svg viewBox="0 0 100 100" style="animation-duration:${s.dur}"><path d="M50 5 L95 50 L50 95 L5 50 Z" fill="${s.fill}" stroke="${s.color}" stroke-width="${sw}"/></svg>`;
+    else if(s.type==='tri')svg=`<svg viewBox="0 0 100 100" style="animation-duration:${s.dur}"><path d="M50 10 L90 80 L10 80 Z" fill="${s.fill}" stroke="${s.color}" stroke-width="${sw}"/></svg>`;
+    else if(s.type==='cross')svg=`<svg viewBox="0 0 100 100" style="animation-duration:${s.dur}"><path d="M50 10 L50 90 M10 50 L90 50" fill="none" stroke="${s.color}" stroke-width="${sw}"/><circle cx="50" cy="50" r="20" fill="${s.fill}" stroke="${s.color}" stroke-width=".5"/></svg>`;
+    else svg=`<svg viewBox="0 0 100 100" style="animation-duration:${s.dur}"><circle cx="50" cy="50" r="44" fill="${s.fill}" stroke="${s.color}" stroke-width="${sw}"/></svg>`;
+    el.innerHTML=svg;document.body.appendChild(el);
+  });
+}
+
+/* ── ENERGY PULSE ─────────────────────── */
+function initEnergyPulse(){
+  const el=document.createElement('div');
+  el.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 70% 45% at 50% 100%,rgba(233,69,96,.05),transparent 65%);animation:epulse 6s ease-in-out infinite';
+  document.body.appendChild(el);
+  const el2=document.createElement('div');
+  el2.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 50% 35% at 50% 0%,rgba(0,229,255,.035),transparent 60%);animation:epulse 8s ease-in-out infinite 3s';
+  document.body.appendChild(el2);
+  const style=document.createElement('style');
+  style.textContent='@keyframes epulse{0%,100%{opacity:.4;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.12)}}';
+  document.head.appendChild(style);
+}
+
+/* ── SCROLL / NAV ─────────────────────── */
+const bar = document.getElementById('progress');
+const links = document.querySelectorAll('nav .links a');
+const sections = document.querySelectorAll('.chapter');
+
+let lastCur='hero';
+window.addEventListener('scroll', () => {
+  const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  bar.style.width = Math.min(p * 100, 100) + '%';
+  let cur = 'hero';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) cur = s.id; });
+  if(cur!==lastCur){
+    lastCur=cur;
+    links.forEach(l => {
+      const isActive=l.getAttribute('href')==='#'+cur;
+      l.classList.toggle('active',isActive);
+      if(isActive) l.scrollIntoView({block:'nearest',behavior:'smooth'});
+    });
+  }
+});
+
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: .08, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach((el,i) => {
+  el.style.transitionDelay = (i%4)*.08+'s';
+  obs.observe(el);
+});
+
+document.querySelectorAll('nav .links a').forEach(a => {
+  a.addEventListener('click', () => document.querySelector('nav').classList.remove('open'));
+});
+
+/* ── GAME SCREENSHOTS ─────────────────── */
+const TALK_IMGS = [
+  ['God of War Gameplay','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1593500/ss_6eccc970b5de2943546d93d319be1b5c0618f21b.1920x1080.jpg?t=1763059412'],
+  ['Ghost of Tsushima','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2215430/ss_51eb1a47a41271abb0aa781de576f704d95b601b.1920x1080.jpg?t=1763409398'],
+  ['Last of Us Melee','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1888930/ss_3f1805ecddafacee7f61f87cb8e4624435a83ee3.1920x1080.jpg?t=1750959031'],
+  ['Uncharted 4','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1659420/ss_417913fbee123c5e35718ebef63bc8a6ce435adf.1920x1080.jpg?t=1751913411'],
+  ['Last of Us: Human','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1888930/ss_3f1805ecddafacee7f61f87cb8e4624435a83ee3.1920x1080.jpg?t=1750959031'],
+  ['Art of Screenshake','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/242680/b1a8c68f52b8460cdbfb8034c7d36d9abaad9af2/ss_b1a8c68f52b8460cdbfb8034c7d36d9abaad9af2.1920x1080.jpg?t=1764957456'],
+  ['Devil May Cry 5','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/601150/ss_4410bada2565843dae693b03ac3a50256ff5dd66.1920x1080.jpg?t=1768869803'],
+  ['Dark Souls is the Ikea','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/570940/ss_3a71463e4ccaf28c5c27f6cf8d32a3a125f45404.1920x1080.jpg?t=1764975651'],
+  ['Dead Cells','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/588650/ss_ac28000ade40cc2fe5c128f32ac98ba33c008a7a.1920x1080.jpg?t=1772726488'],
+  ['Dreamscaper','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1040420/ss_06e07bb834ccfd9ba630e64d2984f9230aec5394.1920x1080.jpg?t=1768951432'],
+  ['FF7 Rebirth','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2909400/ss_7a83a64967a06edbf0d43821153a0188471d596a.1920x1080.jpg?t=1773895934'],
+  ['Monster Hunter','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/582010/ss_a262c53b8629de7c6547933dc0b49d31f4e1b1f1.1920x1080.jpg?t=1773328926'],
+  ['Cuphead','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/268910/ss_e3096a5555cb77d88db165c83d5ef3a24af1354a.1920x1080.jpg?t=1709068852'],
+  ['Leviathan Axe','https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1593500/ss_6eccc970b5de2943546d93d319be1b5c0618f21b.1920x1080.jpg?t=1763059412']
+];
+
+document.querySelectorAll('.talk-body').forEach(body => {
+  const talk = body.closest('.talk');
+  const title = talk.querySelector('h3').textContent;
+  for (const [key, url] of TALK_IMGS) {
+    if (title.includes(key)) {
+      const wrap = document.createElement('div');
+      wrap.className = 'talk-img-wrap';
+      const img = document.createElement('img');
+      img.className = 'talk-img';
+      img.src = url;
+      img.loading = 'lazy';
+      img.alt = key;
+      wrap.appendChild(img);
+      body.insertBefore(wrap, body.firstChild);
+      break;
+    }
+  }
+});
+
+/* ── INIT ─────────────────────────────── */
+/* ── CROSSHAIR + SHOOT FEEDBACK ─────── */
+function initCrosshair(){
+  const ch=document.getElementById('crosshair');
+  const HOVER_SEL='a,button,[onclick],.talk-header,.insight,.source a,nav .links a,.principle';
+
+  document.addEventListener('mousemove',e=>{
+    ch.style.left=e.clientX+'px';ch.style.top=e.clientY+'px';
+    const t=document.elementFromPoint(e.clientX,e.clientY);
+    ch.classList.toggle('hover',!!(t&&t.closest(HOVER_SEL)));
+  });
+
+  document.addEventListener('mousedown',e=>{
+    ch.classList.remove('recoil');
+    void ch.offsetWidth;
+    ch.classList.add('recoil');
+
+    const ring=document.createElement('div');
+    ring.className='hit-ring';
+    ring.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:50px;height:50px`;
+    document.body.appendChild(ring);
+    setTimeout(()=>ring.remove(),450);
+
+    const flash=document.createElement('div');
+    flash.className='hit-flash';
+    flash.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:120px;height:120px`;
+    document.body.appendChild(flash);
+    setTimeout(()=>flash.remove(),300);
+
+    for(let i=0;i<6;i++){
+      const sp=document.createElement('div');sp.className='hit-spark';
+      const ang=Math.random()*Math.PI*2;const dist=4+Math.random()*6;
+      sp.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;--sx:${Math.cos(ang)*dist}px;--sy:${Math.sin(ang)*dist}px;animation-delay:${Math.random()*.05}s`;
+      document.body.appendChild(sp);
+      setTimeout(()=>sp.remove(),400);
+    }
+
+    const m=document.querySelector('main');
+    m.classList.remove('shake');
+    void m.offsetWidth;
+    m.classList.add('shake');
+    setTimeout(()=>m.classList.remove('shake'),180);
+  });
+
+  document.addEventListener('mouseleave',()=>{ch.style.opacity='0'});
+  document.addEventListener('mouseenter',()=>{ch.style.opacity='1'});
+}
+
+runBoot();initParticles();initTrail();initFloatingShapes();initEnergyPulse();initCrosshair();
+</script>
+</body>
+</html>

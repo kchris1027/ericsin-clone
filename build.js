@@ -146,6 +146,16 @@ function genMediaItem(m) {
   if (m.type === 'video') {
     return `<video src="${m.url}" autoplay loop muted playsinline class="detail-video"></video>`;
   }
+  if (m.type === 'html') {
+    const title = m.title ? ` title="${m.title}"` : '';
+    return `<div class="detail-html-wrap">
+      <iframe src="./${m.url}" sandbox="allow-scripts allow-same-origin"${title} loading="lazy"></iframe>
+      <button class="detail-html-fullscreen-btn" aria-label="Toggle fullscreen">
+        <svg class="icon-expand" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        <svg class="icon-shrink" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>
+      </button>
+    </div>`;
+  }
   return `<div class="detail-img-wrap"><img src="${m.url}" alt="" loading="lazy"></div>`;
 }
 
@@ -248,7 +258,8 @@ function genClientItem(c) {
 }
 
 function genGameCard(g, idx) {
-  return `<div class="game-card" data-game="${idx}" data-category="${g.year || ''}"><div class="game-cover"><img src="${g.image}" alt="${g.name}" loading="lazy"></div><div class="game-info"><div class="game-info-text"><h3>${g.name}</h3><div class="game-genre">${g.genre || ''}</div></div><span class="arrow-reveal">${ARROW_SVG}</span></div></div>`;
+  const gotyBadge = g.goty ? '<span class="game-goty-badge"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg> GOTY</span>' : '';
+  return `<div class="game-card${g.goty ? ' is-goty' : ''}" data-game="${idx}" data-category="${g.year || ''}"><div class="game-cover"><img src="${g.image}" alt="${g.name}" loading="lazy">${gotyBadge}</div><div class="game-info"><div class="game-info-text"><h3>${g.name}</h3><div class="game-genre">${g.genre || ''}</div></div><span class="arrow-reveal">${ARROW_SVG}</span></div></div>`;
 }
 
 function genFeaturedGame(g, idx) {
@@ -273,7 +284,8 @@ function genGameDataJS(games) {
     const genre = (g.genre || '').replace(/"/g, '\\"');
     const dev = (g.developer || '').replace(/"/g, '\\"');
     const plat = (g.platform || '').replace(/"/g, '\\"');
-    return `      { name: "${name}", image: "${g.image}", genre: "${genre}", developer: "${dev}", platform: "${plat}", rating: ${g.rating || 0}, year: "${g.year || ''}", steam: "${g.steam || ''}" }`;
+    const lp = (g.link_platform || '').replace(/"/g, '\\"');
+    return `      { name: "${name}", image: "${g.image}", genre: "${genre}", developer: "${dev}", platform: "${plat}", rating: ${g.rating || 0}, year: "${g.year || ''}", link: "${g.link || ''}", link_platform: "${lp}" }`;
   });
   return `[\n${items.join(',\n')}\n    ]`;
 }
@@ -306,6 +318,9 @@ function build() {
   const gamesData = readYaml('content/data/games.yml');
   const trinketsData = readYaml('content/data/trinkets.yml');
 
+  // Sort projects by year descending (newest first)
+  projects.sort((a, b) => parseInt(b.year || '0') - parseInt(a.year || '0'));
+
   // Sort writing by date descending
   writing.sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -323,12 +338,12 @@ function build() {
   // ── Simple text replacements ──
   const simpleReplacements = {
     // Title & meta
-    '<title>Eric Sin / Selected Works</title>': `<title>${config.site.title}</title>`,
-    'content="Selected works of Eric Sin, Product & Brand Designer."': `content="${config.site.description}"`,
+    '<title>Cai Kong / Selected Works</title>': `<title>${config.site.title}</title>`,
+    'content="Selected works of Cai Kong, Product & Brand Designer."': `content="${config.site.description}"`,
 
     // Profile (sidebar)
-    'src="./profile-photo.jpg" alt="Eric Sin"': `src="${config.profile.avatar}" alt="${config.profile.name}"`,
-    '<h1>Eric Sin</h1>': `<h1>${config.profile.name}</h1>`,
+    'src="./profile-photo.jpg" alt="Cai Kong"': `src="${config.profile.avatar}" alt="${config.profile.name}"`,
+    '<h1>Cai Kong</h1>': `<h1>${config.profile.name}</h1>`,
     '<h2>Designer</h2>': `<h2>${config.profile.title}</h2>`,
 
     // Clock timezone
@@ -339,7 +354,9 @@ function build() {
     'Designing thoughtful brand &amp; product experiences.': config.hero.heading,
     'Based in Orange County, CA.': config.hero.subheading,
     "I've worked in varied startups throughout the past 20 years. I excel in 0-1 situations and enjoy crafting the vision of what could be.": config.hero.description,
-    '>View Resume</a>': ` onclick="navigateTo('${config.hero.cta_primary.action}');return false;">${config.hero.cta_primary.text}</a>`,
+    'href="#" class="btn-filled" data-i18n="hero.cta_primary">View Resume</a>': config.hero.cta_primary.href
+      ? `href="${config.hero.cta_primary.href}" target="_blank" rel="noopener noreferrer" class="btn-filled" data-i18n="hero.cta_primary">${config.hero.cta_primary.text}</a>`
+      : `href="#" class="btn-filled" data-i18n="hero.cta_primary" onclick="navigateTo('${config.hero.cta_primary.action}');return false;">${config.hero.cta_primary.text}</a>`,
     'href="mailto:hello@ericsin.com"': `href="${config.hero.cta_secondary.href}"`,
     'Open for Freelance': config.hero.cta_secondary.text,
 
@@ -353,7 +370,7 @@ function build() {
 
     // Footer
     'Built with Vue.JS &amp; Tailwind CSS': config.site.footer_left,
-    '&copy; 2026 Eric Sin': config.site.footer_right,
+    '&copy; 2026 Cai Kong': config.site.footer_right,
 
     // Clock timezone in JS
     "timeZone: 'America/Los_Angeles'": `timeZone: '${config.clock.timezone}'`,
@@ -471,8 +488,16 @@ function build() {
     );
   }
 
-  // ── Games grid ──
-  const gamesGridHtml = gamesData.games.map((g, i) => genGameCard(g, i)).join('\n              ');
+  // ── Games grid (GOTY games sort first within each year) ──
+  const sortedGameIndices = gamesData.games
+    .map((g, i) => ({ game: g, origIdx: i }))
+    .sort((a, b) => {
+      if (a.game.year !== b.game.year) return 0;
+      if (a.game.goty && !b.game.goty) return -1;
+      if (!a.game.goty && b.game.goty) return 1;
+      return 0;
+    });
+  const gamesGridHtml = sortedGameIndices.map(({ game, origIdx }) => genGameCard(game, origIdx)).join('\n              ');
   html = html.replace(
     /(<div class="games-grid"[^>]*>)[\s\S]*?(<\/div>\s*<\/section>\s*<\/div>\s*<!-- ===== TRINKETS)/,
     `$1\n              ${gamesGridHtml}\n            </div>\n          </section>\n        </div>\n\n        <!-- ===== TRINKETS`
@@ -482,9 +507,11 @@ function build() {
   const gamesCats = gamesData.categories || [
     { key: 'all', label: 'All' }
   ];
-  const gamesTabsHtml = gamesCats.map(c =>
-    `<li class="tab-item${c.key === 'all' ? ' active' : ''}" data-tab="${c.key}"${c.key === 'all' ? ' data-i18n="filter.all"' : ''}>${c.label}</li>`
-  ).join('\n              ');
+  const gamesTabI18n = { all: 'filter.all', playing: 'games.tab_playing' };
+  const gamesTabsHtml = gamesCats.map(c => {
+    const i18nAttr = gamesTabI18n[c.key] ? ` data-i18n="${gamesTabI18n[c.key]}"` : '';
+    return `<li class="tab-item${c.key === 'all' ? ' active' : ''}" data-tab="${c.key}"${i18nAttr}>${c.label}</li>`;
+  }).join('\n              ');
   html = html.replace(
     /(<ul class="tab-bar" data-filter="games">)[\s\S]*?(<\/ul>)/,
     `$1\n              ${gamesTabsHtml}\n            $2`

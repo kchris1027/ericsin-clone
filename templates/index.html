@@ -3,8 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Eric Sin / Selected Works</title>
-  <meta name="description" content="Selected works of Eric Sin, Product & Brand Designer.">
+  <title>Cai Kong / Selected Works</title>
+  <meta name="description" content="Selected works of Cai Kong, Product & Brand Designer.">
+  <link rel="icon" type="image/png" href="./static/images/favicon.png">
+  <link rel="apple-touch-icon" href="./static/images/favicon.png">
   <!-- Chinese web fonts (unicode-range split, on-demand loading) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans-webfont@4.3.1/misans-style.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css">
@@ -320,7 +322,7 @@
     html.light .icon-moon { color: var(--ForegroundTertiary); }
 
     /* ===== MAIN CONTENT ===== */
-    .main-wrap { margin: 0 0 0 16rem; margin-top: 0; }
+    .main-wrap { margin: 0 0 0 16rem; margin-top: 0; overflow-x: hidden; }
     main {
       display: flex;
       flex-direction: column;
@@ -999,7 +1001,28 @@
       background: var(--BackgroundTertiary);
       border-bottom: 1px solid var(--BordersPrimary);
     }
+    .game-cover { position: relative; }
     .game-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .game-goty-badge {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      padding: 0.15rem 0.45rem;
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 0.25rem;
+      pointer-events: none;
+      line-height: 1;
+    }
+    .game-goty-badge svg { flex-shrink: 0; color: #fbbf24; }
     .game-info {
       display: flex; align-items: center; justify-content: space-between;
       padding: 0.75rem 1rem; gap: 0.5rem;
@@ -1040,8 +1063,8 @@
     .back-btn:hover { color: var(--ForegroundPrimary); }
     .back-btn svg { font-size: 0.875rem; }
     .detail-content { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
-    .detail-header h1 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.02em; }
-    .detail-desc { font-size: 0.9375rem; line-height: 1.6; color: var(--ForegroundSecondary); margin-top: 0.75rem; font-style: italic; font-family: Martha, "LXGW WenKai", sans-serif; }
+    .detail-header h1 { font-size: 1.25rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.005em; }
+    .detail-desc { font-size: 0.9375rem; line-height: 1.6; color: var(--ForegroundSecondary); margin-top: 0.75rem; }
     .detail-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
     .detail-meta-col h3 { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ForegroundTertiary); margin-bottom: 0.5rem; }
     .detail-meta-col p { font-size: 0.875rem; line-height: 1.6; color: var(--ForegroundSecondary); }
@@ -1051,6 +1074,114 @@
     .detail-img-wrap { border-radius: 0.5rem; overflow: hidden; }
     .detail-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .detail-video { width: 100%; border-radius: 0.5rem; display: block; }
+    @media (min-width: 1280px) {
+      .detail-media-row { width: calc(100% + 12rem); margin-left: -6rem; margin-right: -6rem; }
+    }
+
+    .detail-html-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      border: 1px solid var(--BordersPrimary);
+      background: var(--BackgroundSecondary);
+      transition: border-color 0.4s ease;
+    }
+    .detail-html-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .detail-html-wrap.html-loaded iframe { opacity: 1; }
+
+    /* Iframe loading overlay */
+    .detail-html-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: var(--BackgroundSecondary);
+      background-image: linear-gradient(100deg, transparent 30%, rgba(128,128,128,0.08) 50%, transparent 70%);
+      background-size: 200% 100%;
+      animation: skeletonShimmer 1.8s ease-in-out infinite;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+    .detail-html-wrap.html-loaded::before { opacity: 0; }
+
+    /* Iframe loading indicator */
+    @keyframes htmlLoadPulse {
+      0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+    }
+    .detail-html-wrap::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 3;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 2px solid var(--ForegroundTertiary);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: htmlLoadSpin 0.8s linear infinite;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    @keyframes htmlLoadSpin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    .detail-html-wrap.html-loaded::after { opacity: 0; }
+    .detail-html-fullscreen-btn {
+      position: absolute;
+      top: 0.625rem;
+      right: 0.625rem;
+      z-index: 5;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--BackgroundPrimary);
+      border: 1px solid var(--BordersPrimary);
+      border-radius: 0.375rem;
+      color: var(--ForegroundSecondary);
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.25s ease, background 0.25s ease, color 0.25s ease;
+    }
+    .detail-html-wrap.html-loaded:hover .detail-html-fullscreen-btn { opacity: 1; }
+    .detail-html-fullscreen-btn:hover {
+      background: var(--ForegroundPrimary);
+      color: var(--BackgroundPrimary);
+    }
+    .detail-html-fullscreen-btn .icon-shrink { display: none; }
+    .detail-html-wrap.fullscreen .detail-html-fullscreen-btn .icon-expand { display: none; }
+    .detail-html-wrap.fullscreen .detail-html-fullscreen-btn .icon-shrink { display: block; }
+
+    .detail-html-wrap.fullscreen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+      border: none;
+    }
+    .detail-html-wrap.fullscreen .detail-html-fullscreen-btn {
+      opacity: 1;
+      top: 1rem;
+      right: 1rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+    }
+
     .detail-quote { padding: 2rem 0; }
     .detail-quote h2 { font-size: 1.25rem; font-weight: 400; line-height: 1.6; font-style: italic; font-family: Martha, "LXGW WenKai", sans-serif; color: var(--ForegroundSecondary); }
     .detail-stats { display: flex; gap: 3rem; padding: 1.5rem 0; }
@@ -1174,8 +1305,24 @@
       background: var(--BackgroundTertiary);
       display: flex; align-items: center; justify-content: center;
       aspect-ratio: 484 / 420;
+      position: relative;
+    }
+    .trinket-modal-image::before, .game-modal-image::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 1;
+      background: var(--BackgroundTertiary);
+      background-image: linear-gradient(100deg, transparent 30%, rgba(128,128,128,0.12) 50%, transparent 70%);
+      background-size: 200% 100%;
+      animation: skeletonShimmer 1.5s ease-in-out infinite;
+      transition: opacity 0.4s ease;
+    }
+    .trinket-modal-image.img-ready::before, .game-modal-image.img-ready::before {
+      opacity: 0; pointer-events: none; animation: none;
     }
     .trinket-modal-image.has-img { aspect-ratio: auto; }
+    .trinket-modal-image img, .game-modal-image img {
+      position: relative; z-index: 2;
+    }
     .trinket-modal-image img {
       width: 100%; height: auto;
       object-fit: cover; display: block;
@@ -1268,6 +1415,7 @@
       background: var(--BackgroundTertiary);
       aspect-ratio: 460 / 215;
       flex-shrink: 0;
+      position: relative;
     }
     .game-modal-image img {
       width: 100%; height: 100%;
@@ -1277,8 +1425,8 @@
     .game-modal-body { padding: 1.25rem; }
     .game-modal-rating {
       display: flex; align-items: center; gap: 1.25rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--BordersPrimary);
+      padding-top: 1rem;
+      border-top: 1px solid var(--BordersPrimary);
     }
     .game-modal-score-ring {
       position: relative;
@@ -1321,7 +1469,7 @@
     }
     .game-modal-meta {
       display: flex; justify-content: space-between;
-      padding: 0.875rem 0;
+      padding-bottom: 0.875rem;
     }
     .game-modal-meta-item {
       display: flex; flex-direction: column; gap: 0.125rem;
@@ -1340,7 +1488,7 @@
     }
     .game-modal-link {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.625rem 1.25rem; margin-top: 0.25rem;
+      padding: 0.625rem 1.25rem; margin-top: 1rem;
       font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
       font-family: Martha, "LXGW WenKai", sans-serif;
       width: 100%;
@@ -1369,6 +1517,110 @@
         transform: translateY(0) scale(1);
       }
       .game-modal-header { margin-top: 0.5rem; }
+    }
+
+    /* ===== MODAL 3D TILT + PARALLAX EFFECT (desktop only) ===== */
+    @media (min-width: 768px) {
+      .trinket-modal-overlay, .game-modal-overlay, .wechat-modal-overlay {
+        perspective: 900px;
+        overflow: visible;
+      }
+      .trinket-modal-card, .game-modal-card, .wechat-modal {
+        transform-style: preserve-3d;
+        will-change: transform;
+        overflow: visible;
+      }
+      .trinket-modal-body, .game-modal-body {
+        transform-style: preserve-3d;
+      }
+      .trinket-modal-overlay.open .trinket-modal-card,
+      .game-modal-overlay.open .game-modal-card,
+      .wechat-modal-overlay.open .wechat-modal {
+        transition: transform 0.3s cubic-bezier(0,0,0.2,1), opacity 0.3s ease, box-shadow 0.3s ease;
+      }
+      .trinket-modal-overlay.open .trinket-modal-card.tilt-active,
+      .game-modal-overlay.open .game-modal-card.tilt-active,
+      .wechat-modal-overlay.open .wechat-modal.tilt-active {
+        transition: box-shadow 0.2s ease;
+      }
+
+      /* Parallax depth layers — flat by default, pop out on tilt */
+      .trinket-modal-image, .game-modal-image,
+      .trinket-modal-link, .game-modal-link,
+      .trinket-modal-header, .game-modal-header,
+      .trinket-modal-close, .game-modal-close,
+      .trinket-modal-desc,
+      .game-modal-rating, .game-modal-meta,
+      .wechat-modal-close, .wechat-modal h3, .qr-placeholder, .qr-hint {
+        transform: translateZ(0);
+        transition: transform 0.25s ease-out;
+      }
+      .trinket-modal-link, .game-modal-link {
+        transition: transform 0.25s ease-out, background 0.3s;
+      }
+      .trinket-modal-image, .game-modal-image {
+        border-radius: 0.25rem;
+      }
+      /* Activated parallax depths */
+      .tilt-active .trinket-modal-image,
+      .tilt-active .game-modal-image { transform: translateZ(40px); }
+      .tilt-active .trinket-modal-link,
+      .tilt-active .game-modal-link { transform: translateZ(15px); }
+      .tilt-active .trinket-modal-header,
+      .tilt-active .game-modal-header { transform: translateZ(20px); }
+      .tilt-active .trinket-modal-close,
+      .tilt-active .game-modal-close { transform: translateZ(20px); }
+      .tilt-active .game-modal-rating { transform: translateZ(25px); }
+      .tilt-active .game-modal-meta { transform: translateZ(15px); }
+      .tilt-active .trinket-modal-desc { transform: translateZ(10px); }
+      /* WeChat modal parallax */
+      .tilt-active .qr-placeholder { transform: translateZ(40px); }
+      .tilt-active .wechat-modal h3 { transform: translateZ(20px); }
+      .tilt-active .wechat-modal-close { transform: translateZ(20px); }
+      .tilt-active .qr-hint { transform: translateZ(10px); }
+
+      /* Shine overlay */
+      .card-shine {
+        position: absolute; inset: 0; z-index: 10;
+        border-radius: inherit;
+        pointer-events: none;
+        opacity: 0;
+        background: radial-gradient(
+          600px circle at var(--shine-x, 50%) var(--shine-y, 50%),
+          rgba(255,255,255,0.12) 0%,
+          rgba(255,255,255,0.05) 30%,
+          transparent 70%
+        );
+        transition: opacity 0.3s ease;
+      }
+      .tilt-active .card-shine { opacity: 1; }
+
+      /* Edge glow */
+      .card-edge-glow {
+        position: absolute; inset: -1px; z-index: 9;
+        border-radius: inherit;
+        pointer-events: none;
+        opacity: 0;
+        border: 1px solid rgba(255,255,255,0.08);
+        transition: opacity 0.3s ease;
+      }
+      .tilt-active .card-edge-glow { opacity: 1; }
+
+      /* Card background plane to keep rounded corners + bg visible */
+      .trinket-modal-card::before, .game-modal-card::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: var(--BackgroundSecondary);
+        border-radius: inherit;
+        z-index: -1;
+      }
+      .wechat-modal::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: var(--BackgroundPrimary);
+        border-radius: inherit;
+        z-index: -1;
+      }
     }
 
     /* ===== PLACEHOLDER IMAGES ===== */
@@ -1693,10 +1945,10 @@
       <div>
         <div class="drawer-profile">
           <figure class="sidebar-avatar">
-            <img src="./profile-photo.jpg" alt="Eric Sin">
+            <img src="./profile-photo.jpg" alt="Cai Kong">
           </figure>
           <div class="sidebar-name-block">
-            <h1>Eric Sin</h1>
+            <h1>Cai Kong</h1>
             <h2>Designer</h2>
           </div>
         </div>
@@ -1761,10 +2013,10 @@
         <div>
           <div class="sidebar-profile">
             <figure class="sidebar-avatar">
-              <img src="./profile-photo.jpg" alt="Eric Sin">
+              <img src="./profile-photo.jpg" alt="Cai Kong">
             </figure>
             <div class="sidebar-name-block">
-              <h1>Eric Sin</h1>
+              <h1>Cai Kong</h1>
               <h2>Designer</h2>
             </div>
           </div>
@@ -1980,7 +2232,8 @@
             <ul class="tab-bar" data-filter="projects">
               <li class="tab-item active" data-tab="all" data-i18n="filter.all">All</li>
               <li class="tab-item" data-tab="brand" data-i18n="filter.brand">Brand</li>
-              <li class="tab-item" data-tab="product">Product</li>
+              <li class="tab-item" data-tab="product" data-i18n="filter.product">Product</li>
+              <li class="tab-item" data-tab="research" data-i18n="filter.research">Research</li>
             </ul>
             <ul class="project-grid" style="margin-top:1rem;">
               <li class="group" data-category="brand"><a href="#" data-detail="project-apmc" class="project-card"><div class="thumb"><img src="https://a-us.storyblok.com/f/1021504/1280x720/0b86ccbbf4/apmc_thumbnail.png" alt="APMC"></div><div class="info"><div class="info-text"><h3>APMC</h3><p>Brand &bull; 2025</p></div><span class="arrow-reveal"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ForegroundSecondary)"><path d="M5 12h14m-7-7l7 7-7 7"/></svg></span></div></a></li>
@@ -2585,7 +2838,7 @@
           <section>
             <div class="footer-bar">
               <span data-i18n="footer.left">Built with Vue.JS &amp; Tailwind CSS</span>
-              <span data-i18n="footer.right">&copy; 2026 Eric Sin</span>
+              <span data-i18n="footer.right">&copy; 2026 Cai Kong</span>
             </div>
           </section>
         </footer>
@@ -2598,6 +2851,8 @@
   <!-- WeChat QR Modal -->
   <div id="wechatModal" class="wechat-modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
     <div class="wechat-modal" style="position:relative;">
+      <div class="card-shine"></div>
+      <div class="card-edge-glow"></div>
       <button class="wechat-modal-close" onclick="document.getElementById('wechatModal').classList.remove('open')" aria-label="Close">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
@@ -2612,6 +2867,8 @@
   <!-- Trinket Modal -->
   <div id="trinketModal" class="trinket-modal-overlay">
     <div class="trinket-modal-card">
+      <div class="card-shine"></div>
+      <div class="card-edge-glow"></div>
       <button class="trinket-modal-close" id="trinketModalClose" aria-label="Close Modal">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
@@ -2634,6 +2891,8 @@
   <!-- Game Modal -->
   <div id="gameModal" class="game-modal-overlay">
     <div class="game-modal-card">
+      <div class="card-shine"></div>
+      <div class="card-edge-glow"></div>
       <button class="game-modal-close" id="gameModalClose" aria-label="Close Modal">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
@@ -2643,19 +2902,6 @@
       </div>
       <div class="game-modal-image" id="gmImageWrap"></div>
       <div class="game-modal-body">
-        <div class="game-modal-rating">
-          <div class="game-modal-score-ring">
-            <svg viewBox="0 0 36 36">
-              <circle class="ring-bg" cx="18" cy="18" r="15.5"></circle>
-              <circle class="ring-fill" id="gmRing" cx="18" cy="18" r="15.5" stroke-dasharray="97.39" stroke-dashoffset="97.39"></circle>
-            </svg>
-            <span class="game-modal-score-value" id="gmScore">0.0</span>
-          </div>
-          <div class="game-modal-rating-info">
-            <div class="game-modal-rating-label" data-i18n="games.rating">Rating</div>
-            <div class="game-modal-rating-text" data-i18n="games.rating_hint">Personal score out of 10</div>
-          </div>
-        </div>
         <div class="game-modal-meta">
           <div class="game-modal-meta-item">
             <span class="game-modal-meta-label" data-i18n="games.played">Played</span>
@@ -2668,6 +2914,19 @@
           <div class="game-modal-meta-item">
             <span class="game-modal-meta-label" data-i18n="games.platform_label">Platform</span>
             <span class="game-modal-meta-value" id="gmPlatform"></span>
+          </div>
+        </div>
+        <div class="game-modal-rating">
+          <div class="game-modal-score-ring">
+            <svg viewBox="0 0 36 36">
+              <circle class="ring-bg" cx="18" cy="18" r="15.5"></circle>
+              <circle class="ring-fill" id="gmRing" cx="18" cy="18" r="15.5" stroke-dasharray="97.39" stroke-dashoffset="97.39"></circle>
+            </svg>
+            <span class="game-modal-score-value" id="gmScore">0.0</span>
+          </div>
+          <div class="game-modal-rating-info">
+            <div class="game-modal-rating-label" data-i18n="games.rating">Rating</div>
+            <div class="game-modal-rating-text" data-i18n="games.rating_hint">Personal score out of 10</div>
           </div>
         </div>
         <a class="game-modal-link" id="gmLink" href="#" target="_blank" rel="noopener noreferrer" style="display:none;">
@@ -2888,6 +3147,7 @@
 
     // Home CTA "View Resume" link
     document.querySelectorAll('.btn-filled').forEach(btn => {
+      if (btn.getAttribute('target') === '_blank') return;
       if (btn.textContent.trim() === 'View Resume') {
         btn.addEventListener('click', (e) => { e.preventDefault(); navigateTo('resume'); });
       }
@@ -3008,6 +3268,24 @@
       { brand: "Fractal", name: "Terra Jade", image: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/0b5900fe-8973-4f7e-909e-31c5cb90354a/Fractal_Terra-min.png", description: "My current build is in this. It pretty much holds everything from my previous case and looks beautiful. Temps are pretty solid\u2014would recommend for anyone interested in SFF PCs.", link: "https://www.fractal-design.com/products/cases/terra/terra/terra-jade/" }
     ];
 
+    var _preloadedImages = {};
+    function preloadImages(dataArr) {
+      dataArr.forEach(function(item) {
+        if (item.image && !_preloadedImages[item.image]) {
+          var img = new Image();
+          img.src = item.image;
+          _preloadedImages[item.image] = img;
+        }
+      });
+    }
+
+    var _origNavigateTo = navigateTo;
+    navigateTo = function(pageName) {
+      if (pageName === 'trinkets') preloadImages(trinketData);
+      if (pageName === 'games') preloadImages(gameData);
+      return _origNavigateTo(pageName);
+    };
+
     const trinketModal = document.getElementById('trinketModal');
     const tmBrand = document.getElementById('tmBrand');
     const tmName = document.getElementById('tmName');
@@ -3030,24 +3308,39 @@
 
       tmImageWrap.innerHTML = '';
       tmImageWrap.classList.remove('has-img', 'img-ready');
-      const img = document.createElement('img');
+      var cached = _preloadedImages[t.image];
+      var img = document.createElement('img');
       img.alt = t.name;
-      img.onload = function() {
-        tmImageWrap.classList.add('has-img', 'img-ready');
-        img.classList.add('img-loaded');
-      };
-      img.onerror = function() {
-        tmImageWrap.classList.remove('has-img');
-        tmImageWrap.innerHTML = '<div class="tm-placeholder">' + (trinketEmojis[idx] || '&#128230;') + '</div>';
-      };
+      var _resolved = false;
+      function onImgDone(ok) {
+        if (_resolved) return; _resolved = true;
+        if (ok) {
+          tmImageWrap.classList.add('has-img', 'img-ready');
+          img.classList.add('img-loaded');
+        } else {
+          tmImageWrap.classList.add('img-ready');
+          tmImageWrap.classList.remove('has-img');
+          tmImageWrap.innerHTML = '<div class="tm-placeholder">' + (trinketEmojis[idx] || '&#128230;') + '</div>';
+        }
+      }
+      img.onload = function() { onImgDone(true); };
+      img.onerror = function() { onImgDone(false); };
       img.src = t.image;
       tmImageWrap.appendChild(img);
+      if (cached && cached.complete && cached.naturalWidth > 0) {
+        onImgDone(true);
+      }
+      setTimeout(function() { onImgDone(false); }, 10000);
 
+      var tCard = trinketModal.querySelector('.trinket-modal-card');
+      if (tCard) { tCard.style.transform = ''; tCard.style.boxShadow = ''; tCard.classList.remove('tilt-active'); }
       trinketModal.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
 
     function closeTrinketModal() {
+      var card = trinketModal.querySelector('.trinket-modal-card');
+      if (card) { card.classList.remove('tilt-active'); card.style.transform = ''; card.style.boxShadow = ''; }
       trinketModal.classList.remove('open');
       document.body.style.overflow = '';
     }
@@ -3107,19 +3400,45 @@
       if (!g) return;
       gmGenre.textContent = g.genre;
       gmName.textContent = g.name;
-      gmYear.textContent = g.year || '—';
+      gmYear.textContent = g.year === 'playing' ? 'Playing' : (g.year || '—');
       gmDeveloper.textContent = g.developer || '—';
       gmPlatform.textContent = g.platform || '—';
 
       gmImageWrap.innerHTML = '';
+      gmImageWrap.classList.remove('img-ready');
+      var cached = _preloadedImages[g.image];
       var img = document.createElement('img');
       img.alt = g.name;
+      var _gmResolved = false;
+      function onGmDone(ok) {
+        if (_gmResolved) return; _gmResolved = true;
+        gmImageWrap.classList.add('img-ready');
+      }
+      img.onload = function() { onGmDone(true); };
+      img.onerror = function() { onGmDone(false); };
       img.src = g.image;
       gmImageWrap.appendChild(img);
+      if (cached && cached.complete && cached.naturalWidth > 0) {
+        onGmDone(true);
+      }
+      setTimeout(function() { onGmDone(false); }, 10000);
 
-      if (g.steam) {
-        gmLink.href = g.steam;
+      if (g.link) {
+        gmLink.href = g.link;
         gmLink.style.display = '';
+        var platformLabels = {
+          steam: 'View on Steam',
+          nintendo: 'View on Nintendo',
+          ps: 'View on PlayStation',
+          xbox: 'View on Xbox',
+          pc: 'View on Official Site'
+        };
+        var labelSpan = gmLink.querySelector('span');
+        if (labelSpan) {
+          var lbl = platformLabels[g.link_platform] || 'View';
+          labelSpan.textContent = lbl;
+          labelSpan.setAttribute('data-i18n', 'games.view_' + (g.link_platform || 'steam'));
+        }
       } else {
         gmLink.style.display = 'none';
       }
@@ -3127,6 +3446,8 @@
       gmScore.textContent = '0.0';
       gmRing.style.strokeDashoffset = RING_C;
 
+      var gCard = gameModal.querySelector('.game-modal-card');
+      if (gCard) { gCard.style.transform = ''; gCard.style.boxShadow = ''; gCard.classList.remove('tilt-active'); }
       gameModal.classList.add('open');
       document.body.style.overflow = 'hidden';
 
@@ -3135,6 +3456,8 @@
 
     function closeGameModal() {
       if (gmAnimId) { cancelAnimationFrame(gmAnimId); gmAnimId = null; }
+      var card = gameModal.querySelector('.game-modal-card');
+      if (card) { card.classList.remove('tilt-active'); card.style.transform = ''; card.style.boxShadow = ''; }
       gameModal.classList.remove('open');
       document.body.style.overflow = '';
     }
@@ -3156,6 +3479,139 @@
       if (e.key === 'Escape' && gameModal.classList.contains('open')) closeGameModal();
     });
 
+    // ── Modal 3D Tilt Effect (desktop) ──
+    (function() {
+      var isDesktop = window.matchMedia('(min-width: 768px)');
+      var MAX_TILT = 8;
+      var SPRING_BACK_MS = 600;
+
+      function setupTilt(overlay, card) {
+        var rafId = null;
+        var currentRX = 0, currentRY = 0;
+        var targetRX = 0, targetRY = 0;
+        var lerp = 0.12;
+
+        function animate() {
+          currentRX += (targetRX - currentRX) * lerp;
+          currentRY += (targetRY - currentRY) * lerp;
+          var dist = Math.abs(targetRX - currentRX) + Math.abs(targetRY - currentRY);
+          card.style.transform = 'perspective(900px) rotateX(' + currentRX.toFixed(2) + 'deg) rotateY(' + currentRY.toFixed(2) + 'deg) scale(1)';
+          if (dist > 0.01) {
+            rafId = requestAnimationFrame(animate);
+          } else {
+            rafId = null;
+            card.style.transform = 'perspective(900px) rotateX(' + targetRX + 'deg) rotateY(' + targetRY + 'deg) scale(1)';
+          }
+        }
+
+        function startAnimate() {
+          if (!rafId) rafId = requestAnimationFrame(animate);
+        }
+
+        card.addEventListener('mousemove', function(e) {
+          if (!isDesktop.matches) return;
+          var rect = card.getBoundingClientRect();
+          var cx = (e.clientX - rect.left) / rect.width;
+          var cy = (e.clientY - rect.top) / rect.height;
+          targetRY = (cx - 0.5) * MAX_TILT * 2;
+          targetRX = -(cy - 0.5) * MAX_TILT * 2;
+          card.style.setProperty('--shine-x', (cx * 100).toFixed(1) + '%');
+          card.style.setProperty('--shine-y', (cy * 100).toFixed(1) + '%');
+          if (!card.classList.contains('tilt-active')) {
+            card.classList.add('tilt-active');
+          }
+          card.style.boxShadow = '0 ' + (20 + Math.abs(targetRX) * 2).toFixed(0) + 'px ' + (50 + Math.abs(targetRY) * 2).toFixed(0) + 'px -12px rgba(0,0,0,0.6)';
+          startAnimate();
+        });
+
+        card.addEventListener('mouseleave', function() {
+          targetRX = 0;
+          targetRY = 0;
+          card.classList.remove('tilt-active');
+          card.style.boxShadow = '';
+          card.style.transition = 'transform ' + SPRING_BACK_MS + 'ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease';
+          startAnimate();
+          setTimeout(function() {
+            card.style.transition = '';
+          }, SPRING_BACK_MS);
+        });
+      }
+
+      var trinketCard = document.querySelector('.trinket-modal-card');
+      var gameCard = document.querySelector('.game-modal-card');
+      var wechatCard = document.querySelector('.wechat-modal');
+      var trinketOverlay = document.getElementById('trinketModal');
+      var gameOverlay = document.getElementById('gameModal');
+      var wechatOverlay = document.getElementById('wechatModal');
+      if (trinketCard && trinketOverlay) setupTilt(trinketOverlay, trinketCard);
+      if (gameCard && gameOverlay) setupTilt(gameOverlay, gameCard);
+      if (wechatCard && wechatOverlay) setupTilt(wechatOverlay, wechatCard);
+    })();
+
+    // ── Embedded HTML Fullscreen Toggle ──
+    (function() {
+      var _fsPlaceholder = null;
+
+      function enterFullscreen(wrap) {
+        _fsPlaceholder = document.createElement('div');
+        _fsPlaceholder.style.display = 'none';
+        _fsPlaceholder.id = 'html-fs-placeholder';
+        wrap.parentNode.insertBefore(_fsPlaceholder, wrap);
+        document.body.appendChild(wrap);
+        wrap.classList.add('fullscreen');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function exitFullscreen() {
+        var wrap = document.querySelector('.detail-html-wrap.fullscreen');
+        if (!wrap) return;
+        wrap.classList.remove('fullscreen');
+        document.body.style.overflow = '';
+        if (_fsPlaceholder && _fsPlaceholder.parentNode) {
+          _fsPlaceholder.parentNode.insertBefore(wrap, _fsPlaceholder);
+          _fsPlaceholder.remove();
+        }
+        _fsPlaceholder = null;
+      }
+
+      document.addEventListener('click', function(e) {
+        var btn = e.target.closest('.detail-html-fullscreen-btn');
+        if (!btn) return;
+        var wrap = btn.closest('.detail-html-wrap');
+        if (!wrap) return;
+        if (wrap.classList.contains('fullscreen')) {
+          exitFullscreen();
+        } else {
+          enterFullscreen(wrap);
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') exitFullscreen();
+      });
+    })();
+
+    // ── Embedded HTML Loading State ──
+    (function() {
+      function bindIframeLoad(root) {
+        root.querySelectorAll('.detail-html-wrap').forEach(function(wrap) {
+          if (wrap._loadBound) return;
+          wrap._loadBound = true;
+          var iframe = wrap.querySelector('iframe');
+          if (!iframe) return;
+          iframe.addEventListener('load', function() {
+            wrap.classList.add('html-loaded');
+          });
+          if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+            wrap.classList.add('html-loaded');
+          }
+        });
+      }
+      bindIframeLoad(document);
+      new MutationObserver(function() { bindIframeLoad(document); })
+        .observe(document.body, { childList: true, subtree: true });
+    })();
+
     // ── Custom Cursor ──
     (function() {
       if (!matchMedia('(pointer: fine)').matches) return;
@@ -3166,7 +3622,7 @@
       let mx = -100, my = -100, rx = -100, ry = -100;
       let rafId = null;
 
-      const hoverSelectors = 'a, button, [data-nav], [data-detail], [data-navigate], .nav-link, .drawer-nav-link, .tab-item, .trinket-card, .article-card, .project-card, .status-card, .utility-btn, .game-card, .featured-game, .back-btn, .theme-toggle-btn, .lang-toggle-btn, .view-all, .btn-filled, .btn-outline, .trinket-modal-close, .game-modal-close, .wechat-modal-close, .game-modal-link, input, textarea, select';
+      const hoverSelectors = 'a, button, [data-nav], [data-detail], [data-navigate], .nav-link, .drawer-nav-link, .tab-item, .trinket-card, .article-card, .project-card, .status-card, .utility-btn, .game-card, .featured-game, .back-btn, .theme-toggle-btn, .lang-toggle-btn, .view-all, .btn-filled, .btn-outline, .trinket-modal-close, .game-modal-close, .wechat-modal-close, .game-modal-link, .detail-html-fullscreen-btn, input, textarea, select';
       const textSelectors = 'p, h1, h2, h3, h4, h5, h6, span, li, .notion-block, .hero-desc, .writing-subtitle';
 
       function tick() {
@@ -3221,6 +3677,24 @@
         dot.classList.remove('hidden');
         ring.classList.remove('hidden');
       });
+
+      function bindIframeCursorHide(root) {
+        root.querySelectorAll('.detail-html-wrap iframe').forEach(function(iframe) {
+          if (iframe._cursorBound) return;
+          iframe._cursorBound = true;
+          iframe.addEventListener('mouseenter', function() {
+            dot.classList.add('hidden');
+            ring.classList.add('hidden');
+          });
+          iframe.addEventListener('mouseleave', function() {
+            dot.classList.remove('hidden');
+            ring.classList.remove('hidden');
+          });
+        });
+      }
+      bindIframeCursorHide(document);
+      new MutationObserver(function() { bindIframeCursorHide(document); })
+        .observe(document.body, { childList: true, subtree: true });
     })();
 
     // ── i18n ──

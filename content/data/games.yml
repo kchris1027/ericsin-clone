@@ -1,92 +1,691 @@
 categories:
   - { key: "all", label: "All" }
-  - { key: "2025", label: "2025" }
+  - { key: "playing", label: "Playing" }
   - { key: "2024", label: "2024" }
   - { key: "2023", label: "2023" }
   - { key: "2022", label: "2022" }
+  - { key: "2021", label: "2021" }
   - { key: "2020", label: "2020" }
   - { key: "2019", label: "2019" }
+  - { key: "2018", label: "2018" }
+  - { key: "2017", label: "2017" }
 
 games:
-  - name: "Black Myth: Wukong"
-    image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg"
+  # ── Playing ──
+  - name: "鸣潮"
+    image: "https://mc.kurogames.com/static4.0/assets/big-hl-247d5093.jpg"
+    genre: "Action / Open World"
+    developer: "Kuro Games"
+    platform: "PC / Mobile"
+    year: "playing"
+    rating: 8.0
+    link: "https://wutheringwaves.kurogames.com/"
+    link_platform: "pc"
+
+  - name: "崩坏3"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1671200/header.jpg"
+    genre: "Action / RPG"
+    developer: "miHoYo"
+    platform: "PC / Mobile"
+    year: "playing"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/1671200"
+    link_platform: "steam"
+
+  - name: "剑星"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/3489700/header.jpg"
+    genre: "Action / Adventure"
+    developer: "Shift Up"
+    platform: "PC / PS5"
+    year: "playing"
+    rating: 8.0
+    link: "https://store.steampowered.com/app/3489700"
+    link_platform: "steam"
+
+  # ── 2024 ──
+  - name: "黑神话：悟空"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/2358720/header_schinese.jpg"
     genre: "Action / RPG"
     developer: "Game Science"
     platform: "PC"
     year: "2024"
     rating: 9.0
-    steam: "https://store.steampowered.com/app/2358720"
+    link: "https://store.steampowered.com/app/2358720"
+    link_platform: "steam"
+    goty: true
 
-  - name: "Elden Ring"
-    image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg"
+  - name: "最终幻想16"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/2515020/header.jpg"
+    genre: "Action / RPG"
+    developer: "Square Enix"
+    platform: "PC / PS5"
+    year: "2024"
+    rating: 8.0
+    link: "https://store.steampowered.com/app/2515020"
+    link_platform: "steam"
+
+  # ── 2023 ──
+  - name: "塞尔达传说：王国之泪"
+    image: "https://images.launchbox-app.com/4719d8d3-4730-4d62-ad4d-aca249e40c10.jpg"
+    genre: "Action / Adventure"
+    developer: "Nintendo"
+    platform: "Switch"
+    year: "2023"
+    rating: 9.5
+    link: "https://www.nintendo.com/us/store/products/the-legend-of-zelda-tears-of-the-kingdom-switch/"
+    link_platform: "nintendo"
+    goty: true
+
+  - name: "卧龙：苍天陨落"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1448440/header.jpg"
+    genre: "Action / RPG"
+    developer: "Team Ninja"
+    platform: "PC"
+    year: "2023"
+    rating: 8.0
+    link: "https://store.steampowered.com/app/1448440"
+    link_platform: "steam"
+
+  # ── 2022 ──
+  - name: "艾尔登法环"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg"
     genre: "Action / RPG"
     developer: "FromSoftware"
     platform: "PC"
     year: "2022"
     rating: 9.5
-    steam: "https://store.steampowered.com/app/1245620"
-    featured: true
-    comment: "A masterpiece that redefined open-world action RPGs. The sense of exploration and discovery is unmatched."
+    link: "https://store.steampowered.com/app/1245620"
+    link_platform: "steam"
+    goty: true
 
-  - name: "Cyberpunk 2077"
-    image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg"
+  - name: "HELLDIVERS"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/394510/header.jpg"
+    genre: "TPS / Coop"
+    developer: "Arrowhead Game Studios"
+    platform: "PC"
+    year: "2022"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/394510"
+    link_platform: "steam"
+
+  - name: "Nintendo Switch 运动"
+    image: "https://images.launchbox-app.com/34268e9d-0ff1-4dc2-a592-073a3a8adf89.jpg"
+    genre: "Sports / Party"
+    developer: "Nintendo"
+    platform: "Switch"
+    year: "2022"
+    rating: 7.5
+    link: "https://www.nintendo.com/us/store/products/nintendo-switch-sports-switch/"
+    link_platform: "nintendo"
+
+  - name: "异度之刃3"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.0/c_scale,w_1700/ncom/software/switch/70010000053336/e933b48650b33b355e9cf2583da5c94b77180e40fb02d050041083dd62f4df39"
+    genre: "RPG / Adventure"
+    developer: "Monolith Soft"
+    platform: "Switch"
+    year: "2022"
+    rating: 8.0
+    link: "https://www.nintendo.com/us/store/products/xenoblade-chronicles-3-switch/"
+    link_platform: "nintendo"
+
+  - name: "猎天使魔女3"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_656/b_white/f_auto/q_auto/ncom/software/switch/70010000046400/0c47748b3a6f1b3a9fce87886c3dae2680f9990e27b2b6c8b029b6133f072477"
+    genre: "Action"
+    developer: "PlatinumGames"
+    platform: "Switch"
+    year: "2022"
+    rating: 8.0
+    link: "https://www.nintendo.com/us/store/products/bayonetta-3-switch/"
+    link_platform: "nintendo"
+
+  - name: "Stray"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1332010/header.jpg"
+    genre: "Adventure"
+    developer: "BlueTwelve Studio"
+    platform: "PC"
+    year: "2022"
+    rating: 7.5
+    link: "https://store.steampowered.com/app/1332010"
+    link_platform: "steam"
+
+  - name: "Monster Hunter Rise"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1446780/header.jpg"
     genre: "Action / RPG"
-    developer: "CD Projekt Red"
+    developer: "Capcom"
+    platform: "PC / Switch"
+    year: "2022"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/1446780"
+    link_platform: "steam"
+
+  - name: "There Is No Game: Wrong Dimension"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1240210/header.jpg"
+    genre: "Puzzle / Adventure"
+    developer: "Draw Me A Pixel"
+    platform: "PC"
+    year: "2022"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/1240210"
+    link_platform: "steam"
+
+  - name: "Neon White"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1533420/header.jpg"
+    genre: "Action / FPS / Platformer"
+    developer: "Angel Matrix"
+    platform: "PC"
+    year: "2022"
+    rating: 8.0
+    link: "https://store.steampowered.com/app/1533420"
+    link_platform: "steam"
+
+  - name: "Tunic"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/553420/header.jpg"
+    genre: "Action / Adventure"
+    developer: "Andrew Shouldice"
+    platform: "PC"
+    year: "2022"
+    rating: 8.0
+    link: "https://store.steampowered.com/app/553420"
+    link_platform: "steam"
+
+  - name: "星之卡比：探索发现"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.0/c_scale,w_1700/ncom/software/switch/70010000046405/d1cf83dea46094b85247f40ca30ea4557730a319be0bfe544a4fa929144cf6c2"
+    genre: "Action / Platformer"
+    developer: "HAL Laboratory"
+    platform: "Switch"
+    year: "2022"
+    rating: 8.0
+    link: "https://www.nintendo.com/us/store/products/kirby-and-the-forgotten-land-switch/"
+    link_platform: "nintendo"
+
+  - name: "卡比的美食节"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.0/c_scale,w_1700/ncom/en_US/games/switch/k/kirbys-dream-buffet-switch/hero"
+    genre: "Party"
+    developer: "HAL Laboratory"
+    platform: "Switch"
+    year: "2022"
+    rating: 7.0
+    link: "https://www.nintendo.com/us/store/products/kirbys-dream-buffet-switch/"
+    link_platform: "nintendo"
+
+  - name: "Outer Wilds"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/753640/header.jpg"
+    genre: "Adventure / Exploration"
+    developer: "Mobius Digital"
+    platform: "PC"
+    year: "2022"
+    rating: 9.0
+    link: "https://store.steampowered.com/app/753640"
+    link_platform: "steam"
+
+  - name: "Deadlink"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1676130/header.jpg"
+    genre: "FPS / Roguelike"
+    developer: "Gruby Entertainment"
+    platform: "PC"
+    year: "2022"
+    rating: 7.5
+    link: "https://store.steampowered.com/app/1676130"
+    link_platform: "steam"
+
+  # ── 2021 ──
+  - name: "双人成行"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1426210/header_schinese.jpg"
+    genre: "Action / Adventure / Coop"
+    developer: "Hazelight Studios"
+    platform: "PC"
+    year: "2021"
+    rating: 9.5
+    link: "https://store.steampowered.com/app/1426210"
+    link_platform: "steam"
+    goty: true
+
+  - name: "凯娜：精神之桥"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1954200/header.jpg"
+    genre: "Action / Adventure"
+    developer: "Ember Lab"
+    platform: "PC"
+    year: "2021"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/1954200"
+    link_platform: "steam"
+
+  - name: "尼尔：人工生命 ver.1.22"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1113560/header.jpg"
+    genre: "Action / RPG"
+    developer: "Square Enix / Toylogic"
+    platform: "PC"
+    year: "2021"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/1113560"
+    link_platform: "steam"
+
+  - name: "绯红结系"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/775500/header.jpg"
+    genre: "Action / RPG"
+    developer: "Bandai Namco"
+    platform: "PC"
+    year: "2021"
+    rating: 7.5
+    link: "https://store.steampowered.com/app/775500"
+    link_platform: "steam"
+
+  - name: "马力欧派对：超级明星"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.0/c_scale,w_1700/ncom/software/switch/70010000042934/ae43ce2e25afbc4c069c2920075ead01a84f02dfe55b87876268409f6ccc0304"
+    genre: "Party"
+    developer: "Nintendo / NDcube"
+    platform: "Switch"
+    year: "2021"
+    rating: 7.5
+    link: "https://www.nintendo.com/us/store/products/mario-party-superstars-switch/"
+    link_platform: "nintendo"
+
+  - name: "超级马力欧 3D 世界 + 狂怒世界"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.0/c_scale,w_1700/ncom/software/switch/70010000034439/ccb69a8bf2746b2dc0a9b11a9e48c9893baa1631486326f0d681b7a36385221f"
+    genre: "Platformer"
+    developer: "Nintendo"
+    platform: "Switch"
+    year: "2021"
+    rating: 8.5
+    link: "https://www.nintendo.com/us/store/products/super-mario-3d-world-plus-bowsers-fury-switch/"
+    link_platform: "nintendo"
+
+  - name: "死亡循环"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1252330/header.jpg"
+    genre: "FPS / Action"
+    developer: "Arkane Studios"
+    platform: "PC"
+    year: "2021"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/1252330"
+    link_platform: "steam"
+
+  - name: "极限竞速：地平线 5"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1551360/header.jpg"
+    genre: "Racing"
+    developer: "Playground Games"
+    platform: "PC"
+    year: "2021"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/1551360"
+    link_platform: "steam"
+
+  - name: "仁王2"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1325200/header.jpg"
+    genre: "Action / RPG"
+    developer: "Team Ninja"
+    platform: "PC"
+    year: "2021"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/1325200"
+    link_platform: "steam"
+
+  - name: "96号公路"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1466640/header.jpg"
+    genre: "Adventure / Narrative"
+    developer: "DigixArt"
+    platform: "PC"
+    year: "2021"
+    rating: 8.0
+    link: "https://store.steampowered.com/app/1466640"
+    link_platform: "steam"
+
+  # ── 2020 ──
+  - name: "集合啦！动物森友会"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.0/c_scale,w_1700/ncom/software/switch/70010000027619/9989957eae3a6b545194c42fec2071675c34aadacd65e6b33fdfe7b3b6a86c3a"
+    genre: "Simulation"
+    developer: "Nintendo"
+    platform: "Switch"
+    year: "2020"
+    rating: 9.0
+    link: "https://www.nintendo.com/us/store/products/animal-crossing-new-horizons-switch/"
+    link_platform: "nintendo"
+    goty: true
+
+  - name: "对马岛之魂"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/2215430/header.jpg"
+    genre: "Action / Adventure"
+    developer: "Sucker Punch"
+    platform: "PC / PS4"
+    year: "2020"
+    rating: 9.0
+    link: "https://store.steampowered.com/app/2215430"
+    link_platform: "steam"
+
+  - name: "最终幻想 7 重制版"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1462040/header.jpg"
+    genre: "Action / RPG"
+    developer: "Square Enix"
+    platform: "PC / PS4"
+    year: "2020"
+    rating: 9.0
+    link: "https://store.steampowered.com/app/1462040"
+    link_platform: "steam"
+
+  - name: "天穗之咲稻姬"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1356670/header.jpg"
+    genre: "Action / Simulation"
+    developer: "Edelweiss"
+    platform: "PC / Switch"
+    year: "2020"
+    rating: 8.0
+    link: "https://store.steampowered.com/app/1356670"
+    link_platform: "steam"
+
+  - name: "黑帝斯"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1145360/header.jpg"
+    genre: "Action / Roguelike"
+    developer: "Supergiant Games"
     platform: "PC"
     year: "2020"
-    rating: 8.5
-    steam: "https://store.steampowered.com/app/1091500"
+    rating: 9.0
+    link: "https://store.steampowered.com/app/1145360"
+    link_platform: "steam"
 
-  - name: "Counter-Strike 2"
-    image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/730/header.jpg"
-    genre: "FPS"
-    developer: "Valve"
+  - name: "Granblue Fantasy: Versus"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1090630/header.jpg"
+    genre: "Fighting"
+    developer: "Arc System Works"
     platform: "PC"
-    year: "2023"
+    year: "2020"
     rating: 7.5
-    steam: "https://store.steampowered.com/app/730"
+    link: "https://store.steampowered.com/app/1090630"
+    link_platform: "steam"
 
-  - name: "Cities: Skylines II"
-    image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/949230/header.jpg"
-    genre: "Simulation"
-    developer: "Colossal Order"
+  - name: "KurtzPel"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/844870/header.jpg"
+    genre: "Action / PvP"
+    developer: "KOG Games"
     platform: "PC"
-    year: "2023"
+    year: "2020"
     rating: 6.5
-    steam: "https://store.steampowered.com/app/949230"
+    link: "https://store.steampowered.com/app/844870"
+    link_platform: "steam"
 
-  - name: "Baldur's Gate 3"
-    image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1086940/header.jpg"
-    genre: "RPG / Adventure"
-    developer: "Larian Studios"
+  - name: "Elli"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1346600/header.jpg"
+    genre: "Platformer / Adventure"
+    developer: "Bandana Games"
     platform: "PC"
-    year: "2023"
-    rating: 9.5
-    steam: "https://store.steampowered.com/app/1086940"
+    year: "2020"
+    rating: 7.0
+    link: "https://store.steampowered.com/app/1346600"
+    link_platform: "steam"
 
-  - name: "Red Dead Redemption 2"
-    image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg"
-    genre: "Action / Adventure"
-    developer: "Rockstar Games"
-    platform: "PC"
-    year: "2019"
-    rating: 9.0
-    steam: "https://store.steampowered.com/app/1174180"
-
-  - name: "Sekiro: Shadows Die Twice"
-    image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/814380/header.jpg"
-    genre: "Action / RPG"
-    developer: "FromSoftware"
-    platform: "PC"
-    year: "2019"
-    rating: 9.0
-    steam: "https://store.steampowered.com/app/814380"
-
-  - name: "Civilization VI"
-    image: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/289070/header.jpg"
-    genre: "Strategy"
-    developer: "Firaxis Games"
+  - name: "幽灵行者"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1139900/header.jpg"
+    genre: "Action / FPS / Parkour"
+    developer: "One More Level"
     platform: "PC"
     year: "2020"
     rating: 8.0
-    steam: "https://store.steampowered.com/app/289070"
+    link: "https://store.steampowered.com/app/1139900"
+    link_platform: "steam"
+
+  # ── 2019 ──
+  - name: "只狼：影逝二度"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/814380/header.jpg"
+    genre: "Action"
+    developer: "FromSoftware"
+    platform: "PC"
+    year: "2019"
+    rating: 9.5
+    link: "https://store.steampowered.com/app/814380"
+    link_platform: "steam"
+    goty: true
+
+  - name: "鬼泣 5"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/601150/header.jpg"
+    genre: "Action"
+    developer: "Capcom"
+    platform: "PC"
+    year: "2019"
+    rating: 9.0
+    link: "https://store.steampowered.com/app/601150"
+    link_platform: "steam"
+
+  - name: "死亡搁浅"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1190460/header.jpg"
+    genre: "Action / Adventure"
+    developer: "Kojima Productions"
+    platform: "PC / PS4"
+    year: "2019"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/1190460"
+    link_platform: "steam"
+
+  - name: "健身环大冒险"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_656/b_white/f_auto/q_auto/ncom/en_US/products/games/switch/ring-fit-adventure/110583-switch-ring-fit-adventure-1200x675"
+    genre: "Fitness / RPG"
+    developer: "Nintendo"
+    platform: "Switch"
+    year: "2019"
+    rating: 8.0
+    link: "https://www.nintendo.com/us/store/products/ring-fit-adventure-switch/"
+    link_platform: "nintendo"
+
+  - name: "Baba Is You"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/736260/header.jpg"
+    genre: "Puzzle"
+    developer: "Hempuli"
+    platform: "PC"
+    year: "2019"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/736260"
+    link_platform: "steam"
+
+  - name: "Sky 光遇"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/2325290/header.jpg"
+    genre: "Adventure / Social"
+    developer: "thatgamecompany"
+    platform: "PC / Mobile / Switch"
+    year: "2019"
+    rating: 9.0
+    link: "https://store.steampowered.com/app/2325290"
+    link_platform: "steam"
+
+  - name: "勇者斗恶龙：创世小玩家 2"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1072420/header_schinese.jpg"
+    genre: "Sandbox / RPG"
+    developer: "Square Enix / Omega Force"
+    platform: "PC"
+    year: "2019"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/1072420"
+    link_platform: "steam"
+
+  # ── 2018 ──
+  - name: "战神4"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1593500/header.jpg"
+    genre: "Action / Adventure"
+    developer: "Santa Monica Studio"
+    platform: "PC / PS4"
+    year: "2018"
+    rating: 9.5
+    link: "https://store.steampowered.com/app/1593500"
+    link_platform: "steam"
+    goty: true
+
+  - name: "荒野大镖客 2"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg"
+    genre: "Action / Adventure"
+    developer: "Rockstar Games"
+    platform: "PC"
+    year: "2018"
+    rating: 9.0
+    link: "https://store.steampowered.com/app/1174180"
+    link_platform: "steam"
+
+  - name: "任天堂明星大乱斗：特别版"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_1.0/c_scale,w_1700/ncom/software/switch/70010000012332/ac4d1fc9824876ce756406f0525d50c57ded4b2a666f6dfe40a6ac5c3563fad9"
+    genre: "Fighting / Party"
+    developer: "Nintendo / Bandai Namco"
+    platform: "Switch"
+    year: "2018"
+    rating: 9.0
+    link: "https://www.nintendo.com/us/store/products/super-smash-bros-ultimate-switch/"
+    link_platform: "nintendo"
+
+  - name: "GRIS"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/683320/header.jpg"
+    genre: "Adventure / Platformer"
+    developer: "Nomada Studio"
+    platform: "PC"
+    year: "2018"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/683320"
+    link_platform: "steam"
+
+  - name: "死亡细胞"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/588650/header.jpg"
+    genre: "Action / Roguelike"
+    developer: "Motion Twin"
+    platform: "PC"
+    year: "2018"
+    rating: 9.0
+    link: "https://store.steampowered.com/app/588650"
+    link_platform: "steam"
+
+  - name: "胡闹厨房 2"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/728880/header_schinese.jpg"
+    genre: "Party / Coop"
+    developer: "Ghost Town Games"
+    platform: "PC"
+    year: "2018"
+    rating: 8.0
+    link: "https://store.steampowered.com/app/728880"
+    link_platform: "steam"
+
+  - name: "超级马里奥派对"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_656/b_white/f_auto/q_auto/ncom/software/switch/70010000014158/0ca41128bf40b7e0dc32a046a659ecdc69e4d7cc7a3257d6280be665d2f795b5"
+    genre: "Party"
+    developer: "Nintendo / NDcube"
+    platform: "Switch"
+    year: "2018"
+    rating: 7.5
+    link: "https://www.nintendo.com/us/store/products/super-mario-party-switch/"
+    link_platform: "nintendo"
+
+  - name: "蔚蓝"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/504230/header.jpg"
+    genre: "Platformer"
+    developer: "Extremely OK Games"
+    platform: "PC"
+    year: "2018"
+    rating: 9.0
+    link: "https://store.steampowered.com/app/504230"
+    link_platform: "steam"
+
+  - name: "以撒的结合：重生"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/250900/header.jpg"
+    genre: "Roguelike"
+    developer: "Edmund McMillen"
+    platform: "PC"
+    year: "2018"
+    rating: 9.0
+    link: "https://store.steampowered.com/app/250900"
+    link_platform: "steam"
+
+  - name: "泰坦天降 2"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1237970/header.jpg"
+    genre: "FPS"
+    developer: "Respawn Entertainment"
+    platform: "PC"
+    year: "2018"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/1237970"
+    link_platform: "steam"
+
+  - name: "Assault Spy"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/767930/header.jpg"
+    genre: "Action"
+    developer: "Wazen"
+    platform: "PC"
+    year: "2018"
+    rating: 7.5
+    link: "https://store.steampowered.com/app/767930"
+    link_platform: "steam"
+
+  - name: "Hob"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/404680/header.jpg"
+    genre: "Action / Adventure"
+    developer: "Runic Games"
+    platform: "PC"
+    year: "2018"
+    rating: 7.5
+    link: "https://store.steampowered.com/app/404680"
+    link_platform: "steam"
+
+  - name: "Ori and the Blind Forest"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/261570/header.jpg"
+    genre: "Platformer / Metroidvania"
+    developer: "Moon Studios"
+    platform: "PC"
+    year: "2018"
+    rating: 9.0
+    link: "https://store.steampowered.com/app/261570"
+    link_platform: "steam"
+
+  # ── 2017 ──
+  - name: "塞尔达传说：旷野之息"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_656/b_white/f_auto/q_auto/ncom/software/switch/70010000000025/7137262b5a64d921e193653f8aa0b722925abc5680380ca0e18a5cfd91697f58"
+    genre: "Action / Adventure"
+    developer: "Nintendo"
+    platform: "Switch"
+    year: "2017"
+    rating: 10.0
+    featured: true
+    comment: "教科书级别的开放世界设计。"
+    link: "https://www.nintendo.com/us/store/products/the-legend-of-zelda-breath-of-the-wild-switch/"
+    link_platform: "nintendo"
+    goty: true
+
+  - name: "尼尔：机械纪元"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/524220/header.jpg"
+    genre: "Action / RPG"
+    developer: "PlatinumGames"
+    platform: "PC"
+    year: "2017"
+    rating: 9.0
+    link: "https://store.steampowered.com/app/524220"
+    link_platform: "steam"
+
+  - name: "异度之刃2"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_656/b_white/f_auto/q_auto/ncom/software/switch/70010000000707/4cd12c9f2233dc671d0ac2bc208f8551d1d0b62c956d6d477585bb42c1ef09ea"
+    genre: "RPG"
+    developer: "Monolith Soft"
+    platform: "Switch"
+    year: "2017"
+    rating: 9.0
+    link: "https://www.nintendo.com/us/store/products/xenoblade-chronicles-2-switch/"
+    link_platform: "nintendo"
+
+  - name: "超级马力欧：奥德赛"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_656/b_white/f_auto/q_auto/ncom/software/switch/70010000001130/c42553b4fd0312c31e70ec7468c6c9bccd739f340152925b9600631f2d29f8b5"
+    genre: "Platformer"
+    developer: "Nintendo"
+    platform: "Switch"
+    year: "2017"
+    rating: 9.0
+    link: "https://www.nintendo.com/us/store/products/super-mario-odyssey-switch/"
+    link_platform: "nintendo"
+
+  - name: "马里奥赛车 8 豪华版"
+    image: "https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_656/b_white/f_auto/q_auto/ncom/software/switch/70010000000153/de697f487a36d802dd9a5ff0341f717c8486221f2f1219b675af37aca63bc453"
+    genre: "Racing"
+    developer: "Nintendo"
+    platform: "Switch"
+    year: "2017"
+    rating: 8.5
+    link: "https://www.nintendo.com/us/store/products/mario-kart-8-deluxe-switch/"
+    link_platform: "nintendo"
+
+  - name: "艾迪芬奇的记忆"
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/501300/header.jpg"
+    genre: "Adventure / Narrative"
+    developer: "Giant Sparrow"
+    platform: "PC"
+    year: "2017"
+    rating: 8.5
+    link: "https://store.steampowered.com/app/501300"
+    link_platform: "steam"

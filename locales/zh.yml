@@ -53,6 +53,7 @@ filter:
   all: "全部"
   brand: "品牌"
   product: "产品"
+  research: "研究"
   engineer: "工程"
   career: "职业"
   life: "生活"
@@ -62,6 +63,7 @@ clock:
   local_time: "当地时间"
 
 games:
+  tab_playing: "在玩"
   rating: "个人评分"
   rating_hint: "满分 10 分"
   played: "游玩年份"
@@ -69,6 +71,10 @@ games:
   platform_label: "平台"
   favorite: "最爱游戏"
   view_steam: "在 Steam 上查看"
+  view_nintendo: "在 Nintendo 上查看"
+  view_ps: "在 PlayStation 上查看"
+  view_xbox: "在 Xbox 上查看"
+  view_pc: "访问官方网站"
 
 wechat:
   title: "扫码添加微信"
@@ -76,4 +82,4 @@ wechat:
 
 footer:
   left: "使用 Vue.JS 和 Tailwind CSS 构建"
-  right: "&copy; 2026 Eric Sin"
+  right: "&copy; 2026 Cai Kong"
