@@ -437,10 +437,12 @@
     .wechat-modal .qr-placeholder {
       width: 200px; height: 200px; margin: 0 auto 1rem;
       border-radius: 0.375rem; overflow: hidden;
-      background: var(--BackgroundTertiary);
     }
     .wechat-modal .qr-placeholder img {
-      width: 100%; height: 100%; object-fit: cover;
+      width: 100%; height: 100%; object-fit: contain;
+    }
+    html.light .wechat-modal .qr-placeholder img {
+      filter: invert(1);
     }
     .wechat-modal .qr-hint {
       font-size: 0.75rem; color: var(--ForegroundTertiary); line-height: 1.5;
@@ -470,13 +472,29 @@
     }
     .section-head .view-all:hover { color: var(--ForegroundPrimary); }
 
-    /* ===== STATUS CARDS (3-col grid) ===== */
+    /* ===== STATUS MARQUEE ===== */
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
     .status-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
+      overflow: hidden;
+      position: relative;
+      -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    }
+    .status-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 46s linear infinite;
+    }
+    .status-grid:hover .status-track {
+      animation-play-state: paused;
     }
     .status-card {
+      position: relative;
+      width: 280px;
+      margin-right: 1rem;
       border-radius: 0.25rem;
       border: 1px solid var(--BordersPrimary);
       background-color: transparent;
@@ -523,6 +541,13 @@
       background: linear-gradient(135deg, #2a1520, #4a2040);
     }
     .game-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    /* Weather card */
+    .weather-row { display: flex; align-items: center; gap: 0.625rem; }
+    .weather-icon { font-size: 1.75rem; line-height: 1; flex-shrink: 0; }
+    .weather-info h4 { font-size: 0.875rem; letter-spacing: 0; line-height: 133%; }
+    .weather-info p { font-size: 0.875rem; letter-spacing: 0; line-height: 133%; color: var(--ForegroundSecondary); }
+    .weather-info .weather-temp { font-size: 1.125rem; font-weight: 600; }
+
     .logo-img { width: 60%; }
     .logo-img-inner {
       font-size: 1.125rem;
@@ -777,7 +802,8 @@
       .mobile-drawer { display: flex; }
       .main-wrap { margin-left: 0; }
       main { padding-top: 4.5rem; }
-      .status-grid { grid-template-columns: 1fr; }
+      .status-card { width: 240px; }
+      .status-track { animation-duration: 33s; }
     }
     @media (min-width: 768px) {
       .mobile-drawer { display: none !important; }
@@ -962,7 +988,7 @@
     .featured-game .feat-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .featured-game .feat-body {
       display: flex; flex-direction: column; justify-content: center;
-      gap: 0.5rem; padding: 1.25rem;
+      gap: 0.5rem; padding: 1.25rem 1.25rem 1.25rem 1.75rem;
     }
     .featured-game .feat-label {
       font-size: 0.625rem; text-transform: uppercase; letter-spacing: 0.1em;
@@ -1925,6 +1951,56 @@
       .cursor-ring.text-mode {
         opacity: 0;
       }
+
+      /* Music cursor — pixel-perfect replica of 21st.dev music-toggle-btn */
+      .music-cursor {
+        position: fixed; top: 0; left: 0; z-index: 10000;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: opacity 0.15s ease;
+      }
+      .music-cursor.active {
+        opacity: 1;
+      }
+      .mc-bars {
+        display: flex;
+        height: 18px;
+        align-items: center;
+        gap: 4px;
+      }
+      .mc-bars span {
+        display: block;
+        width: 1px;
+        border-radius: 9999px;
+        background: var(--ForegroundPrimary);
+        height: 4px;
+        transition: height 0.1s cubic-bezier(0.2, 1.5, 0.4, 1);
+      }
+      .cursor-dot.music-hidden, .cursor-ring.music-hidden {
+        opacity: 0 !important;
+      }
+
+      /* Fixed music indicator on card */
+      .music-indicator {
+        position: absolute;
+        top: 1rem; right: 1rem;
+        display: flex;
+        height: 18px;
+        align-items: center;
+        gap: 4px;
+        opacity: 1;
+        transition: opacity 0.15s ease;
+      }
+      .music-indicator.hidden { opacity: 0; }
+      .music-indicator span {
+        display: block;
+        width: 1px;
+        border-radius: 9999px;
+        background: var(--ForegroundPrimary);
+        height: 4px;
+        transition: height 0.1s cubic-bezier(0.2, 1.5, 0.4, 1);
+      }
     }
 
   </style>
@@ -1934,6 +2010,10 @@
   <!-- Custom Cursor -->
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
+  <div class="music-cursor" id="musicCursor"><div class="mc-bars"><span></span><span></span><span></span><span></span><span></span></div></div>
+
+  <!-- Status Music Audio -->
+  <audio id="statusMusicAudio" preload="none" src="__MUSIC_SONG_URL__"></audio>
 
   <!-- Drawer Overlay (Vaul-style) -->
   <div class="drawer-overlay" id="drawerOverlay"></div>
@@ -2096,34 +2176,97 @@
           <section class="gap-4" data-animate>
             <div><h2 class="font-semibold" data-i18n="status.title">Current Status</h2></div>
             <div class="status-grid">
-              <!-- Music -->
-              <div class="status-card">
-                <div class="status-card-inner">
-                  <span class="card-label" data-i18n="status.music_label">Current Listens</span>
-                  <div class="music-row">
-                    <div class="music-thumb"></div>
-                    <div class="music-info">
-                      <h4>Bubble Gum</h4>
-                      <p>NewJeans</p>
+              <div class="status-track">
+                <!-- Original cards -->
+                <div class="status-card" data-music-card>
+                  <div class="music-indicator"><span></span><span></span><span></span><span></span><span></span></div>
+                  <div class="status-card-inner">
+                    <span class="card-label" data-i18n="status.music_label">Current Listens</span>
+                    <div class="music-row">
+                      <div class="music-thumb"><img src="__MUSIC_THUMB__" alt=""></div>
+                      <div class="music-info">
+                        <h4>Bubble Gum</h4>
+                        <p>NewJeans</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- Game -->
-              <div class="status-card">
-                <div class="status-card-inner">
-                  <span class="card-label" data-i18n="status.game_label">Currently Playing</span>
-                  <div class="music-row">
-                    <div class="game-thumb"></div>
+                <div class="status-card">
+                  <div class="status-card-inner">
+                    <span class="card-label" data-i18n="status.game_label">Currently Playing</span>
+                    <div class="music-row">
+                      <div class="game-thumb"><img src="__GAME_THUMB__" alt=""></div>
+                      <div class="music-info">
+                        <h4>__GAME_TITLE__</h4>
+                        <p>__GAME_STUDIO__</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <!-- WIP -->
-              <div class="status-card">
-                <div class="status-card-inner">
-                  <span class="card-label" data-i18n="status.wip_label">Work in Progress</span>
-                  <div class="logo-img">
-                    <div class="logo-img-inner">VESSEL<br>SUPPLY&reg;</div>
+                <div class="status-card">
+                  <div class="status-card-inner">
+                    <span class="card-label" data-i18n="status.wip_label">Work in Progress</span>
+                    <div class="logo-img">
+                      <div class="logo-img-inner">VESSEL<br>SUPPLY&reg;</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="status-card" data-weather-card>
+                  <div class="status-card-inner">
+                    <span class="card-label">Shanghai Weather</span>
+                    <div class="weather-row">
+                      <div class="weather-icon" id="weatherIcon">--</div>
+                      <div class="weather-info">
+                        <h4><span class="weather-temp" id="weatherTemp">--°C</span></h4>
+                        <p id="weatherDesc">Loading...</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Clone cards for seamless loop -->
+                <div class="status-card" data-music-card aria-hidden="true">
+                  <div class="music-indicator"><span></span><span></span><span></span><span></span><span></span></div>
+                  <div class="status-card-inner">
+                    <span class="card-label" data-i18n="status.music_label">Current Listens</span>
+                    <div class="music-row">
+                      <div class="music-thumb"><img src="__MUSIC_THUMB__" alt=""></div>
+                      <div class="music-info">
+                        <h4>Bubble Gum</h4>
+                        <p>NewJeans</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="status-card" aria-hidden="true">
+                  <div class="status-card-inner">
+                    <span class="card-label" data-i18n="status.game_label">Currently Playing</span>
+                    <div class="music-row">
+                      <div class="game-thumb"><img src="__GAME_THUMB__" alt=""></div>
+                      <div class="music-info">
+                        <h4>__GAME_TITLE__</h4>
+                        <p>__GAME_STUDIO__</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="status-card" aria-hidden="true">
+                  <div class="status-card-inner">
+                    <span class="card-label" data-i18n="status.wip_label">Work in Progress</span>
+                    <div class="logo-img">
+                      <div class="logo-img-inner">VESSEL<br>SUPPLY&reg;</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="status-card" data-weather-card aria-hidden="true">
+                  <div class="status-card-inner">
+                    <span class="card-label">Shanghai Weather</span>
+                    <div class="weather-row">
+                      <div class="weather-icon">--</div>
+                      <div class="weather-info">
+                        <h4><span class="weather-temp">--°C</span></h4>
+                        <p>Loading...</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -3695,6 +3838,149 @@
       bindIframeCursorHide(document);
       new MutationObserver(function() { bindIframeCursorHide(document); })
         .observe(document.body, { childList: true, subtree: true });
+    })();
+
+    // ── Status Music Player ──
+    (function() {
+      var audio = document.getElementById('statusMusicAudio');
+      var musicCursor = document.getElementById('musicCursor');
+      if (!audio || !musicCursor) return;
+      if (!audio.src || audio.src === location.href) return;
+
+      var dot = document.getElementById('cursorDot');
+      var ring = document.getElementById('cursorRing');
+      var isHovering = false;
+
+      document.addEventListener('mousemove', function(e) {
+        if (isHovering) {
+          musicCursor.style.left = e.clientX + 'px';
+          musicCursor.style.top = e.clientY + 'px';
+        }
+      });
+
+      var cursorBars = musicCursor.querySelectorAll('.mc-bars span');
+      var indicators = document.querySelectorAll('.music-indicator');
+      var allIndicatorBars = document.querySelectorAll('.music-indicator span');
+      var barInterval = null;
+      var isPlaying = false;
+
+      function randomHeight() {
+        return Math.max(4, (Math.random() * 0.8 + 0.2) * 14);
+      }
+
+      function startBars() {
+        if (barInterval) return;
+        barInterval = setInterval(function() {
+          var allBars = isHovering ? cursorBars : allIndicatorBars;
+          for (var i = 0; i < allBars.length; i++) {
+            allBars[i].style.height = randomHeight() + 'px';
+          }
+          if (isHovering) {
+            for (var j = 0; j < allIndicatorBars.length; j++) allIndicatorBars[j].style.height = '4px';
+          }
+        }, 100);
+      }
+
+      function stopBars() {
+        if (barInterval) { clearInterval(barInterval); barInterval = null; }
+        for (var i = 0; i < cursorBars.length; i++) cursorBars[i].style.height = '4px';
+        for (var j = 0; j < allIndicatorBars.length; j++) allIndicatorBars[j].style.height = '4px';
+      }
+
+      function syncPlayState() {
+        if (isPlaying) { startBars(); } else { stopBars(); }
+      }
+
+      function showMusicCursor(e) {
+        isHovering = true;
+        musicCursor.style.left = (e.clientX || -100) + 'px';
+        musicCursor.style.top = (e.clientY || -100) + 'px';
+        musicCursor.classList.add('active');
+        indicators.forEach(function(ind) { ind.classList.add('hidden'); });
+        for (var j = 0; j < allIndicatorBars.length; j++) allIndicatorBars[j].style.height = '4px';
+        if (dot) dot.classList.add('music-hidden');
+        if (ring) ring.classList.add('music-hidden');
+      }
+
+      function hideMusicCursor() {
+        isHovering = false;
+        musicCursor.classList.remove('active');
+        indicators.forEach(function(ind) { ind.classList.remove('hidden'); });
+        for (var j = 0; j < cursorBars.length; j++) cursorBars[j].style.height = '4px';
+        if (dot) dot.classList.remove('music-hidden');
+        if (ring) ring.classList.remove('music-hidden');
+      }
+
+      document.querySelectorAll('[data-music-card]').forEach(function(card) {
+        card.addEventListener('mouseenter', function(e) {
+          showMusicCursor(e);
+        });
+        card.addEventListener('mouseleave', function() {
+          hideMusicCursor();
+        });
+        card.addEventListener('click', function() {
+          audio.muted = false;
+          if (audio.paused) {
+            audio.play().then(function() {
+              isPlaying = true;
+              syncPlayState();
+            }).catch(function() {});
+          } else {
+            audio.pause();
+            isPlaying = false;
+            syncPlayState();
+          }
+        });
+      });
+
+      audio.addEventListener('ended', function() {
+        audio.currentTime = 0;
+        isPlaying = false;
+        syncPlayState();
+      });
+    })();
+
+    // ── Shanghai Weather ──
+    (function() {
+      var WMO_ICONS = {
+        0:'☀️',1:'🌤️',2:'⛅',3:'☁️',
+        45:'🌫️',48:'🌫️',
+        51:'🌦️',53:'🌦️',55:'🌧️',
+        56:'🌨️',57:'🌨️',
+        61:'🌧️',63:'🌧️',65:'🌧️',
+        66:'🌨️',67:'🌨️',
+        71:'🌨️',73:'🌨️',75:'❄️',77:'❄️',
+        80:'🌦️',81:'🌧️',82:'⛈️',
+        85:'🌨️',86:'❄️',
+        95:'⛈️',96:'⛈️',99:'⛈️'
+      };
+      var WMO_DESC = {
+        0:'Clear',1:'Mostly Clear',2:'Partly Cloudy',3:'Overcast',
+        45:'Foggy',48:'Rime Fog',
+        51:'Light Drizzle',53:'Drizzle',55:'Heavy Drizzle',
+        56:'Freezing Drizzle',57:'Heavy Freezing Drizzle',
+        61:'Light Rain',63:'Rain',65:'Heavy Rain',
+        66:'Freezing Rain',67:'Heavy Freezing Rain',
+        71:'Light Snow',73:'Snow',75:'Heavy Snow',77:'Snow Grains',
+        80:'Light Showers',81:'Showers',82:'Heavy Showers',
+        85:'Snow Showers',86:'Heavy Snow Showers',
+        95:'Thunderstorm',96:'Thunderstorm w/ Hail',99:'Heavy Thunderstorm'
+      };
+      fetch('https://api.open-meteo.com/v1/forecast?latitude=31.23&longitude=121.47&current=temperature_2m,weather_code&timezone=Asia%2FShanghai')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var c = data.current;
+          var code = c.weather_code;
+          var temp = Math.round(c.temperature_2m);
+          var icon = WMO_ICONS[code] || '🌡️';
+          var desc = WMO_DESC[code] || 'N/A';
+          document.querySelectorAll('[data-weather-card]').forEach(function(card) {
+            card.querySelector('.weather-icon').textContent = icon;
+            card.querySelector('.weather-temp').textContent = temp + '°C';
+            card.querySelector('.weather-info p').textContent = desc;
+          });
+        })
+        .catch(function() {});
     })();
 
     // ── i18n ──

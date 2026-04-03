@@ -361,12 +361,17 @@ function build() {
     'Open for Freelance': config.hero.cta_secondary.text,
 
     // Status
+    '__MUSIC_SONG_URL__': config.status.music.song_url || '',
+    '__MUSIC_THUMB__': config.status.music.thumb || '',
     '>Current Listens</span>': `>${config.status.music.label}</span>`,
     '<h4>Bubble Gum</h4>': `<h4>${config.status.music.song}</h4>`,
     '<p>NewJeans</p>': `<p>${config.status.music.artist}</p>`,
+    '__GAME_THUMB__': config.status.game.thumb || '',
+    '__GAME_TITLE__': config.status.game.title || '',
+    '__GAME_STUDIO__': config.status.game.studio || '',
     '>Currently Playing</span>': `>${config.status.game.label}</span>`,
     '>Work in Progress</span>': `>${config.status.wip.label}</span>`,
-    'VESSEL SUPPLY&reg;': config.status.wip.text,
+    'VESSEL<br>SUPPLY&reg;': config.status.wip.text,
 
     // Footer
     'Built with Vue.JS &amp; Tailwind CSS': config.site.footer_left,

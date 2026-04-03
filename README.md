@@ -15,7 +15,7 @@
 │       └── trinkets.yml     # Trinkets 数据
 ├── static/
 │   ├── fonts/               # 字体文件
-│   └── images/              # 图片资源
+│   └── images/              # 图片资源（头像、favicon、微信二维码等）
 ├── locales/
 │   ├── en.yml               # 英文界面翻译
 │   └── zh.yml               # 中文界面翻译
@@ -85,10 +85,11 @@ hero:
   description: "简介描述"
   cta_primary:
     text: "按钮文字"
-    action: "resume"            # 点击后跳转到的页面 key
+    href: "https://example.com"  # 外部链接（新标签打开）
+    # action: "resume"           # 或内部跳转到指定页面
   cta_secondary:
     text: "按钮文字"
-    href: "mailto:you@example.com"
+    action: "wechat"             # 弹出微信二维码弹窗
 ```
 
 ### social — 社交链接
@@ -111,7 +112,9 @@ clock:
   timezone: "America/Los_Angeles"  # IANA 时区名
 ```
 
-### status — 首页状态卡片
+### status — 首页状态卡片（走马灯）
+
+状态卡片以无限循环走马灯展示，包含音乐、游戏、进行中项目和天气四种卡片。
 
 ```yaml
 status:
@@ -119,12 +122,21 @@ status:
     label: "Current Listens"
     song: "歌曲名"
     artist: "艺术家"
+    thumb: "https://example.com/cover.jpg"     # 歌曲封面图 URL
+    song_url: "https://example.com/song.mp3"   # 音频源 URL
   game:
     label: "Currently Playing"
+    title: "游戏名称"
+    studio: "开发工作室"
+    thumb: "https://example.com/game-cover.jpg" # 游戏封面图 URL
   wip:
     label: "Work in Progress"
     text: "项目名称"
 ```
+
+天气卡片无需配置，自动通过 Open-Meteo API 获取上海实时天气数据。
+
+**音乐播放器**：点击音乐卡片播放/暂停；鼠标悬停时光标变为跳动的音频均衡器动效，卡片右上角也有固定的均衡器指示器。
 
 ### pages — 各页面标题和描述
 
@@ -317,15 +329,29 @@ npm run build
 
 将 `dist/` 目录部署到任意静态托管服务（Netlify、Vercel、Cloudflare Pages 等）。
 
+## 特色功能
+
+| 功能 | 说明 |
+|------|------|
+| 走马灯状态栏 | 音乐、游戏、WIP、天气卡片无限循环滚动，悬停暂停 |
+| 音乐播放器 | 点击播放/暂停，自定义光标均衡器动效，卡片固定指示器 |
+| 实时天气 | 通过 Open-Meteo API 获取上海天气，emoji 图标 + 温度 |
+| 3D 倾斜 + 视差 | 弹窗卡片鼠标跟随倾斜，内部元素多层视差 + 光泽高光 |
+| 主题适配二维码 | 微信二维码透明背景，暗色白色 / 亮色黑色自动切换 |
+| 图片加载优化 | shimmer 骨架屏 + 10 秒超时兜底 + emoji 占位符 |
+| 双语 i18n | 中英文实时切换，`localStorage` 持久化 |
+
 ## 技术栈
 
 | 用途 | 技术 |
 |------|------|
 | 构建 | Node.js 脚本（无框架依赖） |
+| 图片处理 | sharp（二维码抠背景） |
 | 内容 | Markdown + YAML frontmatter |
 | 配置 | YAML |
 | 模板 | 原生 HTML + 正则注入 |
 | Markdown 渲染 | markdown-it + 插件 |
 | 代码高亮 | highlight.js |
+| 天气 API | Open-Meteo（免费，无 API Key） |
 | 开发服务器 | HTTP server + chokidar + SSE 热刷新 |
 | 部署 | GitHub Pages + GitHub Actions |

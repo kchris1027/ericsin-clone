@@ -15,13 +15,13 @@ site:
 
 profile:
   name: "Cai Kong"
-  title: "Designer"
+  title: "Combat Designer"
   avatar: "./static/images/profile-photo.jpg"
 
 hero:
-  heading: "Designing thoughtful brand &amp; product experiences."
-  subheading: "Based in Orange County, CA."
-  description: "I've worked in varied startups throughout the past 20 years. I excel in 0-1 situations and enjoy crafting the vision of what could be."
+  heading: "Crafting combat systems players can feel."
+  subheading: "Based in Shanghai, China."
+  description: "9 years in game development, deep in the action and ARPG space. I specialize in gameplay design, hit-feel tuning, action state machines, and combat system architecture — always in pursuit of that perfect fight."
   cta_primary:
     text: "View Resume"
     href: "https://resume.kongcai.cc/"
@@ -36,15 +36,18 @@ clock:
 status:
   music:
     label: "Current Listens"
-    song: "Bubble Gum"
-    artist: "NewJeans"
-    thumb: "https://i.scdn.co/image/ab67616d00001e02b657fbb27b17e7bd4691d550"
+    song: "繁星、新生，与你"
+    artist: "鸣潮先约电台 / YUE.STEVEN"
+    thumb: "https://p1.music.126.net/UcH5rxYau28KjmRj2oAZZA==/109951170000013247.jpg"
+    song_url: "https://music.163.com/song/media/outer/url?id=2631878620.mp3"
   game:
     label: "Currently Playing"
-    thumb: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/2358720/header.jpg"
+    title: "DEATH STRANDING 2: ON THE BEACH"
+    studio: "Kojima Productions"
+    thumb: "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3280350/6270c77b0729e2df0a17d660286eeddfd9169386/header.jpg"
   wip:
     label: "Work in Progress"
-    text: "VESSEL SUPPLY&reg;"
+    text: "VibeCoding"
 
 pages:
   projects:

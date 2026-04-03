@@ -27,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/kchris1027/ericsin-clone/issues"
   },
-  "homepage": "https://github.com/kchris1027/ericsin-clone#readme"
+  "homepage": "https://github.com/kchris1027/ericsin-clone#readme",
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  }
 }

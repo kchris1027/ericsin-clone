@@ -24,6 +24,11 @@
 9. [动效系统](#9-动效系统)
 10. [组件规范](#10-组件规范)
 11. [交互模式](#11-交互模式)
+    - [状态卡片走马灯](#状态卡片走马灯marquee-carousel)
+    - [音乐播放器交互](#音乐播放器交互)
+    - [天气卡片](#天气卡片)
+    - [3D 倾斜与视差效果](#3d-倾斜与视差效果modal-cards)
+    - [微信二维码主题适配](#微信二维码主题适配)
 
 ---
 
@@ -44,6 +49,8 @@ ericsin-clone/
 │   │   ├── PPNeueMontreal-Thin.woff
 │   │   └── Martha-Regular.woff
 │   └── images/
+│       ├── wechat-qr.png           # 微信二维码（透明背景，白色图案）
+│       └── favicon.png             # 网站图标
 ├── locales/                    # i18n 翻译文件
 ├── build.js                    # 构建脚本
 ├── dev.js                      # 开发服务器
@@ -325,7 +332,7 @@ site:
 
 | 组件 | 移动端 | 桌面端 (≥640px) | 间距 |
 |------|--------|----------------|------|
-| 状态卡片 | 1列 | 3列 | `1rem` |
+| 状态卡片 | 走马灯（见下文） | 走马灯（见下文） | `1rem`（margin-right） |
 | 文章列表 | 1列 | 2列 | `1rem` |
 | 项目列表 | 1列 | 2列 | `1rem` |
 | Trinkets | 2列 | 3列 | `1rem` |
@@ -393,10 +400,21 @@ site:
 - 导航链接：opacity 变化 + 背景色变化，`0.2s cubic-bezier(0.4, 0, 0.2, 1)`
 - 按钮/卡片：背景色变化，`0.3s`
 
+### 走马灯动效
+
+| 属性 | 值 |
+|------|---|
+| 关键帧 | `marquee`: `translateX(0)` → `translateX(-50%)` |
+| 时长 | 桌面 `46s` / 移动 `33s` |
+| 缓动 | `linear` |
+| 循环 | `infinite` |
+| 悬停暂停 | `.status-grid:hover .status-track { animation-play-state: paused }` |
+
 ### 图片加载动效
 - 所有图片初始 `opacity: 0`
 - 加载完成后添加 `.img-loaded` → `opacity: 1`，过渡 `0.5s cubic-bezier(0.4, 0, 0.2, 1)`
 - 图片容器有 shimmer 骨架屏动画背景
+- 弹窗图片额外配备 10 秒超时机制：超时或加载失败时显示 emoji 占位符并停止 shimmer
 
 ### 常用缓动函数
 
@@ -482,6 +500,125 @@ site:
 - JavaScript 监听 `load` 事件添加 `.img-loaded` 类
 - 图片容器使用 shimmer 骨架屏占位
 - 加载完成后容器添加 `.img-ready` 隐藏骨架
+
+### 状态卡片走马灯（Marquee Carousel）
+
+状态区域的卡片采用无限循环走马灯布局，替代原有的静态网格。
+
+**结构**
+- `.status-grid`：外层容器，`overflow: hidden`，带左右渐隐遮罩（`mask-image: linear-gradient`）
+- `.status-track`：内层轨道，`display: flex; width: max-content`，包含原始卡片 + 克隆卡片（`aria-hidden="true"`），通过 CSS `@keyframes marquee` 实现 `translateX(0)` → `translateX(-50%)` 的无限循环
+- `.status-card`：固定宽度 `280px`（移动端 `240px`），`margin-right: 1rem` 保证间距统一
+
+**动画参数**
+
+| 属性 | 桌面端 | 移动端 |
+|------|--------|--------|
+| 动画时长 | `46s` | `33s` |
+| 缓动函数 | `linear` | `linear` |
+| 悬停暂停 | `animation-play-state: paused` | 同左 |
+
+**卡片类型**
+
+| 卡片 | 属性标识 | 内容 |
+|------|---------|------|
+| 音乐 | `data-music-card` | 歌曲封面 + 标题 + 艺术家 |
+| 游戏 | — | 游戏封面 + 标题 + 工作室 |
+| 进行中 | — | 项目名称 |
+| 天气 | `data-weather-card` | 上海实时天气（emoji + 温度 + 描述） |
+
+### 音乐播放器交互
+
+音乐状态卡片支持点击播放/暂停和自定义光标动效。
+
+**播放控制**
+- **点击卡片**：切换播放/暂停（`audio.play()` / `audio.pause()`）
+- 点击是用户手势，天然绕过浏览器 autoplay 策略，无需额外 unlock 机制
+- 歌曲播放结束自动重置（`audio.currentTime = 0`）
+
+**固定音乐指示器（`.music-indicator`）**
+- 位于卡片右上角（`position: absolute; top: 1rem; right: 1rem`）
+- 5 条竖线，播放时通过 `setInterval(100ms)` 随机跳动（高度 4~14px）
+- 暂停时所有竖线恢复为 `4px`（静止状态）
+- 鼠标进入卡片时隐藏（`opacity: 0`），离开时恢复
+
+**光标跟随动效（`.music-cursor`）**
+- 鼠标进入 `[data-music-card]` 区域时显示，跟随鼠标移动
+- 同样为 5 条竖线动画（`.mc-bars`），与固定指示器联动
+- 播放时：cursor 竖线跳动，固定指示器竖线静止（隐藏中）
+- 暂停时：cursor 竖线静止
+- 进入区域时隐藏默认光标（`.cursor-dot` / `.cursor-ring` 添加 `.music-hidden`）
+
+**竖线样式**
+
+| 属性 | 值 |
+|------|---|
+| 宽度 | `1px` |
+| 圆角 | `9999px` |
+| 颜色 | `var(--ForegroundPrimary)` |
+| 静止高度 | `4px` |
+| 跳动范围 | `4px ~ 14px` |
+| 过渡 | `height 0.1s cubic-bezier(0.2, 1.5, 0.4, 1)` |
+
+### 天气卡片
+
+通过 Open-Meteo API 获取上海实时天气，客户端 `fetch` 请求。
+
+**API 端点**
+```
+https://api.open-meteo.com/v1/forecast?latitude=31.23&longitude=121.47&current=temperature_2m,weather_code&timezone=Asia/Shanghai
+```
+
+**WMO 天气代码映射**：将数字代码转为 emoji 图标 + 中文描述（如 `0` → ☀️ 晴天）
+
+**布局**
+- `.weather-row`：flex 布局，图标 + 温度 + 描述
+- 温度使用 `font-size: 1.125rem; font-weight: 600`
+
+### 3D 倾斜与视差效果（Modal Cards）
+
+桌面端（≥768px）的弹窗卡片支持鼠标跟随的 3D 倾斜效果和内部元素视差。
+
+**适用范围**
+- Trinket 弹窗（`.trinket-modal-card`）
+- Game 弹窗（`.game-modal-card`）
+- WeChat 弹窗（`.wechat-modal`）
+
+**3D 上下文**
+- 外层 overlay：`perspective: 900px`
+- 卡片本体：`transform-style: preserve-3d; will-change: transform`
+
+**倾斜计算**
+- 鼠标在卡片上移动时，根据位置计算 `rotateX` / `rotateY`（最大 ±8°）
+- 通过 `requestAnimationFrame` 线性插值平滑跟随
+- 添加 `.tilt-active` 类激活视差层
+
+**视差层深度（`translateZ`，仅 `.tilt-active` 状态）**
+
+| 元素 | translateZ |
+|------|-----------|
+| 弹窗图片 | `30px` |
+| 弹窗链接按钮 | `25px` |
+| 弹窗标题 | `20px` |
+| 关闭按钮 | `20px` |
+| 游戏评分环 | `25px` |
+| 游戏 Meta | `15px` |
+| QR 码 | `40px` |
+| 描述文字 | `10px` |
+
+**光泽效果（`.card-shine`）**
+- 鼠标跟随的径向渐变高光层
+- `background: radial-gradient(600px circle, rgba(255,255,255,0.06), transparent 40%)`
+- `pointer-events: none`，覆盖于卡片之上
+
+### 微信二维码主题适配
+
+二维码图片经 `sharp` 处理为透明背景 + 白色图案，通过 CSS 适配双主题：
+
+| 主题 | CSS 处理 | 效果 |
+|------|---------|------|
+| 暗色 | 无（原图即白色） | 白色二维码，透明背景融入深色弹窗 |
+| 亮色 | `filter: invert(1)` | 反转为黑色二维码，透明背景融入浅色弹窗 |
 
 ### 滚动行为
 - 使用 Lenis 实现平滑滚动
