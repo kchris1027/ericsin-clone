@@ -2,6 +2,8 @@
 
 基于 Node.js 的静态博客系统。通过 YAML 配置个人信息，Markdown 编写文章，构建脚本生成最终的单页静态 HTML，保留完整的 SPA 交互和动效体验。
 
+> **Original Design**: [v2.ericsin.com](https://v2.ericsin.com)
+
 ## 目录结构
 
 ```
