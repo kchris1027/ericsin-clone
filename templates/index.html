@@ -1661,49 +1661,49 @@
       .game-modal-header { margin-top: 0.5rem; }
     }
 
-    /* ===== MODAL 3D TILT + PARALLAX EFFECT (desktop only) ===== */
-    @media (min-width: 768px) {
-      .trinket-modal-overlay, .game-modal-overlay, .wechat-modal-overlay {
-        perspective: 900px;
-        overflow: visible;
-      }
-      .trinket-modal-card, .game-modal-card, .wechat-modal {
-        transform-style: preserve-3d;
-        will-change: transform;
-        overflow: visible;
-      }
-      .trinket-modal-body, .game-modal-body {
-        transform-style: preserve-3d;
-      }
-      .trinket-modal-overlay.open .trinket-modal-card,
-      .game-modal-overlay.open .game-modal-card,
-      .wechat-modal-overlay.open .wechat-modal {
-        transition: transform 0.3s cubic-bezier(0,0,0.2,1), opacity 0.3s ease, box-shadow 0.3s ease;
-      }
-      .trinket-modal-overlay.open .trinket-modal-card.tilt-active,
-      .game-modal-overlay.open .game-modal-card.tilt-active,
-      .wechat-modal-overlay.open .wechat-modal.tilt-active {
-        transition: box-shadow 0.2s ease;
-      }
+    /* ===== MODAL 3D TILT + PARALLAX EFFECT ===== */
+    .trinket-modal-overlay, .game-modal-overlay, .wechat-modal-overlay {
+      perspective: 900px;
+      overflow: visible;
+    }
+    .trinket-modal-card, .game-modal-card, .wechat-modal {
+      transform-style: preserve-3d;
+      will-change: transform;
+      overflow: visible;
+    }
+    .trinket-modal-body, .game-modal-body {
+      transform-style: preserve-3d;
+    }
+    .trinket-modal-overlay.open .trinket-modal-card,
+    .game-modal-overlay.open .game-modal-card,
+    .wechat-modal-overlay.open .wechat-modal {
+      transition: transform 0.3s cubic-bezier(0,0,0.2,1), opacity 0.3s ease, box-shadow 0.3s ease;
+    }
+    .trinket-modal-overlay.open .trinket-modal-card.tilt-active,
+    .game-modal-overlay.open .game-modal-card.tilt-active,
+    .wechat-modal-overlay.open .wechat-modal.tilt-active {
+      transition: box-shadow 0.2s ease;
+    }
 
-      /* Parallax depth layers — flat by default, pop out on tilt */
-      .trinket-modal-image, .game-modal-image,
-      .trinket-modal-link, .game-modal-link,
-      .trinket-modal-header, .game-modal-header,
-      .trinket-modal-close, .game-modal-close,
-      .trinket-modal-desc,
-      .game-modal-rating, .game-modal-meta,
-      .wechat-modal-close, .wechat-modal h3, .qr-placeholder, .qr-hint {
-        transform: translateZ(0);
-        transition: transform 0.25s ease-out;
-      }
-      .trinket-modal-link, .game-modal-link {
-        transition: transform 0.25s ease-out, background 0.3s;
-      }
-      .trinket-modal-image, .game-modal-image {
-        border-radius: 0.25rem;
-      }
-      /* Activated parallax depths */
+    /* Parallax depth layers — flat by default, pop out on tilt */
+    .trinket-modal-image, .game-modal-image,
+    .trinket-modal-link, .game-modal-link,
+    .trinket-modal-header, .game-modal-header,
+    .trinket-modal-close, .game-modal-close,
+    .trinket-modal-desc,
+    .game-modal-rating, .game-modal-meta,
+    .wechat-modal-close, .wechat-modal h3, .qr-placeholder, .qr-hint {
+      transform: translateZ(0);
+      transition: transform 0.25s ease-out;
+    }
+    .trinket-modal-link, .game-modal-link {
+      transition: transform 0.25s ease-out, background 0.3s;
+    }
+    .trinket-modal-image, .game-modal-image {
+      border-radius: 0.25rem;
+    }
+    /* Activated parallax depths — desktop */
+    @media (min-width: 768px) {
       .tilt-active .trinket-modal-image,
       .tilt-active .game-modal-image { transform: translateZ(40px); }
       .tilt-active .trinket-modal-link,
@@ -1715,54 +1715,71 @@
       .tilt-active .game-modal-rating { transform: translateZ(25px); }
       .tilt-active .game-modal-meta { transform: translateZ(15px); }
       .tilt-active .trinket-modal-desc { transform: translateZ(10px); }
-      /* WeChat modal parallax */
       .tilt-active .qr-placeholder { transform: translateZ(40px); }
       .tilt-active .wechat-modal h3 { transform: translateZ(20px); }
       .tilt-active .wechat-modal-close { transform: translateZ(20px); }
       .tilt-active .qr-hint { transform: translateZ(10px); }
+    }
+    /* Activated parallax depths — mobile (reduced) */
+    @media (max-width: 767px) {
+      .tilt-active .trinket-modal-image,
+      .tilt-active .game-modal-image { transform: translateZ(20px); }
+      .tilt-active .trinket-modal-link,
+      .tilt-active .game-modal-link { transform: translateZ(8px); }
+      .tilt-active .trinket-modal-header,
+      .tilt-active .game-modal-header { transform: translateZ(12px); }
+      .tilt-active .trinket-modal-close,
+      .tilt-active .game-modal-close { transform: translateZ(12px); }
+      .tilt-active .game-modal-rating { transform: translateZ(14px); }
+      .tilt-active .game-modal-meta { transform: translateZ(8px); }
+      .tilt-active .trinket-modal-desc { transform: translateZ(6px); }
+      .tilt-active .qr-placeholder { transform: translateZ(20px); }
+      .tilt-active .wechat-modal h3 { transform: translateZ(12px); }
+      .tilt-active .wechat-modal-close { transform: translateZ(12px); }
+      .tilt-active .qr-hint { transform: translateZ(6px); }
+    }
 
-      /* Shine overlay */
-      .card-shine {
-        position: absolute; inset: 0; z-index: 10;
-        border-radius: inherit;
-        pointer-events: none;
-        opacity: 0;
-        background: radial-gradient(
-          600px circle at var(--shine-x, 50%) var(--shine-y, 50%),
-          rgba(255,255,255,0.12) 0%,
-          rgba(255,255,255,0.05) 30%,
-          transparent 70%
-        );
-        transition: opacity 0.3s ease;
-      }
-      .tilt-active .card-shine { opacity: 1; }
+    /* Shine overlay */
+    .card-shine {
+      position: absolute; inset: 0; z-index: 10;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      background: radial-gradient(
+        600px circle at var(--shine-x, 50%) var(--shine-y, 50%),
+        rgba(255,255,255,0.12) 0%,
+        rgba(255,255,255,0.05) 30%,
+        transparent 70%
+      );
+      transition: opacity 0.3s ease;
+    }
+    .tilt-active .card-shine { opacity: 1; }
 
-      /* Edge glow */
-      .card-edge-glow {
-        position: absolute; inset: -1px; z-index: 9;
-        border-radius: inherit;
-        pointer-events: none;
-        opacity: 0;
-        border: 1px solid rgba(255,255,255,0.08);
-        transition: opacity 0.3s ease;
-      }
-      .tilt-active .card-edge-glow { opacity: 1; }
+    /* Edge glow */
+    .card-edge-glow {
+      position: absolute; inset: -1px; z-index: 9;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: opacity 0.3s ease;
+    }
+    .tilt-active .card-edge-glow { opacity: 1; }
 
-      /* Card background plane to keep rounded corners + bg visible */
-      .trinket-modal-card::before, .game-modal-card::before {
-        content: '';
-        position: absolute; inset: 0;
-        background: var(--BackgroundSecondary);
-        border-radius: inherit;
-        z-index: -1;
-      }
-      .wechat-modal::before {
-        content: '';
-        position: absolute; inset: 0;
-        background: var(--BackgroundPrimary);
-        border-radius: inherit;
-        z-index: -1;
-      }
+    /* Card background plane to keep rounded corners + bg visible */
+    .trinket-modal-card::before, .game-modal-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--BackgroundSecondary);
+      border-radius: inherit;
+      z-index: -1;
+    }
+    .wechat-modal::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--BackgroundPrimary);
+      border-radius: inherit;
+      z-index: -1;
     }
 
     /* ===== PLACEHOLDER IMAGES ===== */
@@ -3814,17 +3831,36 @@
       if (e.key === 'Escape' && gameModal.classList.contains('open')) closeGameModal();
     });
 
-    // ── Modal 3D Tilt Effect (desktop) ──
+    // ── Modal 3D Tilt Effect (mouse + gyroscope) ──
     (function() {
-      var isDesktop = window.matchMedia('(min-width: 768px)');
       var MAX_TILT = 8;
       var SPRING_BACK_MS = 600;
+      var gyroPermission = 'unknown';
+      var gyroSupported = 'DeviceOrientationEvent' in window;
+      var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+      function requestGyroPermission() {
+        if (gyroPermission === 'granted' || gyroPermission === 'denied') return Promise.resolve(gyroPermission);
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+          return DeviceOrientationEvent.requestPermission().then(function(state) {
+            gyroPermission = state;
+            return state;
+          }).catch(function() {
+            gyroPermission = 'denied';
+            return 'denied';
+          });
+        }
+        gyroPermission = 'granted';
+        return Promise.resolve('granted');
+      }
 
       function setupTilt(overlay, card) {
         var rafId = null;
         var currentRX = 0, currentRY = 0;
         var targetRX = 0, targetRY = 0;
         var lerp = 0.12;
+        var gyroHandler = null;
+        var baseBeta = null, baseGamma = null;
 
         function animate() {
           currentRX += (targetRX - currentRX) * lerp;
@@ -3843,8 +3879,19 @@
           if (!rafId) rafId = requestAnimationFrame(animate);
         }
 
+        function resetTilt() {
+          targetRX = 0;
+          targetRY = 0;
+          card.classList.remove('tilt-active');
+          card.style.boxShadow = '';
+          card.style.transition = 'transform ' + SPRING_BACK_MS + 'ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease';
+          startAnimate();
+          setTimeout(function() { card.style.transition = ''; }, SPRING_BACK_MS);
+        }
+
+        // Desktop: mouse-driven tilt
         card.addEventListener('mousemove', function(e) {
-          if (!isDesktop.matches) return;
+          if (isTouchDevice) return;
           var rect = card.getBoundingClientRect();
           var cx = (e.clientX - rect.left) / rect.width;
           var cy = (e.clientY - rect.top) / rect.height;
@@ -3852,24 +3899,64 @@
           targetRX = -(cy - 0.5) * MAX_TILT * 2;
           card.style.setProperty('--shine-x', (cx * 100).toFixed(1) + '%');
           card.style.setProperty('--shine-y', (cy * 100).toFixed(1) + '%');
-          if (!card.classList.contains('tilt-active')) {
-            card.classList.add('tilt-active');
-          }
+          if (!card.classList.contains('tilt-active')) card.classList.add('tilt-active');
           card.style.boxShadow = '0 ' + (20 + Math.abs(targetRX) * 2).toFixed(0) + 'px ' + (50 + Math.abs(targetRY) * 2).toFixed(0) + 'px -12px rgba(0,0,0,0.6)';
           startAnimate();
         });
-
         card.addEventListener('mouseleave', function() {
-          targetRX = 0;
-          targetRY = 0;
-          card.classList.remove('tilt-active');
-          card.style.boxShadow = '';
-          card.style.transition = 'transform ' + SPRING_BACK_MS + 'ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease';
-          startAnimate();
-          setTimeout(function() {
-            card.style.transition = '';
-          }, SPRING_BACK_MS);
+          if (isTouchDevice) return;
+          resetTilt();
         });
+
+        // Mobile: gyroscope-driven tilt
+        function startGyro() {
+          if (!gyroSupported || gyroPermission !== 'granted') return;
+          baseBeta = null;
+          baseGamma = null;
+          gyroHandler = function(e) {
+            if (e.beta === null || e.gamma === null) return;
+            if (baseBeta === null) { baseBeta = e.beta; baseGamma = e.gamma; }
+            var db = e.beta - baseBeta;
+            var dg = e.gamma - baseGamma;
+            db = Math.max(-MAX_TILT, Math.min(MAX_TILT, db));
+            dg = Math.max(-MAX_TILT, Math.min(MAX_TILT, dg));
+            targetRX = -db;
+            targetRY = dg;
+            var shineX = ((dg / MAX_TILT + 1) / 2 * 100).toFixed(1);
+            var shineY = ((db / MAX_TILT + 1) / 2 * 100).toFixed(1);
+            card.style.setProperty('--shine-x', shineX + '%');
+            card.style.setProperty('--shine-y', shineY + '%');
+            if (!card.classList.contains('tilt-active')) card.classList.add('tilt-active');
+            card.style.boxShadow = '0 ' + (20 + Math.abs(targetRX) * 2).toFixed(0) + 'px ' + (50 + Math.abs(targetRY) * 2).toFixed(0) + 'px -12px rgba(0,0,0,0.6)';
+            startAnimate();
+          };
+          window.addEventListener('deviceorientation', gyroHandler);
+        }
+
+        function stopGyro() {
+          if (gyroHandler) {
+            window.removeEventListener('deviceorientation', gyroHandler);
+            gyroHandler = null;
+          }
+          baseBeta = null;
+          baseGamma = null;
+          resetTilt();
+        }
+
+        var observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(m) {
+            if (m.attributeName !== 'class') return;
+            var isOpen = overlay.classList.contains('open');
+            if (isOpen && isTouchDevice && gyroSupported) {
+              requestGyroPermission().then(function(state) {
+                if (state === 'granted') startGyro();
+              });
+            } else if (!isOpen) {
+              stopGyro();
+            }
+          });
+        });
+        observer.observe(overlay, { attributes: true, attributeFilter: ['class'] });
       }
 
       var trinketCard = document.querySelector('.trinket-modal-card');
