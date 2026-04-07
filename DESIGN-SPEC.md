@@ -191,7 +191,7 @@ site:
 |------|------|------|------|--------|--------|------|
 | **H1 大标题** | `2.25rem` (36px) | 600 | `2.5rem` (40px) | `-0.01em` | 主字体 | 页面标题、Hero |
 | **H1 统计数字** | `2.5rem` (40px) | 700 | `1.2` | — | 主字体 | 项目详情统计数字 |
-| **H1 文章标题** | `1.75rem` (28px) | 400 | EN `1.25` / ZH `1.35` | — | 主字体 | 写作详情页标题 |
+| **H1 文章标题** | `1.75rem` (28px) | EN 400 / ZH 600 | `1.25` | — | 主字体 | 写作详情页标题 |
 | **H2 详情标题** | `1.5rem` (24px) | 600 | `1.3` | `-0.02em` | 主字体 | 项目详情页标题 |
 | **H2 引用** | `1.25rem` (20px) | 400 | `1.6` | — | 辅助字体 | 项目详情页引用（斜体） |
 | **H2 内容标题** | `1.25rem` (20px) | 600 | `1.25` | EN `-0.005em` / ZH `0` | 主字体 | Notion 内容 H2 |
@@ -199,7 +199,7 @@ site:
 | **精选标题** | `1.25rem` (20px) | 600 | `1.4` | — | 主字体 | 精选文章标题 |
 | **抽屉导航** | `1.125rem` (18px) | 600 | — | — | 主字体 | 移动端抽屉导航链接 |
 | **正文大（EN）** | `1rem` (16px) | 400 | `1.5` | `normal` | 主字体 | Notion 英文正文 |
-| **正文大（ZH）** | `1rem` (16px) | 400 | `1.6` | `normal` | 主字体 | Notion 中文正文 |
+| **正文大（ZH）** | `0.875rem` (14px) | 400 | `1.57` | `normal` | 主字体 | Notion 中文正文 |
 | **正文** | `0.9375rem` (15px) | 400~600 | `133%`~`1.6` | — | 主字体 | 页面描述、详情描述 |
 | **正文小** | `0.875rem` (14px) | 400 | `133%` | `0` | 主字体 | 侧边栏导航、公司名 |
 | **标签** | `0.75rem` (12px) | 600 | `133%` | `0.05em` | 主字体 | 标签、时间、分类名、页脚 |
@@ -255,17 +255,25 @@ site:
 
 | 属性 | 英文（基础） | 中文（`:lang(zh)` 覆盖） | 设计依据 |
 |------|-------------|------------------------|---------|
-| 段落 `line-height` | `1.5` | `1.6` | Cursor 预览 `22/14px ≈ 1.571` |
+| **标题 H1 `font-weight`** | `400` | `600` | Cursor `h1-h6 { font-weight: 600 }` |
+| **标题 H1 `line-height`** | `1.25` | `1.25` | Cursor `h1-h6 { line-height: 1.25 }` |
+| **副标题 `font-size`** | `1rem` (16px) | `0.875rem` (14px) | 与正文一致 |
+| **副标题 `line-height`** | `1.5` | `1.57` | Cursor body `22/14px` |
+| 段落 `font-size` | `1rem` (16px) | `0.875rem` (14px) | Cursor `font-size: 14px` |
+| 段落 `line-height` | `1.5` | `1.57` | Cursor `line-height: 22px` → `22/14 = 1.571` |
 | 段落 `letter-spacing` | — | — | Cursor 不添加字间距 |
 | 段落 `text-align` | `left` | `left` | Cursor 使用左对齐 |
 | 段落 `text-wrap` | — | `pretty` | 现代浏览器优化换行 |
 | 段间距 `.notion-content gap` | `1.25rem` (20px) | `1rem` (16px) | Cursor `p { margin-bottom: 16px }` |
-| H1 `line-height` | `1.25` | `1.35` | CJK 多行标题避免碰撞 |
 | H2 `margin-top` | `1rem` | `1.5rem` | Cursor `h* { margin-top: 24px }` |
 | H2 `letter-spacing` | `-0.005em` | `0` | CJK 无需负间距 |
+| H3 `margin-top` | `1.5rem` | `1.5rem` | Cursor `h* { margin-top: 24px }` |
+| Blockquote `font-size` | `1rem` (16px) | `0.875rem` (14px) | 与正文一致 |
 | Blockquote `font-style` | `italic` | `normal` | CJK 无真正斜体，合成倾斜失真 |
 | Blockquote `border-left-width` | `3px` | `4px` | 接近 Cursor 的 `5px` |
-| 列表 `line-height` | `1.5` | `1.6` | 与段落一致 |
+| 列表 `font-size` | `1rem` (16px) | `0.875rem` (14px) | 与正文一致 |
+| 列表 `line-height` | `1.5` | `1.57` | 与段落一致 |
+| 表格 `font-size` | `0.875rem` (14px) | `0.8125rem` (13px) | 表格略小于正文 |
 | `word-break` | — | `break-word` | 防止 CJK 长文溢出 |
 | `overflow-wrap` | — | `break-word` | 兼容旧浏览器 |
 
