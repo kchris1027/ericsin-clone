@@ -203,15 +203,31 @@ function renderWritingBody(article, coverUrl) {
   const blocks = [];
   const lines = html.split('\n');
   let buffer = '';
+  let nesting = 0;
+  const nestable = /^<(blockquote|ul|ol|pre|table)[\s>]/i;
+  const nestableClose = /^<\/(blockquote|ul|ol|pre|table)>/i;
 
   for (const line of lines) {
     if (line.trim() === '') continue;
-    const isBlock = /^<(h[1-6]|p|blockquote|ul|ol|pre|table|hr|div)[\s>]/i.test(line.trim());
-    if (isBlock && buffer) {
+    const trimLine = line.trim();
+    const opensNest = nestable.test(trimLine);
+    const closesNest = nestableClose.test(trimLine);
+
+    if (nesting === 0) {
+      const isBlock = /^<(h[1-6]|p|blockquote|ul|ol|pre|table|hr|div)[\s>]/i.test(trimLine);
+      if (isBlock && buffer) {
+        blocks.push(buffer);
+        buffer = '';
+      }
+    }
+    buffer += line + '\n';
+    if (opensNest) nesting++;
+    if (closesNest) nesting--;
+    if (nesting <= 0 && closesNest) {
+      nesting = 0;
       blocks.push(buffer);
       buffer = '';
     }
-    buffer += line + '\n';
   }
   if (buffer.trim()) blocks.push(buffer);
 
