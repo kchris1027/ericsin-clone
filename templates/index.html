@@ -7,23 +7,30 @@
   <meta name="description" content="Selected works of Cai Kong, Product & Brand Designer.">
   <link rel="icon" type="image/png" href="./static/images/favicon.png">
   <link rel="apple-touch-icon" href="./static/images/favicon.png">
+  <!-- Preconnect to font CDN (saves DNS + TLS roundtrip) -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <!-- Preload critical local fonts (start download before CSS is parsed) -->
+  <link rel="preload" href="./static/fonts/PPNeueMontreal-Medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./static/fonts/PPNeueMontreal-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./static/fonts/Martha-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <!-- Chinese web fonts (unicode-range split, on-demand loading) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans-webfont@4.3.1/misans-style.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-light.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-bold.css">
   <style>
-    /* ===== FONT FACES (original PP Neue Montreal + Martha) ===== */
-    @font-face { font-family: PPNeueMontreal; font-weight: 800; font-style: normal; src: url(./PPNeueMontreal-Bold.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: PPNeueMontreal; font-weight: 600; font-style: normal; src: url(./PPNeueMontreal-Medium.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: PPNeueMontreal; font-weight: 500; font-style: normal; src: url(./PPNeueMontreal-Regular.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: PPNeueMontreal; font-weight: 300; font-style: normal; src: url(./PPNeueMontreal-Light.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: PPNeueMontreal; font-weight: 200; font-style: normal; src: url(./PPNeueMontreal-Thin.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: Martha; font-weight: 200; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: Martha; font-weight: 300; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: Martha; font-weight: 500; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: Martha; font-weight: 600; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
-    @font-face { font-family: Martha; font-weight: 800; font-style: normal; src: url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    /* ===== FONT FACES (PP Neue Montreal + Martha, woff2 with woff fallback) ===== */
+    @font-face { font-family: PPNeueMontreal; font-weight: 800; font-style: normal; font-display: swap; src: url(./PPNeueMontreal-Bold.woff2) format("woff2"), url(./PPNeueMontreal-Bold.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: PPNeueMontreal; font-weight: 600; font-style: normal; font-display: swap; src: url(./PPNeueMontreal-Medium.woff2) format("woff2"), url(./PPNeueMontreal-Medium.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: PPNeueMontreal; font-weight: 500; font-style: normal; font-display: swap; src: url(./PPNeueMontreal-Regular.woff2) format("woff2"), url(./PPNeueMontreal-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: PPNeueMontreal; font-weight: 300; font-style: normal; font-display: swap; src: url(./PPNeueMontreal-Light.woff2) format("woff2"), url(./PPNeueMontreal-Light.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: PPNeueMontreal; font-weight: 200; font-style: normal; font-display: swap; src: url(./PPNeueMontreal-Thin.woff2) format("woff2"), url(./PPNeueMontreal-Thin.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 200; font-style: normal; font-display: swap; src: url(./Martha-Regular.woff2) format("woff2"), url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 300; font-style: normal; font-display: swap; src: url(./Martha-Regular.woff2) format("woff2"), url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 500; font-style: normal; font-display: swap; src: url(./Martha-Regular.woff2) format("woff2"), url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 600; font-style: normal; font-display: swap; src: url(./Martha-Regular.woff2) format("woff2"), url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
+    @font-face { font-family: Martha; font-weight: 800; font-style: normal; font-display: swap; src: url(./Martha-Regular.woff2) format("woff2"), url(./Martha-Regular.woff) format("woff"); ascent-override: 100%; }
 
     /* ===== RESET ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border: 0 solid #e5e7eb; }
@@ -2122,13 +2129,12 @@
         if (document.readyState === 'complete') r();
         else window.addEventListener('load', r, { once: true });
       });
-      var fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
-      var safetyTimeout = new Promise(function(r) { setTimeout(r, 6000); });
+      var allFontsReady = windowLoad.then(function() {
+        return document.fonts ? document.fonts.ready : Promise.resolve();
+      });
+      var safetyTimeout = new Promise(function(r) { setTimeout(r, 8000); });
 
-      Promise.all([minDelay, Promise.race([
-        Promise.all([windowLoad, fontsReady]),
-        safetyTimeout
-      ])]).then(function() {
+      Promise.all([minDelay, Promise.race([allFontsReady, safetyTimeout])]).then(function() {
         overlay.classList.add('exit');
         setTimeout(function() {
           overlay.style.display = 'none';
