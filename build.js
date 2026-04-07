@@ -198,7 +198,7 @@ function genFeaturedArticle(a) {
             </a>`;
 }
 
-function renderWritingBody(article) {
+function renderWritingBody(article, coverUrl) {
   const html = md.render(article._content);
   const blocks = [];
   const lines = html.split('\n');
@@ -215,8 +215,30 @@ function renderWritingBody(article) {
   }
   if (buffer.trim()) blocks.push(buffer);
 
+  let coverSkipped = false;
+  let skipNextCaption = false;
+
   return blocks.map(b => {
     const trimmed = b.trim();
+
+    if (!coverSkipped && coverUrl && trimmed.startsWith('<p><img')) {
+      const imgMatch = trimmed.match(/<img\s+[^>]*src="([^"]*)"[^>]*>/);
+      if (imgMatch && imgMatch[1] === coverUrl) {
+        coverSkipped = true;
+        skipNextCaption = true;
+        return '';
+      }
+    }
+
+    if (skipNextCaption && trimmed.startsWith('<p><em>') && !trimmed.includes('</em></p>\n<p>')) {
+      const inner = trimmed.replace(/^<p><em>/, '').replace(/<\/em><\/p>$/, '');
+      if (inner.length < 200 && !inner.includes('<')) {
+        skipNextCaption = false;
+        return '';
+      }
+    }
+    skipNextCaption = false;
+
     if (trimmed.startsWith('<p><img')) {
       const imgMatch = trimmed.match(/<img\s+[^>]*src="([^"]*)"[^>]*alt="([^"]*)"[^>]*>/);
       if (imgMatch) {
@@ -230,13 +252,20 @@ function renderWritingBody(article) {
       }
     }
     return `<div class="notion-block" data-animate>${trimmed}</div>`;
-  }).join('\n              ');
+  }).filter(b => b !== '').join('\n              ');
 }
 
 function genWritingDetail(a) {
   const slug = a.slug || `writing-${slugify(a._filename)}`;
-  const bodyHtml = renderWritingBody(a);
+  const bodyHtml = renderWritingBody(a, a.cover);
   const tagsHtml = (a.tags || []).map(t => `<span class="writing-tag">${t}</span>`).join('');
+
+  const coverHtml = a.cover
+    ? `<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="${a.cover}" alt="${a.title}" loading="lazy"></div></div>`
+    : '';
+  const captionHtml = a.cover_caption
+    ? `<div class="notion-block" data-animate><div class="notion-image-caption">${a.cover_caption}</div></div>`
+    : '';
 
   return `
         <div id="${slug}" data-page="${slug}">
@@ -249,6 +278,8 @@ function genWritingDetail(a) {
               ${a.excerpt ? `<p class="writing-subtitle">${a.excerpt}</p>` : ''}
               <div class="writing-tags">${tagsHtml}</div>
             </section>
+            ${coverHtml}
+            ${captionHtml}
             <div class="notion-content">
               ${bodyHtml}
             </div>
