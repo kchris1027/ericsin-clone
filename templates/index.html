@@ -1372,17 +1372,15 @@
     .notion-block a { color: var(--ForegroundPrimary); text-decoration: underline; text-underline-offset: 2px; transition: opacity 0.15s; }
     .notion-block a:hover { opacity: 0.7; }
 
-    /* CJK typography optimizations — scoped to lang="zh" articles */
-    :lang(zh) .writing-header h1 { line-height: 1.4; }
+    /* CJK typography — Cursor markdown preview style */
+    :lang(zh) .writing-header h1 { line-height: 1.35; }
     :lang(zh) .notion-content { word-break: break-word; overflow-wrap: break-word; }
-    :lang(zh) .notion-block p { line-height: 1.8; letter-spacing: 0.02em; text-align: justify; text-wrap: pretty; }
-    :lang(zh) .notion-block h2 { line-height: 1.4; margin-top: 1.5rem; letter-spacing: 0; }
-    :lang(zh) .notion-block h3 { line-height: 1.4; }
-    :lang(zh) .notion-block blockquote { font-style: normal; padding-left: 1.25rem; }
+    :lang(zh) .notion-block p { line-height: 1.6; text-wrap: pretty; }
+    :lang(zh) .notion-block h2 { margin-top: 1.5rem; letter-spacing: 0; }
+    :lang(zh) .notion-block blockquote { font-style: normal; border-left-width: 4px; }
     :lang(zh) .notion-block ul,
-    :lang(zh) .notion-block ol { line-height: 1.8; }
-    :lang(zh) .notion-block li { letter-spacing: 0.02em; }
-    :lang(zh) .notion-block table { line-height: 1.7; }
+    :lang(zh) .notion-block ol { line-height: 1.6; }
+    :lang(zh) .notion-block table { line-height: 1.6; }
 
     /* highlight.js theme overrides for dark/light */
     .hljs-keyword, .hljs-selector-tag, .hljs-type { color: #c678dd; }
