@@ -1372,15 +1372,16 @@
     .notion-block a { color: var(--ForegroundPrimary); text-decoration: underline; text-underline-offset: 2px; transition: opacity 0.15s; }
     .notion-block a:hover { opacity: 0.7; }
 
-    /* CJK typography — Cursor markdown preview style */
+    /* CJK typography — matches Cursor markdown preview (14px / 22px / 16px) */
     :lang(zh) .writing-header h1 { line-height: 1.35; }
-    :lang(zh) .notion-content { gap: 1.125rem; word-break: break-word; overflow-wrap: break-word; }
-    :lang(zh) .notion-block p { line-height: 1.6; text-wrap: pretty; }
+    :lang(zh) .notion-content { gap: 1rem; word-break: break-word; overflow-wrap: break-word; }
+    :lang(zh) .notion-block p { font-size: 0.875rem; line-height: 1.57; text-wrap: pretty; }
     :lang(zh) .notion-block h2 { margin-top: 1.5rem; letter-spacing: 0; }
-    :lang(zh) .notion-block blockquote { font-style: normal; border-left-width: 4px; }
+    :lang(zh) .notion-block h3 { margin-top: 1.5rem; }
+    :lang(zh) .notion-block blockquote { font-size: 0.875rem; line-height: 1.57; font-style: normal; border-left-width: 4px; }
     :lang(zh) .notion-block ul,
-    :lang(zh) .notion-block ol { line-height: 1.6; }
-    :lang(zh) .notion-block table { line-height: 1.6; }
+    :lang(zh) .notion-block ol { font-size: 0.875rem; line-height: 1.57; }
+    :lang(zh) .notion-block table { font-size: 0.8125rem; line-height: 1.57; }
 
     /* highlight.js theme overrides for dark/light */
     .hljs-keyword, .hljs-selector-tag, .hljs-type { color: #c678dd; }
