@@ -255,10 +255,16 @@ function renderWritingBody(article, coverUrl) {
   }).filter(b => b !== '').join('\n              ');
 }
 
+function hasCJK(text) {
+  const cjk = text.match(/[\u4e00-\u9fff\u3400-\u4dbf]/g);
+  return cjk && cjk.length > 20;
+}
+
 function genWritingDetail(a) {
   const slug = a.slug || `writing-${slugify(a._filename)}`;
   const bodyHtml = renderWritingBody(a, a.cover);
   const tagsHtml = (a.tags || []).map(t => `<span class="writing-tag">${t}</span>`).join('');
+  const langAttr = hasCJK(a._content || a.title) ? ' lang="zh"' : '';
 
   const coverHtml = a.cover
     ? `<div class="detail-media-row" data-animate><div class="detail-img-wrap"><img src="${a.cover}" alt="${a.title}" loading="lazy"></div></div>`
@@ -272,7 +278,7 @@ function genWritingDetail(a) {
           <section class="detail-back">
             <button class="back-btn" onclick="navigateTo('writing')">${BACK_SVG} <span data-i18n="detail.back_writing">Back to Writing</span></button>
           </section>
-          <article class="writing-article">
+          <article class="writing-article"${langAttr}>
             <section class="writing-header" data-animate>
               <h1>${a.title}</h1>
               ${a.excerpt ? `<p class="writing-subtitle">${a.excerpt}</p>` : ''}

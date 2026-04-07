@@ -1320,7 +1320,7 @@
     /* ===== WRITING DETAIL PAGE ===== */
     .writing-article { display: flex; flex-direction: column; gap: 0; }
     .writing-header { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-    .writing-header h1 { font-size: 1.75rem; font-weight: 400; line-height: 1.4; }
+    .writing-header h1 { font-size: 1.75rem; font-weight: 400; line-height: 1.25; }
     .writing-subtitle { font-size: 1rem; color: var(--ForegroundSecondary); margin-bottom: 1rem; line-height: 1.5; }
     .writing-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; letter-spacing: 0.05em; text-transform: uppercase; }
     .writing-tag {
@@ -1332,13 +1332,13 @@
     .writing-hero { margin-top: 1.5rem; }
     .writing-hero img, .writing-hero-placeholder { width: 100%; border-radius: 0.375rem; aspect-ratio: 16/9; object-fit: cover; background: var(--BackgroundTertiary); overflow: hidden; }
     .writing-caption { font-size: 0.875rem; color: var(--ForegroundTertiary); text-align: center; margin-top: 0.75rem; }
-    .notion-content { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.5rem; word-break: break-word; overflow-wrap: break-word; }
+    .notion-content { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.5rem; }
     .notion-block { }
-    .notion-block p { font-size: 1rem; line-height: 1.8; letter-spacing: 0.02em; color: var(--ForegroundSecondary); text-align: justify; text-wrap: pretty; }
+    .notion-block p { font-size: 1rem; line-height: 1.5; color: var(--ForegroundSecondary); }
     .notion-block p:empty { height: 0; }
     .notion-block strong { font-weight: 600; color: var(--ForegroundPrimary); }
-    .notion-block h2 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; line-height: 1.4; letter-spacing: 0; }
-    .notion-block h3 { font-size: 1.125rem; font-weight: 600; margin-top: 1.5rem; line-height: 1.4; }
+    .notion-block h2 { font-size: 1.25rem; font-weight: 600; margin-top: 1rem; line-height: 1.25; letter-spacing: -0.005em; }
+    .notion-block h3 { font-size: 1.125rem; font-weight: 600; margin-top: 1.5rem; line-height: 1.25; }
     .notion-block em { font-style: italic; }
     .notion-block .notion-image { overflow: hidden; border-radius: 0.375rem; }
     .notion-block .notion-image img { width: 100%; object-fit: cover; }
@@ -1350,17 +1350,17 @@
     .notion-block code { background: var(--BackgroundTertiary); padding: 0.125rem 0.375rem; border-radius: 0.25rem; font-size: 0.875em; font-family: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Consolas, monospace; color: var(--ForegroundPrimary); }
 
     /* Blockquotes */
-    .notion-block blockquote { border-left: 3px solid var(--ForegroundTertiary); padding-left: 1.25rem; margin: 0; color: var(--ForegroundSecondary); }
+    .notion-block blockquote { border-left: 3px solid var(--ForegroundTertiary); padding-left: 1rem; margin: 0; color: var(--ForegroundSecondary); font-style: italic; }
     .notion-block blockquote p { color: inherit; }
 
     /* Lists */
-    .notion-block ul { list-style: disc; padding-left: 1.5rem; color: var(--ForegroundSecondary); font-size: 1rem; line-height: 1.8; }
-    .notion-block ol { list-style: decimal; padding-left: 1.5rem; color: var(--ForegroundSecondary); font-size: 1rem; line-height: 1.8; }
-    .notion-block li { margin-bottom: 0.25rem; letter-spacing: 0.02em; }
+    .notion-block ul { list-style: disc; padding-left: 1.5rem; color: var(--ForegroundSecondary); font-size: 1rem; line-height: 1.5; }
+    .notion-block ol { list-style: decimal; padding-left: 1.5rem; color: var(--ForegroundSecondary); font-size: 1rem; line-height: 1.5; }
+    .notion-block li { margin-bottom: 0.25rem; }
     .notion-block li::marker { color: var(--ForegroundTertiary); }
 
     /* Tables */
-    .notion-block table { width: 100%; border-collapse: collapse; font-size: 0.875rem; line-height: 1.7; }
+    .notion-block table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
     .notion-block th, .notion-block td { border: 1px solid var(--BordersPrimary); padding: 0.5rem 0.75rem; text-align: left; }
     .notion-block th { background: var(--BackgroundSecondary); font-weight: 600; color: var(--ForegroundPrimary); }
     .notion-block td { color: var(--ForegroundSecondary); }
@@ -1371,6 +1371,18 @@
     /* Links in articles */
     .notion-block a { color: var(--ForegroundPrimary); text-decoration: underline; text-underline-offset: 2px; transition: opacity 0.15s; }
     .notion-block a:hover { opacity: 0.7; }
+
+    /* CJK typography optimizations — scoped to lang="zh" articles */
+    :lang(zh) .writing-header h1 { line-height: 1.4; }
+    :lang(zh) .notion-content { word-break: break-word; overflow-wrap: break-word; }
+    :lang(zh) .notion-block p { line-height: 1.8; letter-spacing: 0.02em; text-align: justify; text-wrap: pretty; }
+    :lang(zh) .notion-block h2 { line-height: 1.4; margin-top: 1.5rem; letter-spacing: 0; }
+    :lang(zh) .notion-block h3 { line-height: 1.4; }
+    :lang(zh) .notion-block blockquote { font-style: normal; padding-left: 1.25rem; }
+    :lang(zh) .notion-block ul,
+    :lang(zh) .notion-block ol { line-height: 1.8; }
+    :lang(zh) .notion-block li { letter-spacing: 0.02em; }
+    :lang(zh) .notion-block table { line-height: 1.7; }
 
     /* highlight.js theme overrides for dark/light */
     .hljs-keyword, .hljs-selector-tag, .hljs-type { color: #c678dd; }
