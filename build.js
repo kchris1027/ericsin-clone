@@ -166,8 +166,12 @@ function genArticleCard(a, idx) {
     `<span class="article-tag">${t}${i < arr.length - 1 ? ' <span class="dot">&bull;</span>' : ''}</span>`
   ).join('');
 
+  const thumbInner = a.cover
+    ? `<img src="${a.cover}" alt="${a.title}" loading="lazy">`
+    : '';
+  const thumbClass = a.cover ? 'article-thumb' : `article-thumb placeholder-blog-${idx + 1}`;
   return `<a href="#" data-detail="${slug}" class="article-card" data-category="${cats}">
-                <div class="article-thumb placeholder-blog-${idx + 1}"></div>
+                <div class="${thumbClass}">${thumbInner}</div>
                 <div class="article-body">
                   <h3>${a.title}</h3>
                   <p>${a.excerpt || ''}</p>
