@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   const url =
     'https://api.open-meteo.com/v1/forecast?latitude=31.23&longitude=121.47&current=temperature_2m,weather_code&timezone=Asia%2FShanghai';
 
@@ -14,4 +14,4 @@ export default async function handler(req, res) {
   } catch (e) {
     return res.status(502).json({ error: 'failed to fetch weather' });
   }
-}
+};
