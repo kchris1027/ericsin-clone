@@ -358,7 +358,8 @@ function genTrinketDataJS(trinkets) {
   const items = trinkets.map(t => {
     const desc = t.description.replace(/"/g, '\\"');
     const name = t.name.replace(/"/g, '\\"');
-    return `      { brand: "${t.brand}", name: "${name}", image: "${t.image}", description: "${desc}", link: "${t.link}" }`;
+    const rd = (t.release_date || '').replace(/"/g, '\\"');
+    return `      { brand: "${t.brand}", name: "${name}", image: "${t.image}", description: "${desc}", link: "${t.link}", release_date: "${rd}" }`;
   });
   return `[\n${items.join(',\n')}\n    ]`;
 }

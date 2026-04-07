@@ -1416,7 +1416,7 @@
     .trinket-modal-card {
       position: relative;
       display: flex; flex-direction: column; align-items: flex-start;
-      width: 100%; height: 100%;
+      width: 100%; max-height: 100%;
       gap: 0.25rem;
       background: transparent;
       transform: translateY(16px); opacity: 0;
@@ -1444,10 +1444,15 @@
     .trinket-modal-name { font-size: 1.75rem; font-weight: 600; line-height: 2rem; }
     .trinket-modal-image {
       width: 100%; overflow: hidden;
-      background: var(--BackgroundTertiary);
       display: flex; align-items: center; justify-content: center;
       aspect-ratio: 484 / 420;
       position: relative;
+    }
+    .trinket-modal-image::after, .game-modal-image::after {
+      content: '';
+      position: absolute; inset: 0; z-index: 0;
+      background: var(--BackgroundTertiary);
+      transition: transform 0.25s ease-out;
     }
     .trinket-modal-image::before, .game-modal-image::before {
       content: '';
@@ -1461,26 +1466,34 @@
     .trinket-modal-image.img-ready::before, .game-modal-image.img-ready::before {
       opacity: 0; pointer-events: none; animation: none;
     }
-    .trinket-modal-image.has-img { aspect-ratio: auto; }
+    .trinket-modal-image.has-img { aspect-ratio: 484 / 420; }
     .trinket-modal-image img, .game-modal-image img {
       position: relative; z-index: 2;
     }
     .trinket-modal-image img {
-      width: 100%; height: auto;
-      object-fit: cover; display: block;
+      max-width: 75%; max-height: 75%;
+      object-fit: contain; display: block;
     }
     .trinket-modal-image .tm-placeholder {
       font-size: 5rem; line-height: 1;
       color: var(--ForegroundTertiary); user-select: none;
     }
-    .trinket-modal-body { padding: 1.25rem; }
+    .trinket-modal-body { padding: 1.25rem; display: flex; flex-direction: column; }
     .trinket-modal-desc {
       font-size: 1rem; line-height: 1.5;
       color: var(--ForegroundSecondary); margin-bottom: 0.75rem;
     }
+    .trinket-modal-date {
+      display: inline-block;
+      font-family: Martha, "LXGW WenKai", sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ForegroundTertiary);
+    }
     .trinket-modal-link {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.5rem 1rem; margin-top: 1rem; margin-bottom: 0.5rem;
+      padding: 0.5rem 1rem; margin-top: 0.6875rem;
+      align-self: flex-end;
       font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
       font-family: Martha, "LXGW WenKai", sans-serif;
       background: var(--ForegroundSecondary); color: var(--BackgroundPrimary);
@@ -1499,11 +1512,11 @@
         overflow: hidden;
       }
       .trinket-modal-card {
-        max-width: 24rem; height: auto;
+        max-width: 24rem; max-height: 90vh;
         background: var(--BackgroundSecondary);
         border-radius: 0.5rem;
         box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-        overflow: hidden;
+        overflow-y: auto; overflow-x: hidden;
         transform: translateY(16px) scale(0.97);
       }
       .trinket-modal-overlay.open .trinket-modal-card {
@@ -1554,7 +1567,6 @@
     .game-modal-name { font-size: 1.75rem; font-weight: 600; line-height: 2rem; }
     .game-modal-image {
       width: 100%; overflow: hidden;
-      background: var(--BackgroundTertiary);
       aspect-ratio: 460 / 215;
       flex-shrink: 0;
       position: relative;
@@ -1672,8 +1684,12 @@
         will-change: transform;
         overflow: visible;
       }
-      .trinket-modal-body, .game-modal-body {
+      .trinket-modal-body, .game-modal-body,
+      .trinket-modal-image, .game-modal-image {
         transform-style: preserve-3d;
+      }
+      .trinket-modal-image, .game-modal-image {
+        overflow: visible;
       }
       .trinket-modal-overlay.open .trinket-modal-card,
       .game-modal-overlay.open .game-modal-card,
@@ -1691,7 +1707,7 @@
       .trinket-modal-link, .game-modal-link,
       .trinket-modal-header, .game-modal-header,
       .trinket-modal-close, .game-modal-close,
-      .trinket-modal-desc,
+      .trinket-modal-desc, .trinket-modal-date,
       .game-modal-rating, .game-modal-meta,
       .wechat-modal-close, .wechat-modal h3, .qr-placeholder, .qr-hint {
         transform: translateZ(0);
@@ -1703,9 +1719,19 @@
       .trinket-modal-image, .game-modal-image {
         border-radius: 0.25rem;
       }
-      /* Activated parallax depths */
+      .trinket-modal-image::after, .game-modal-image::after,
+      .trinket-modal-image::before, .game-modal-image::before {
+        transition: transform 0.25s ease-out;
+      }
+      /* Container pops forward; ::after/::before bg stays pinned to card plane */
       .tilt-active .trinket-modal-image,
       .tilt-active .game-modal-image { transform: translateZ(40px); }
+      .tilt-active .trinket-modal-image img,
+      .tilt-active .game-modal-image img { border-radius: 0.25rem; }
+      .tilt-active .trinket-modal-image::after,
+      .tilt-active .game-modal-image::after,
+      .tilt-active .trinket-modal-image::before,
+      .tilt-active .game-modal-image::before { transform: translateZ(-40px); }
       .tilt-active .trinket-modal-link,
       .tilt-active .game-modal-link { transform: translateZ(15px); }
       .tilt-active .trinket-modal-header,
@@ -1715,6 +1741,7 @@
       .tilt-active .game-modal-rating { transform: translateZ(25px); }
       .tilt-active .game-modal-meta { transform: translateZ(15px); }
       .tilt-active .trinket-modal-desc { transform: translateZ(10px); }
+      .tilt-active .trinket-modal-date { transform: translateZ(5px); }
       /* WeChat modal parallax */
       .tilt-active .qr-placeholder { transform: translateZ(40px); }
       .tilt-active .wechat-modal h3 { transform: translateZ(20px); }
@@ -3172,6 +3199,7 @@
       </div>
       <div class="trinket-modal-body">
         <p class="trinket-modal-desc" id="tmDesc"></p>
+        <span class="trinket-modal-date" id="tmDate"></span>
         <a class="trinket-modal-link" id="tmLink" href="#" target="_blank" rel="noopener noreferrer">
           <span data-i18n="detail.view_product">View Product</span> <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7l7 7-7 7"/></svg>
         </a>
@@ -3626,6 +3654,7 @@
     const tmName = document.getElementById('tmName');
     const tmImage = document.getElementById('tmImage');
     const tmDesc = document.getElementById('tmDesc');
+    const tmDate = document.getElementById('tmDate');
     const tmLink = document.getElementById('tmLink');
     const trinketModalClose = document.getElementById('trinketModalClose');
 
@@ -3639,6 +3668,8 @@
       tmBrand.textContent = t.brand;
       tmName.textContent = t.name;
       tmDesc.textContent = t.description;
+      tmDate.textContent = t.release_date || '';
+      tmDate.style.display = t.release_date ? '' : 'none';
       tmLink.href = t.link;
 
       tmImageWrap.innerHTML = '';
