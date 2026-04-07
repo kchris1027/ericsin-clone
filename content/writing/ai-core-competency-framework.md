@@ -2,13 +2,13 @@
 title: "AI 时代的核心能力框架"
 date: 2026-04-03
 tags: [AI, Career, Cognitive Science]
-cover: "static/images/ai-core-competency-cover.png"
+cover: "https://cdn.cosmos.so/bc80abe4-9c2c-4a8c-bb3b-e66543d3452d"
 cover_caption: "AI 让执行的门槛近乎归零，竞争的焦点正在向上游迁移。"
 featured: true
 excerpt: '当所有人都能"做出来"时，真正比拼的是你能不能把想要的东西说清楚，以及判断 AI 给出的结果对不对。'
 ---
 
-![Cover](static/images/ai-core-competency-cover.png)
+![Cover](https://cdn.cosmos.so/bc80abe4-9c2c-4a8c-bb3b-e66543d3452d)
 *AI 让执行的门槛近乎归零，竞争的焦点正在向上游迁移。*
 
 > AI 让执行的门槛近乎归零。当所有人都能"做出来"时，竞争的焦点向上游迁移——**你能不能把想要的东西说清楚，以及判断 AI 给出的结果对不对**。
