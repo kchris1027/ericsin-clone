@@ -3459,20 +3459,6 @@
       skipPush = false;
     });
 
-    // Set initial history state
-    (function() {
-      var initPage = pathToPage(location.pathname);
-      history.replaceState({ page: initPage }, '', pageToPath(initPage));
-      if (initPage !== 'home') {
-        var t = document.querySelector('[data-page="' + initPage + '"]');
-        if (t) {
-          skipPush = true;
-          navigateTo(initPage);
-          skipPush = false;
-        }
-      }
-    })();
-
     // ===== TAB FILTERS =====
     document.querySelectorAll('.tab-bar').forEach(bar => {
       bar.querySelectorAll('.tab-item').forEach(tab => {
@@ -3555,6 +3541,37 @@
         }
       });
     });
+
+    // ===== DEEP LINK / INITIAL ROUTE =====
+    (function() {
+      var initPage = pathToPage(location.pathname);
+      history.replaceState({ page: initPage }, '', pageToPath(initPage));
+      if (initPage !== 'home') {
+        var target = document.querySelector('[data-page="' + initPage + '"]');
+        if (target) {
+          var homePage = document.querySelector('[data-page="home"]');
+          if (homePage) homePage.classList.remove('active');
+          target.classList.add('active');
+          visitedPages.add(initPage);
+
+          target.querySelectorAll('[data-animate]').forEach(function(el) {
+            el.classList.add('is-visible');
+          });
+
+          var navPage = initPage.startsWith('project-') ? 'projects'
+                      : initPage.startsWith('writing-') ? 'writing'
+                      : initPage;
+          document.querySelectorAll('.nav-link').forEach(function(l) {
+            l.classList.toggle('active', l.dataset.nav === navPage);
+          });
+          document.querySelectorAll('.drawer-nav-link').forEach(function(l) {
+            l.classList.toggle('active', l.dataset.nav === navPage);
+          });
+
+          initImageFadeIn(target);
+        }
+      }
+    })();
 
     // ===== TRINKET MODAL =====
     const trinketData = [
