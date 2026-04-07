@@ -4,6 +4,7 @@
   "installCommand": "npm install",
   "framework": null,
   "rewrites": [
+    { "source": "/api/weather", "destination": "/api/weather" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

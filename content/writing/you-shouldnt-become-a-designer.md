@@ -2,7 +2,6 @@
 title: "You shouldn't become a designer."
 date: 2024-01-15
 tags: [Career, Design, Life]
-cover: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/6e047945-5cd9-4985-a360-564701f854da/blog_01.jpg"
 cover_caption: "Design isn't for everyone—and I'd even venture to say it isn't for the majority of people."
 featured: false
 excerpt: "A few reasons why being a \"designer\" in any sense is a terrible idea in 2024."

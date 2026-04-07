@@ -167,7 +167,7 @@ function genArticleCard(a, idx) {
   ).join('');
 
   const thumbInner = a.cover
-    ? `<img src="${a.cover}" alt="${a.title}" loading="lazy">`
+    ? `<img src="${a.cover}" alt="${a.title}" loading="lazy" onerror="this.remove();this.parentElement.classList.add('placeholder-blog-${idx + 1}')">`
     : '';
   const thumbClass = a.cover ? 'article-thumb' : `article-thumb placeholder-blog-${idx + 1}`;
   return `<a href="#" data-detail="${slug}" class="article-card" data-category="${cats}">
@@ -186,7 +186,7 @@ function genFeaturedArticle(a) {
     `<span class="article-tag">${t}</span>${i < arr.length - 1 ? '<span class="article-tag"> &bull; </span>' : ''}`
   ).join('');
   const thumbInner = a.cover
-    ? `<img src="${a.cover}" alt="${a.title}" loading="lazy">`
+    ? `<img src="${a.cover}" alt="${a.title}" loading="lazy" onerror="this.remove()">`
     : '';
   return `<a href="#" data-detail="${slug}" class="featured-article">
               <div class="feat-thumb">${thumbInner}</div>

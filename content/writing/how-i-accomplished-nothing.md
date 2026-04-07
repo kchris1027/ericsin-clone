@@ -2,7 +2,6 @@
 title: "How I accomplished nothing I wanted to by 30"
 date: 2019-03-15
 tags: [Career, Life]
-cover: "https://prod-files-secure.s3.us-west-2.amazonaws.com/231caf38-9f7f-406d-832c-f8dedbd38873/6657a537-8c1e-4657-bec8-5e9e14b72dad/post-image-2-min.jpg"
 cover_caption: "A reflection that still rings true to me, at 35."
 featured: false
 excerpt: "This post was written in 2019, via Medium."

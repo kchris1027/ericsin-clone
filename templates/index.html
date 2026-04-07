@@ -4158,7 +4158,10 @@
         85:'Snow Showers',86:'Heavy Snow Showers',
         95:'Thunderstorm',96:'Thunderstorm w/ Hail',99:'Heavy Thunderstorm'
       };
-      fetch('https://api.open-meteo.com/v1/forecast?latitude=31.23&longitude=121.47&current=temperature_2m,weather_code&timezone=Asia%2FShanghai')
+      var weatherUrl = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+        ? 'https://api.open-meteo.com/v1/forecast?latitude=31.23&longitude=121.47&current=temperature_2m,weather_code&timezone=Asia%2FShanghai'
+        : '/api/weather';
+      fetch(weatherUrl)
         .then(function(r) { return r.json(); })
         .then(function(data) {
           var c = data.current;
@@ -4172,7 +4175,13 @@
             card.querySelector('.weather-info p').textContent = desc;
           });
         })
-        .catch(function() {});
+        .catch(function() {
+          document.querySelectorAll('[data-weather-card]').forEach(function(card) {
+            card.querySelector('.weather-icon').textContent = '🌡️';
+            card.querySelector('.weather-temp').textContent = '--°C';
+            card.querySelector('.weather-info p').textContent = 'Unavailable';
+          });
+        });
     })();
 
     // ── i18n ──
