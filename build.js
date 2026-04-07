@@ -181,8 +181,11 @@ function genFeaturedArticle(a) {
   const tagsHtml = (a.tags || []).map((t, i, arr) =>
     `<span class="article-tag">${t}</span>${i < arr.length - 1 ? '<span class="article-tag"> &bull; </span>' : ''}`
   ).join('');
+  const thumbInner = a.cover
+    ? `<img src="${a.cover}" alt="${a.title}" loading="lazy">`
+    : '';
   return `<a href="#" data-detail="${slug}" class="featured-article">
-              <div class="feat-thumb placeholder-blog-featured"></div>
+              <div class="feat-thumb">${thumbInner}</div>
               <div class="feat-body">
                 <h3>${a.title}</h3>
                 <p>${a.excerpt || ''}</p>
