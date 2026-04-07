@@ -620,6 +620,10 @@ ${rssItems}
   // Copy static assets
   copyDir(path.join(ROOT, 'static'), path.join(DIST, 'static'));
 
+  // Copy Service Worker to root (must be at / for full scope)
+  const swSrc = path.join(ROOT, 'static', 'sw.js');
+  if (fs.existsSync(swSrc)) fs.copyFileSync(swSrc, path.join(DIST, 'sw.js'));
+
   // Copy images folder if it exists
   const imagesDir = path.join(ROOT, 'images');
   if (fs.existsSync(imagesDir)) {
