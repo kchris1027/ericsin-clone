@@ -199,7 +199,13 @@ function genFeaturedArticle(a) {
 }
 
 function renderWritingBody(article, coverUrl) {
-  const html = md.render(article._content);
+  let html = md.render(article._content);
+
+  // Convert internal /writing/<slug> links to SPA data-detail links
+  html = html.replace(
+    /<a\s+href="\/writing\/([\w-]+)"([^>]*)>/g,
+    (_, slug, rest) => `<a href="#" data-detail="writing-${slug}"${rest}>`
+  );
   const blocks = [];
   const lines = html.split('\n');
   let buffer = '';
@@ -392,9 +398,9 @@ function build() {
 
   let html = fs.readFileSync(TEMPLATE, 'utf8');
 
-  // ── Font paths ──
-  html = html.replace(/src: url\(\.\/PPNeueMontreal/g, 'src: url(./static/fonts/PPNeueMontreal');
-  html = html.replace(/src: url\(\.\/Martha/g, 'src: url(./static/fonts/Martha');
+  // ── Font paths (use absolute paths so fonts resolve at any URL depth) ──
+  html = html.replace(/src: url\(\.\/PPNeueMontreal/g, 'src: url(/static/fonts/PPNeueMontreal');
+  html = html.replace(/src: url\(\.\/Martha/g, 'src: url(/static/fonts/Martha');
 
   // ── Simple text replacements ──
   const simpleReplacements = {
