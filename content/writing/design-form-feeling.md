@@ -2,10 +2,14 @@
 title: "设计中的感受与形式——由表入里与由里入表"
 date: 2026-04-21
 tags: [Design, Aesthetics, Craft]
+cover: "/static/images/design-form-feeling-cover.png"
 cover_caption: "感受精度高于形式语言储备，所以永远对不上——这不是缺陷，是能力的证明。"
 featured: false
 excerpt: "设计的难点在于把一个大家比较有共识的感受用具象化的手段呈现出来。由表入里的模仿很难跟上时代，由里入表同样有它自己的障碍。"
 ---
+
+![Cover](/static/images/design-form-feeling-cover.png)
+*感受精度高于形式语言储备，所以永远对不上——这不是缺陷，是能力的证明。*
 
 > 设计的难点在于，如何把一个大家比较有共识的感受用具象化的手段呈现出来。并且，每个时代有每个时代对于情绪和感受的独特理解。因此，由表入里的模仿很难跟上时代。
 
